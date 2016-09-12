@@ -9,33 +9,9 @@ var registrationModule = angular.module("registrationModule", ["ngRoute","cgBusy
     .config(function($routeProvider, $locationProvider) {
 
         /*cheange the routes*/
-        $routeProvider.when('/in', {
-            templateUrl: 'AngularJS/Templates/example.html', //example 1
-            controller: 'exampleController'
-        }).when('/interest', {
-            templateUrl: 'AngularJS/Templates/interest.html',
-            controller: 'interestsController'
-        }).when('/freedays', {
-            templateUrl: 'AngularJS/Templates/freedays.html',
-            controller: 'freeDaysController'
-        }).when('/scheme',{
-            templateUrl: 'AngularJS/Templates/scheme.html',
-            controller: 'schemeController'
-        }).when('/agencia',{
-            templateUrl: 'AngularJS/Templates/agencia.html',
-            controller: 'agenciaController'
-        }).when('/tiie',{
-            templateUrl: 'AngularJS/Templates/tiie.html',
-            controller: 'tiieController'
-        }).when('/detailsUnit',{
-            templateUrl: 'AngularJS/Templates/detailsUnit.html',
-            controller: 'interestsController'
-        }).when('/interestDetails',{
-            templateUrl: 'AngularJS/Templates/interestDetails.html',
-            controller: 'interestsController'
-        }).when('/',{
-            templateUrl: 'AngularJS/Templates/login.html',
-            controller: 'loginController'
+        $routeProvider.when('/', {
+            templateUrl: 'AngularJS/Templates/reference.html', //example 1
+            controller: 'referenceController'
         });
 
         $locationProvider.html5Mode({

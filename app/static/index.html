@@ -4,11 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Plan Piso</title>
-    <meta name="description" content="description project">
-    <meta name="author" content="name" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Portal Referencias</title>
     <!-- Libreria de Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900italic' rel='stylesheet' type='text/css'>
     <!--Hojas de estilos-->
@@ -17,103 +13,193 @@
     <link href="css/toastr.css" rel="stylesheet" />
     <link href="css/angular-busy.css" rel="stylesheet" />
     <link href="css/custom-style.css" rel="stylesheet" />
+    
+    <!-- Iconos-->
+    <link href="css/nifty/demo/nifty-demo-icons.min.css" rel="stylesheet">
+    
+     <!-- Estilo-->
+    <link href="css/nifty/nifty.min.css" rel="stylesheet"/>
+    
     <!--Librearias JQuery y Bootstrap-->
     <script src="js/libs/jQuery/jquery.js"></script>
     <script src="js/libs/jQuery/jquery-2.1.4.min.js"></script>
-    <script src="js/libs/bootstrap/bootstrap.js"></script>
-    <!--CSS Inspinia-->
-    <link href="css/Inspinia/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-    <link href="css/Inspinia/css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="css/Inspinia/css/plugins/steps/jquery.steps.css" rel="stylesheet">
-    <link href="css/Inspinia/css/style.css" rel="stylesheet">
-    <link href="css/Inspinia/css/animate.css" rel="stylesheet">
-    <link href="css/Inspinia/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="css/Inspinia/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-        
+    <script src="js/libs/bootstrap/bootstrap.js"></script>  
+    
     
 </head>
 
 <body ng-app="registrationModule">
-    <div id="wrapper">
-<!--
-        <nav class="navbar-default navbar-static-side" role="navigation">
-            <div class="sidebar-collapse">
-                <ul class="nav metismenu" id="side-menu">
-                    <li class="nav-header">
-                        <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="image/usuario.png" />
-                             </span>
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Administrador</strong>
-                             </span> <span class="text-muted text-xs block">Admin <b class="caret"></b></span> </span>
-                            </a>
-                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="profile.html">Profile</a></li>
-                                <li><a href="contacts.html">Contacts</a></li>
-                                <li><a href="mailbox.html">Mailbox</a></li>
-                                <li class="divider"></li>
-                                <li><a href="login.html">Logout</a></li>
-                            </ul>
+    <div id="container" class="effect aside-float aside-bright mainnav-lg">
+        
+        <!--NAVBAR-->
+        <!--===================================================-->
+        <header id="navbar">
+            <div id="navbar-container" class="boxed">
+
+                <!--Brand logo & name-->
+                <!--================================-->
+                <div class="navbar-header">
+                    <a href="/" class="navbar-brand">
+                        <img src="image/logo.png" alt="Nifty Logo" class="brand-icon">
+                        <div class="brand-title">
+                            <span class="brand-text">Referencias</span>
                         </div>
-                        <div class="logo-element">
-                            GA+
-                        </div>
-                        <li>
-                            <a href="/"><i class="glyphicon glyphicon-home"></i> Inicio</a>
-                        </li>
-                        <li>
-                            <a href="/freedays"><i class="glyphicon glyphicon-calendar"></i>Días Gracia</a>
-                        </li>
-                        <li>
-                            <a href="/interest"><i class="glyphicon glyphicon-usd"></i>Intereses</a>
-                        </li>
-                        <li>
-                            <a href="/scheme"><i class="glyphicon glyphicon-stats"></i>Esquemas</a>
-                        </li>
-                          <li>
-                            <a href="/tiie"><i class="glyphicon glyphicon-usd"></i>Tiie</a>
-                        </li>
-                </ul>
-            </div>
-        </nav>
--->
-        <div id="page-wrapper" class="gray-bg">
-            <div class="row border-bottom">
-                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-                    <div class="navbar-header">
-                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-                    </div>
-                    <ul class="nav navbar-top-links navbar-right">
-                        <li>
-                            <span class="m-r-sm text-muted welcome-message">GRUPO ANDRADE | PLAN PISO</span>
-                        </li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                                <i class="fa fa-envelope"></i>
+                    </a>
+                </div>
+                <!--================================-->
+                <!--End brand logo & name-->
+                
+                <!--Navbar Dropdown-->
+                <!--================================-->
+                <div class="navbar-content clearfix">
+                    <ul class="nav navbar-top-links pull-left">
+
+                        <!--Navigation toogle button-->
+                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                        <li class="tgl-menu-btn">
+                            <a class="mainnav-toggle" href="#">
+                                <i class="demo-pli-view-list"></i>
                             </a>
                         </li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                                <i class="fa fa-bell"></i>
+                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                        <!--End Navigation toogle button-->
+
+                    </ul>
+                    <ul class="nav navbar-top-links pull-right">
+
+                        <!--User dropdown-->
+                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                        <li id="dropdown-user" class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
+                                <span class="pull-right">
+                                    <!--<img class="img-circle img-user media-object" src="img/profile-photos/1.png" alt="Profile Picture">-->
+                                    <i class="demo-pli-male ic-user"></i>
+                                </span>
+                                <div class="username hidden-xs">Aaron Chavez</div>
                             </a>
+
+                            <div class="dropdown-menu dropdown-menu-md dropdown-menu-right panel-default">
+                                <!-- User dropdown menu -->
+                                <ul class="head-list">
+                                    <li>
+                                        <a href="#">
+                                            <i class="demo-pli-male icon-lg icon-fw"></i> Cerrar Sesión
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
+                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                        <!--End user dropdown-->
+
                         <li>
-                            <a href="/">
-                                <i class="fa fa-sign-out"></i> Cerrar
-                            </a>
-                        </li>
-                        <li>
-                            <a class="right-sidebar-toggle">
-                                <i class="fa fa-tasks"></i>
+                            <a href="#" class="aside-toggle navbar-aside-icon">
+                                <i class="pci-ver-dots"></i>
                             </a>
                         </li>
                     </ul>
+                </div>
+                <!--================================-->
+                <!--End Navbar Dropdown-->
 
-                </nav>
             </div>
-            <div ng-view></div>
+        </header>
+        <!--===================================================-->
+        <!--END NAVBAR-->
+        
+        
+        <div class="boxed">
+            <div id="content-container">
+               <div id="page-content">
+                    <div ng-view>
+                    </div>
+                </div>
+            </div>
+            <!--MAIN NAVIGATION-->
+            <!--===================================================-->
+            <nav id="mainnav-container">
+                <div id="mainnav">
+
+                    <!--Menu-->
+                    <!--================================-->
+                    <div id="mainnav-menu-wrap">
+                        <div class="nano">
+                            <div class="nano-content">
+
+                                <!--Profile Widget-->
+                                <!--================================-->
+                                <div id="mainnav-profile" class="mainnav-profile">
+                                    <div class="profile-wrap">
+                                        <div class="pad-btm">
+                                            <img class="img-circle img-sm img-border" src="image/Profile/1.png" alt="Profile Picture">
+                                        </div>
+                                        <a href="#" class="box-block" data-toggle="collapse" aria-expanded="false">
+                                            <span class="pull-right dropdown-toggle">
+                                                <i class="dropdown-caret"></i>
+                                            </span>
+                                            <p class="mnp-name">Aaron Chavez</p>
+                                            <span class="mnp-desc">aaron.cha@themeon.net</span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <ul id="mainnav-menu" class="list-group">
+						
+						            <!--Category name-->
+						            <li class="list-header">Navegación</li>
+						
+						            <!--Menu list item-->
+						            <li class="active-link">
+						                <a href="/">
+						                    <i class="demo-psi-home"></i>
+						                    <span class="menu-title">
+												<strong>Inicio</strong>
+											</span>
+						                </a>
+						            </li>						
+                            </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--================================-->
+                    <!--End menu-->
+
+                </div>
+            </nav>
+            <!--===================================================-->
+            <!--END MAIN NAVIGATION-->
+
         </div>
+        
+
+        <!-- FOOTER -->
+        <!--===================================================-->
+        <footer id="footer">
+
+            <!-- Visible when footer positions are fixed -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <div class="show-fixed pull-right">
+                You have <a href="#" class="text-bold text-main"><span class="label label-danger">3</span> pending action.</a>
+            </div>
+
+
+
+
+
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <!-- Remove the class "show-fixed" and "hide-fixed" to make the content always appears. -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+            <p class="pad-lft">&#0169; Grupo Andrade</p>
+
+
+
+        </footer>
+        <!--===================================================-->
+        <!-- END FOOTER -->
     </div>
+
     <!--Interface de usuario-->
     <script src="js/libs/toastr/toastr.min.js"></script>
     <!-- Librerias Angular-->
@@ -130,34 +216,19 @@
     <script src="AngularJS/registrationModule.js"></script>
     <!--librerias de componenetes-->
     <script src="AngularJS/alertFactory.js"></script>
+    <script src="js/libs/soapClient/soapclient.js"></script>
     <!--Controllers-->
-    <script src="AngularJS/Example/exampleController.js"></script>
-    <script src="AngularJS/Interests/interestsRepository.js"></script>
-    <script src="AngularJS/Interests/interestsController.js"></script>
-    <script src="AngularJS/FreeDays/freeDaysRepository.js"></script>
-    <script src="AngularJS/FreeDays/freeDaysController.js"></script>
-    <script src="AngularJS/Scheme/schemeRepository.js"></script>
-    <script src="AngularJS/Scheme/schemeController.js"></script>
-    <script src="AngularJS/Tiie/tiieRepository.js"></script>
-    <script src="AngularJS/Tiie/tiieController.js"></script>
-    <script src="AngularJS/Login/loginController.js"></script>
-    <script src="AngularJS/Login/loginRepository.js"></script>
-    <!--Script Inspinia-->
-    <script src="js/libs/inspinia/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="js/libs/inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="js/libs/inspinia/js/plugins/peity/jquery.peity.min.js"></script>
-    <script src="js/libs/inspinia/js/plugins/pace/pace.min.js"></script>
-    <script src="js/libs/inspinia/js/plugins/dataTables/datatables.min.js"></script>
-    <script src="js/libs/inspinia/js/plugins/iCheck/icheck.min.js"></script>
-    <script src="js/libs/inspinia/js/plugins/staps/jquery.steps.min.js"></script>
-    <script src="js/libs/inspinia/js/plugins/validate/jquery.validate.min.js"></script>
-    <script src="js/libs/inspinia/js/plugins/datapicker/bootstrap-datepicker.js"></script>
-    <script src="js/libs/inspinia/js/plugins/fullcalendar/moment.min.js"></script>
-    <script src="js/libs/inspinia/js/plugins/cropper/cropper.min.js"></script>
-    <!-- Scripts Graficas -->
-    <script src="js/libs/inspinia/js/plugins/flot/jquery.flot.js"></script>
-    <script src="js/libs/inspinia/js/plugins/flot/jquery.flot.time.js"></script>
-    <script src="js/libs/inspinia/js/plugins/chartJs/Chart.min.js"></script>
+    <script src="AngularJS/Reference/referenceController.js"></script>
+    <script src="AngularJS/Reference/referenceRepository.js"></script>
+    <!--Nifty Template-->
+    <script src="js/libs/nifty/nifty.min.js"></script>
+    <link href="plugins/magic-check/css/magic-check.min.css" rel="stylesheet">
+    <script src="js/libs/nifty/ui-modals.js"></script>
+
 </body>
 
 </html>
+
+
+
+

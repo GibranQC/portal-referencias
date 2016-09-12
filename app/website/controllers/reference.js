@@ -14,7 +14,6 @@ var Reference = function (conf) {
         this[this.conf.funcionalidad](this.conf.req, this.conf.res, this.conf.next);
     };
 };
-
 Reference.prototype.get_company = function(req, res, next) {
     //Con req.query se obtienen los parametros de la url
     //Ejemplo: ?p1=a&p2=b
@@ -25,6 +24,7 @@ Reference.prototype.get_company = function(req, res, next) {
     var self = this;
     //asignación de valores mediante parámetros del request
     var params = [];
+
     this.model.query('SEL_EMPRESA_SP', params, function(error, result) {
         self.view.expositor(res, {
             error: error,
@@ -33,7 +33,7 @@ Reference.prototype.get_company = function(req, res, next) {
     });
 };
 
-Reference.prototype.get_branchOfficeByIdCompany= function(req, res, next) {
+Reference.prototype.get_branchOfficeByIdCompany = function(req, res, next) {
     //Con req.query se obtienen los parametros de la url
     //Ejemplo: ?p1=a&p2=b
     //Retorna {p1:'a',p2:'b'}
@@ -43,6 +43,7 @@ Reference.prototype.get_branchOfficeByIdCompany= function(req, res, next) {
     var self = this;
     //asignación de valores mediante parámetros del request
     var params = [{ name: 'idEmpresa', value: req.query.idEmpresa, type: self.model.types.INT }];
+
     this.model.query('SEL_SUCURSAL_ID_EMPRESA_SP', params, function(error, result) {
         self.view.expositor(res, {
             error: error,
@@ -61,6 +62,7 @@ Reference.prototype.get_departmentById = function(req, res, next) {
     var self = this;
     //asignación de valores mediante parámetros del request
     var params = [{ name: 'idSucursal', value: req.query.idSucursal, type: self.model.types.INT }];
+
     this.model.query('SEL_DEPARTAMENTO_ID_SUCURSAL_SP', params, function(error, result) {
         self.view.expositor(res, {
             error: error,
@@ -68,7 +70,5 @@ Reference.prototype.get_departmentById = function(req, res, next) {
         });
     });
 };
-
-
 
 module.exports = Reference;

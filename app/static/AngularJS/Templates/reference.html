@@ -1,0 +1,194 @@
+<div ng-init="init()" class="ng-scope">
+    <div id="page-title">
+        <h4 class="page-header text-overflow ng-binding">{{nombreEmpresa}} <span ng-show="idSucursal != null" class="ng-binding ng-hide">/ {{nombreSucursal}}  </span><span ng-show="idDepartamento != null" class="ng-binding ng-hide">/ {{nombreDepartamento}} </span> </h4>
+    </div>
+    <!-- Panel para combo box filtros de empresa, sucursal y departamento  -->
+    <div class="panel">
+        <div class="panel-body demo-nifty-btn">
+            <div class="btn-group btn-group-sm">
+                <button class="btn btn-info btn-active-dark dropdown-toggle" data-toggle="dropdown" type="button" aria-expanded="false">Seleccionar Empresa
+                    <!--{{nombreEmpresa}}--><i class="dropdown-caret"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="empresa in empresas"><a href="#" ng-click="seletionCompany(empresa.emp_idempresa,empresa.emp_nombre)" class="ng-binding">{{empresa.emp_nombre}}</a></li>
+                </ul>
+            </div>
+            <div class="btn-group btn-group-sm">
+                <button class="btn btn-primary btn-active-mint dropdown-toggle" data-toggle="dropdown" type="button" aria-expanded="false">
+                    Seleccionar Sucursal <i class="dropdown-caret"></i>
+                </button>
+                <ul class="dropdown-menu">
+                     <li ng-repeat="sucursal in sucursales"><a href="#" ng-click="seletionBranchoOffice(sucursal.suc_idsucursal,sucursal.suc_nombre)" class="ng-binding">{{sucursal.suc_nombre}}</a></li>
+                </ul>
+            </div>
+            <div class="btn-group btn-group-sm">
+                <button class="btn btn-mint btn-active-purple dropdown-toggle" data-toggle="dropdown" type="button" aria-expanded="false">
+                    Seleccionar Departamento <i class="dropdown-caret"></i>
+                </button>
+                <ul class="dropdown-menu">
+                     <li ng-repeat="departamento in departamentos"><a href="#" ng-click="selectDepartment(departamento.dep_iddepartamento,departamento.dep_nombre)" class="ng-binding">{{departamento.dep_nombre}}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- termina panel de combo box de filtros  -->
+
+    <!-- Panel para combobox filtro por tipo documento -->
+    <div class="panel" ng-show="getCompany.show ">
+        <div class="panel-body demo-nifty-btn">
+            <div class="btn-group btn-group-sm">
+                <button class="btn btn-success btn-active-purple dropdown-toggle" data-toggle="dropdown" type="button" aria-expanded="false">
+                    Tipo Documento <i class="dropdown-caret"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="documento in tipoDocumentos" class="ng-scope"><a href="#" ng-click="selectTypeDoc(documento.idDocumento,documento.nombreDocumento)" class="ng-binding">{{documento.nombreDocumento}}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- termina panel tipo de documento -->
+
+    <!-- Inicio panel de Form -->
+    <div class="panel ng-hide" ng-show="selectTypeDoc.show">
+        <div class="panel-heading">
+            <h3 class="panel-title ng-binding">Captura de Datos </h3>
+        </div>
+
+        <!--Block Styled Form -->
+        <!--===================================================-->
+
+        <div class="panel-body">
+            <form ng-show="idDocumento == 1" class="ng-pristine ng-invalid ng-invalid-required ng-valid-pattern ng-valid-maxlength ng-hide">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <div class="form-group">
+                            <label class="control-label">Serie</label>
+                            <input type="text" ng-model="facturaSerie" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern ng-valid-maxlength" placeholder="ej.AAA" maxlength="3" pattern="[A-Z]{3}" required="">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">Numero Folio</label>
+                            <div class="input-group mar-btm">
+                                <input type="text" ng-model="facturaFolio" placeholder="ej.123456" class="form-control ng-pristine ng-untouched ng-valid ng-valid-maxlength" maxlength="6">
+                                <span class="input-group-btn">
+					               <button class="btn btn-warning" type="submit">Generar Referencia</button>
+					           </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <form ng-show="idDocumento == 2" class="ng-pristine ng-valid ng-valid-pattern ng-valid-maxlength ng-hide">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">Folio Cotización</label>
+                            <div class="input-group mar-btm">
+                                <input type="text" ng-model="cotizacionFolio" placeholder="ej.A12345F12" class="form-control ng-pristine ng-untouched ng-valid ng-valid-pattern ng-valid-maxlength" maxlength="9" pattern="[A-Z0-9]{9}">
+                                <span class="input-group-btn">
+					               <button class="btn btn-warning" type="submit">Generar Referencia</button>
+					           </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <form ng-show="idDocumento == 3" class="ng-pristine ng-valid ng-valid-pattern ng-hide">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">Folio Pedido</label>
+                            <div class="input-group mar-btm">
+                                <input type="text" ng-model="pedidoFolio" placeholder="ej.A12345F12" class="form-control ng-pristine ng-untouched ng-valid ng-valid-pattern" pattern="{^[A-Z0-9]{9}$">
+                                <span class="input-group-btn">
+					               <button class="btn btn-warning" type="submit">Generar Referencia</button>
+					           </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <form ng-show="selectTypeDoc.show" class="ng-pristine ng-valid ng-hide">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">Referencia</label>
+                            <div class="input-group mar-btm">
+                                <input type="text" placeholder="" class="form-control" disabled="">
+                                <span class="input-group-btn">
+					               <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#demo-default-modal">Imprimir</button>
+					           </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+        <!--===================================================-->
+        <!--End Block Styled Form -->
+
+    </div>
+    <!-- Termina panel de Form -->
+</div>
+
+
+<div class="modal fade ng-scope" id="demo-default-modal" role="dialog" tabindex="-1" aria-labelledby="demo-default-modal" aria-hidden="true" style="display: none;" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!--Modal header-->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 class="modal-title">Selecciona tu sucarsal bancaria</h4>
+            </div>
+
+            <!--Modal body-->
+            <div class="modal-body" style="min-height: 380px">
+                <div class="form-group pad-ver">
+                    <div>
+                        <label class="col-md-3 control-label">Bancos</label>
+                        <div class="col-md-9">
+                            <!-- Radio Buttons -->
+                            <div class="radio">
+                                <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button">
+                                <label for="demo-form-radio">Option 1</label>
+                                <li>
+                                    <div class="mail-file-img">
+                                        <img class="image-responsive" src="image/bancomer.jpg" alt="image" style="with:15px; height:50px; margin-top: 13px">
+                                    </div>
+                                </li>
+                                <hr>
+                            </div>
+                            <div class="radio">
+                                <input id="demo-form-radio-2" class="magic-radio" type="radio" name="form-radio-button">
+                                <label for="demo-form-radio-2">Option 2</label>
+                            </div>
+                            <li>
+                                <div class="mail-file-img">
+                                    <img class="image-responsive" src="image/banorte.jpg" alt="image" style="with:20px; height:60px; margin-top: 5px">
+                                </div>
+                            </li>
+                            <hr>
+                            <div class="radio">
+                                <input id="demo-form-radio-3" class="magic-radio" type="radio" name="form-radio-button">
+                                <label for="demo-form-radio-3">Option 2</label>
+                                <li>
+                                    <div class="mail-file-img">
+                                        <img class="image-responsive" src="image/scotiabank.jpg" alt="image" style="with:20px; height:55px; margin-top: 5px">
+                                    </div>
+                                </li>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Modal footer-->
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
+                <button class="btn btn-primary">Imprimir</button>
+            </div>
+        </div>
+    </div>
+</div>
