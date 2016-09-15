@@ -1,4 +1,4 @@
-<div ng-init="init()" class="ng-scope">
+<div ng-init="init()" cg-busy="{promise:promise,message:message}">
     <div id="page-title">
         <h4 class="page-header text-overflow ng-binding">{{nombreEmpresa}} <span ng-show="idSucursal != null" class="ng-binding ng-hide">/ {{nombreSucursal}}  </span><span ng-show="idDepartamento != null" class="ng-binding ng-hide">/ {{nombreDepartamento}} </span> </h4>
     </div>
@@ -18,7 +18,7 @@
                     Seleccionar Sucursal <i class="dropdown-caret"></i>
                 </button>
                 <ul class="dropdown-menu">
-                     <li ng-repeat="sucursal in sucursales"><a href="#" ng-click="seletionBranchoOffice(sucursal.suc_idsucursal,sucursal.suc_nombre)" class="ng-binding">{{sucursal.suc_nombre}}</a></li>
+                    <li ng-repeat="sucursal in sucursales"><a href="#" ng-click="seletionBranchoOffice(sucursal.suc_idsucursal,sucursal.suc_nombre)" class="ng-binding">{{sucursal.suc_nombre}}</a></li>
                 </ul>
             </div>
             <div class="btn-group btn-group-sm">
@@ -26,7 +26,7 @@
                     Seleccionar Departamento <i class="dropdown-caret"></i>
                 </button>
                 <ul class="dropdown-menu">
-                     <li ng-repeat="departamento in departamentos"><a href="#" ng-click="selectDepartment(departamento.dep_iddepartamento,departamento.dep_nombre)" class="ng-binding">{{departamento.dep_nombre}}</a></li>
+                    <li ng-repeat="departamento in departamentos"><a href="#" ng-click="selectDepartment(departamento.dep_iddepartamento,departamento.dep_nombre)" class="ng-binding">{{departamento.dep_nombre}}</a></li>
                 </ul>
             </div>
         </div>
@@ -63,7 +63,7 @@
                     <div class="col-sm-1">
                         <div class="form-group">
                             <label class="control-label">Serie</label>
-                            <input type="text" ng-model="facturaSerie" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern ng-valid-maxlength" placeholder="ej.AAA" maxlength="3" pattern="[A-Z]{3}" required="">
+                            <input type="text" ng-model="facturaSerie" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-pattern ng-valid-maxlength" placeholder="ej.AAA" maxlength="3" pattern="[A-Z]{1,3}" required="">
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -72,7 +72,7 @@
                             <div class="input-group mar-btm">
                                 <input type="text" ng-model="facturaFolio" placeholder="ej.123456" class="form-control ng-pristine ng-untouched ng-valid ng-valid-maxlength" maxlength="6">
                                 <span class="input-group-btn">
-					               <button class="btn btn-warning" type="submit">Generar Referencia</button>
+					               <button class="btn btn-warning" type="submit" ng-click="generateReference(facturaSerie,facturaFolio)">Generar Referencia</button>
 					           </span>
                             </div>
                         </div>
@@ -115,7 +115,7 @@
                         <div class="form-group">
                             <label class="control-label">Referencia</label>
                             <div class="input-group mar-btm">
-                                <input type="text" placeholder="" class="form-control" disabled="">
+                                <input type="text" placeholder="" class="form-control" disabled="" ng-model="referencia">
                                 <span class="input-group-btn">
 					               <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#demo-default-modal">Imprimir</button>
 					           </span>
@@ -134,52 +134,37 @@
 </div>
 
 
-<div class="modal fade ng-scope" id="demo-default-modal" role="dialog" tabindex="-1" aria-labelledby="demo-default-modal" aria-hidden="true" style="display: none;" data-backdrop="static">
+<div class="modal fade ng-scope" id="demo-default-modal" role="dialog" tabindex="-1" aria-labelledby="demo-default-modal" aria-hidden="true" style="display: none;" data-backdrop="static" cg-busy="{promise:promise,message:message2}">
     <div class="modal-dialog">
         <div class="modal-content">
             <!--Modal header-->
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
-                <h4 class="modal-title">Selecciona tu sucarsal bancaria</h4>
+                <h4 class="modal-title">Selecciona el banco a pagar</h4>
             </div>
 
             <!--Modal body-->
             <div class="modal-body" style="min-height: 380px">
+                <label class="col-md-3 control-label">Bancos</label>
                 <div class="form-group pad-ver">
-                    <div>
-                        <label class="col-md-3 control-label">Bancos</label>
-                        <div class="col-md-9">
-                            <!-- Radio Buttons -->
-                            <div class="radio">
-                                <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button">
-                                <label for="demo-form-radio">Option 1</label>
-                                <li>
-                                    <div class="mail-file-img">
-                                        <img class="image-responsive" src="image/bancomer.jpg" alt="image" style="with:15px; height:50px; margin-top: 13px">
-                                    </div>
-                                </li>
-                                <hr>
-                            </div>
-                            <div class="radio">
-                                <input id="demo-form-radio-2" class="magic-radio" type="radio" name="form-radio-button">
-                                <label for="demo-form-radio-2">Option 2</label>
-                            </div>
-                            <li>
-                                <div class="mail-file-img">
-                                    <img class="image-responsive" src="image/banorte.jpg" alt="image" style="with:20px; height:60px; margin-top: 5px">
-                                </div>
-                            </li>
+                    <div class="col-md-9">
+                        <div class="radio">
+                            <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button" value="1" ng-model="idBanco">
+                            <label for="demo-form-radio"></label>
+                            <img class="image-responsive" src="image/bancomer.jpg" alt="image" style="with:15px; height:50px; margin-top: 13px; margin-left:10px">
                             <hr>
-                            <div class="radio">
-                                <input id="demo-form-radio-3" class="magic-radio" type="radio" name="form-radio-button">
-                                <label for="demo-form-radio-3">Option 2</label>
-                                <li>
-                                    <div class="mail-file-img">
-                                        <img class="image-responsive" src="image/scotiabank.jpg" alt="image" style="with:20px; height:55px; margin-top: 5px">
-                                    </div>
-                                </li>
-                            </div>
-
+                        </div>
+                        <div class="radio">
+                            <input id="demo-form-radio2" class="magic-radio" type="radio" name="form-radio-button" value="2" ng-model="idBanco">
+                            <label for="demo-form-radio2"></label>
+                            <img class="image-responsive" src="image/banorte.jpg" alt="image" style="with:20px; height:60px; margin-top: 5px; margin-left:10px">
+                            <hr>
+                        </div>
+                        <div class="radio">
+                            <input id="demo-form-radio3" class="magic-radio" type="radio" name="form-radio-button" value="3" ng-model="idBanco">
+                            <label for="demo-form-radio3"></label>
+                            <img class="image-responsive" src="image/scotiabank.jpg" alt="image" style="with:20px; height:55px; margin-top: 5px; margin-left:10px">
+                            <hr>
                         </div>
                     </div>
                 </div>
@@ -187,7 +172,7 @@
             <!--Modal footer-->
             <div class="modal-footer">
                 <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
-                <button class="btn btn-primary">Imprimir</button>
+                <button class="btn btn-primary" ng-click="generarPdf(idBanco)">Imprimir</button>
             </div>
         </div>
     </div>

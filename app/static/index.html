@@ -13,6 +13,7 @@
     <link href="css/toastr.css" rel="stylesheet" />
     <link href="css/angular-busy.css" rel="stylesheet" />
     <link href="css/custom-style.css" rel="stylesheet" />
+    <link href="css/radioButon.css" rel="stylesheet" />
     
     <!-- Iconos-->
     <link href="css/nifty/demo/nifty-demo-icons.min.css" rel="stylesheet">
@@ -28,7 +29,7 @@
     
 </head>
 
-<body ng-app="registrationModule">
+<body ng-app="registrationModule" ng-controller="referenceController">
     <div id="container" class="effect aside-float aside-bright mainnav-lg">
         
         <!--NAVBAR-->
@@ -75,7 +76,7 @@
                                     <!--<img class="img-circle img-user media-object" src="img/profile-photos/1.png" alt="Profile Picture">-->
                                     <i class="demo-pli-male ic-user"></i>
                                 </span>
-                                <div class="username hidden-xs">Aaron Chavez</div>
+                                <div class="username hidden-xs">{{empleado[0].nombre}}</div>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-md dropdown-menu-right panel-default">
@@ -135,10 +136,9 @@
                                         </div>
                                         <a href="#" class="box-block" data-toggle="collapse" aria-expanded="false">
                                             <span class="pull-right dropdown-toggle">
-                                                <i class="dropdown-caret"></i>
                                             </span>
-                                            <p class="mnp-name">Aaron Chavez</p>
-                                            <span class="mnp-desc">aaron.cha@themeon.net</span>
+                                            <p class="mnp-name">{{empleado[0].nombre}}</p>
+                                            <!--span class="mnp-desc">{{empleado[0].correo}}</span-->
                                         </a>
                                     </div>
                                 </div>

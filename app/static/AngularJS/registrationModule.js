@@ -1,6 +1,6 @@
 // -- =============================================
-// -- Author:      Vladimir Juárez
-// -- Create date: 18/03/2016
+// -- Author:      Gibran 
+// -- Create date: 05/09/2016
 // -- Description: Is the container of the application
 // -- Modificó: 
 // -- Fecha: 
