@@ -1,5 +1,5 @@
 {
-    "WSReference": "http://192.168.20.9:1420/api/referencia/referencia",
+    "WSReference": "http://192.168.20.9:1430/api/referencia/referencia",
 	"port": 4400,
 	"SQL_user": "sa",
     "SQL_password": "S0p0rt3",

@@ -24,12 +24,14 @@ registrationModule.controller('referenceController', function ($scope, alertFact
         $scope.getCompany.show = true;
         $scope.selectTypeDoc.show = false;
         $scope.idEmpresa = idEmpresa;
+        console.log($scope.idEmpresa)
         $scope.nombreEmpresa = nombreEmpresa;
         $scope.idSucursal = null;
         $scope.nombreSucursal = null;
         $scope.departamentos = null;
         $scope.nombreDepartamento = null;
         $scope.getBranchOfficeByIdUser();
+        $scope.getBills();
     };
 
 
@@ -80,16 +82,14 @@ registrationModule.controller('referenceController', function ($scope, alertFact
     };
 
     $scope.tipoDocumentos = [{
-            idDocumento: 1,
-            nombreDocumento: 'Factura'
-        },
-        {
-            idDocumento: 2,
-            nombreDocumento: 'Cotización'
-        },
-        {
-            idDocumento: 3,
-            nombreDocumento: 'Pedido'
+            idDocumento: 1
+            , nombreDocumento: 'Factura'
+        }, {
+            idDocumento: 2
+            , nombreDocumento: 'Cotización'
+        }, {
+            idDocumento: 3
+            , nombreDocumento: 'Pedido'
         }];
 
     $scope.selectBank = function (idBanco) {
@@ -122,6 +122,7 @@ registrationModule.controller('referenceController', function ($scope, alertFact
     };
 
     $scope.generateReference = function (facturaSerie, facturaFolio) {
+        $scope.referencia = "";
         $scope.facturaSerie = facturaSerie;
         $scope.facturaFolio = facturaFolio;
         referenceRepository.getReferenceWS($scope.facturaSerie, $scope.facturaFolio).then(function (result) {
@@ -158,5 +159,59 @@ registrationModule.controller('referenceController', function ($scope, alertFact
         });
     };
 
+    $scope.getBills = function () {
+        $('#facturasReferencia').DataTable().destroy();
+        $scope.promise = referenceRepository.getBills($scope.idEmpresa).then(function (result) {
+            if (result.data.length > 0) {
+                $scope.facturas = result.data;
+                setTimeout(function () {
+                    $('#facturasReferencia').DataTable({
+                        "responsive": true,
+        "language": {
+            "paginate": {
+              "previous": '<i class="demo-psi-arrow-left"></i>',
+              "next": '<i class="demo-psi-arrow-right"></i>'
+            }
+        }});
+                }, 1000);
+            } else {}
+        });
+    };
+    
+    $scope.content = true;
+  $scope.selectedOptionBank;
 
+  $('#payInvoceModal').on('show.bs.modal', function(e) {
+    $scope.invoce = InvoceFactory.getInvoce();
+    $scope.$apply($scope.invoce)
+    console.log($scope.invoce)
+  })
+
+  $('#payInvoceModal').on('hide.bs.modal', function(e) {
+    $scope.payMethod = ""
+    $scope.pendingInvoceModalForm.$setPristine();
+    $('.lineaCaptura').remove();
+    $scope.content = true;
+  })
+
+  $scope.selectedBank = function(bank) {
+    $scope.selectedOptionBank = bank;
+  }
+  $scope.removeModal = function() {
+    $('#payInvoceModal').modal('hide')
+
+  }
+ 
 });
+
+/*
+bancomer
+banamex
+santander
+idCliente
+Nombre
+Modulo de status de referencias
+modulo de referencias con deposito, aplicacion en BPRO
+xml bancos cuanta clabe y cuenta de mismo banco 
+
+*/

@@ -295,7 +295,7 @@ Reference.prototype.get_referenceWS = function (req, res, next) {
             type: self.model.types.STRING
         });
 
-        getReferenceFromWS(this.conf.parameters.WSReference, req.query.serie, req.query.folio, 0, 0,
+        getReferenceFromWS(this.conf.parameters.WSReference, req.query.serie, req.query.folio, 23, 0, 0,
             function (err, data) {
                 self.model.query('SEL_FACTURA_DATOS_SP', params, function (error, result) {
                     self.view.expositor(res, {
@@ -331,7 +331,22 @@ Reference.prototype.get_getEmpleado = function(req, res, next) {
     });
 };
 
-function getReferenceFromWS(url, serie, folio, tipo, idCliente, cb) {
+Reference.prototype.get_bills = function(req, res, next) {
+
+    var self = this;
+    //asignación de valores mediante parámetros del request
+    var params = [{ name: 'idEmpresa', value: req.query.idEmpresa, type: self.model.types.INT }];
+
+    this.model.query('SEL_FACTURAS_SP', params, function(error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+
+
+/*function getReferenceFromWS(url, serie, folio, tipo, idCliente, cb) {
     request.get(url + "?serie=" + serie + "&folio=" + folio + "&tipo=" + tipo + "&idCliente=" + idCliente, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             body = JSON.parse(body);
@@ -341,6 +356,32 @@ function getReferenceFromWS(url, serie, folio, tipo, idCliente, cb) {
             cb(error)
         }
     })
+};*/
+
+function getReferenceFromWS(url, serie, folio,idSucursal, tipo, idCliente, cb) {
+    request.get(url + "?serie=" + serie + "&folio=" + folio + "&idSucursal=" + idSucursal + "&tipo=" + tipo + "&idCliente=" + idCliente, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            body = JSON.parse(body);
+            console.log(body)
+            cb(null, body);
+        } else {
+            cb(error)
+        }
+    })
 };
+
+
+//http://192.168.20.9:1430/api/referencia/referencia?serie=AA&folio=14968&idSucursal=4
+var fs = require('fs');
+fs.readFile('./prueba.txt', 'utf8', function(err, data) {
+    if( err ){
+        console.log(err)
+    }
+    else{
+        console.log(data);
+    }
+});
+
+
 
 module.exports = Reference;

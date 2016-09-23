@@ -94,6 +94,16 @@ registrationModule.factory('referenceRepository', function ($http) {
                 'Content-Type': 'application/json'
                 }
             });
+        },
+          getBills: function(idEmpresa) {
+            return $http({
+                url: referenceURL + 'bills/',
+                method: "GET",
+                 params: {idEmpresa: idEmpresa},
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            });
         } 
     };
 
