@@ -2,12 +2,57 @@
     <div id="page-title">
         <h4 class="page-header text-overflow ng-binding">{{nombreEmpresa}} <span ng-show="idSucursal != null" class="ng-binding ng-hide">/ {{nombreSucursal}}  </span><span ng-show="idDepartamento != null" class="ng-binding ng-hide">/ {{nombreDepartamento}} </span> </h4>
     </div>
+
     <!-- Panel para combo box filtros de empresa, sucursal y departamento  -->
     <div class="panel">
         <div class="panel-body demo-nifty-btn">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="input-group mar-btm col-sm-6">
+                        <input type="text" placeholder="ingresa Id Cliente" class="form-control" ng-model="idCliente">
+                        <span class="input-group-btn">
+				    <button class="btn btn-mint" type="button" ng-click="selectIdCliente(idCliente)">Seleccionar</button>
+                </span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="input-group mar-btm col-sm-10">
+                        <input type="text" placeholder="Nombre Cliente" class="form-control" ng-model="idCliente">
+                        <span class="input-group-btn">
+				    <button class="btn btn-mint" type="button" ng-click="selectIdCliente(idCliente)">Seleccionar</button>
+                </span>
+                    </div>
+                </div>
+            </div>
+            <!--div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="pOrder.nOrder">Busqueda</label>
+                <input ng-change="changeFilter()" ng-model="filterText" class="form-control" id="pOrder.nOrder">
+                <i class=""></i>
+              </div>
+            </div>
+            <div class="col-sm-4 hidden-xs">
+              <div class="form-group">
+                <label for="pOrder.nOrder">Empresa </label>
+                <select ng-model="company" class="form-control" ng-change="changeCompany(company)" ng-options="empresa.emp_nombre for empresa in empresas track by empresa.emp_idempresa ">
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4 hidden-xs">
+              <div class="form-group">
+                <label for="pOrder.nOrder">Sucursal</label>
+                <select ng-disabled="!branchSelectVisible" ng-model="branch" class="form-control" ng-change="changeBranch(branch)" ng-options="sucursal.suc_nombre for sucursal in sucursales track by sucursal.suc_idsucursal">
+                </select>
+              </div>
+            </div>
+          </div-->
+
+            <!-- INICIO CAMBIO
+            <div ng-show="idClientes != null">
             <div class="btn-group btn-group-sm">
                 <button class="btn btn-info btn-active-dark dropdown-toggle" data-toggle="dropdown" type="button" aria-expanded="false">Seleccionar Empresa
-                    <!--{{nombreEmpresa}}--><i class="dropdown-caret"></i>
+                  <i class="dropdown-caret"></i>
                 </button>
                 <ul class="dropdown-menu">
                     <li ng-repeat="empresa in empresas"><a href="#" ng-click="seletionCompany(empresa.emp_idempresa,empresa.emp_nombre)" class="ng-binding">{{empresa.emp_nombre}}</a></li>
@@ -29,13 +74,6 @@
                     <li ng-repeat="departamento in departamentos"><a href="#" ng-click="selectDepartment(departamento.dep_iddepartamento,departamento.dep_nombre)" class="ng-binding">{{departamento.dep_nombre}}</a></li>
                 </ul>
             </div>
-        </div>
-    </div>
-    <!-- termina panel de combo box de filtros  -->
-
-    <!-- Panel para combobox filtro por tipo documento -->
-    <div class="panel" ng-show="getCompany.show ">
-        <div class="panel-body demo-nifty-btn">
             <div class="btn-group btn-group-sm">
                 <button class="btn btn-success btn-active-purple dropdown-toggle" data-toggle="dropdown" type="button" aria-expanded="false">
                     Tipo Documento <i class="dropdown-caret"></i>
@@ -44,7 +82,58 @@
                     <li ng-repeat="documento in tipoDocumentos" class="ng-scope"><a href="#" class="ng-binding">{{documento.nombreDocumento}}</a></li>
                 </ul>
             </div>
+            </div-->
+            <div class="pad-ver mar-btm bord-top">
+                <!--Justified Button Group-->
+                <!--===================================================-->
+                <div class="btn-group btn-group-justified">
+                    <a href="/" class="btn btn-lg btn-default">
+                        <br>Facturas</a>
+                    <a href="referencefactura" class="btn btn-lg btn-default">
+                        <br>Pedidos</a>
+                    <a href="" class="btn btn-lg btn-default">
+                        <br>Cotizaciones</a>
+                </div>
+                <!--===================================================-->
+            </div>
+            <h2>Facturas</h2>
+            <br>
+            <div class="row">
+                <!--div class="col-sm-4">
+              <div class="form-group">
+                <label for="pOrder.nOrder">Busqueda</label>
+                <input ng-change="changeFilter()" ng-model="filterText" class="form-control" id="pOrder.nOrder">
+                <i class=""></i>
+              </div>
+            </div-->
+                <div class="col-sm-4 hidden-xs">
+                    <div class="form-group">
+                        <label for="pOrder.nOrder">Empresa </label>
+                        <select ng-model="company" class="form-control" ng-change="changeCompany(company)" ng-options="empresa.emp_nombre for empresa in empresas track by empresa.emp_idempresa ">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4 hidden-xs">
+                    <div class="form-group">
+                        <label for="pOrder.nOrder">Sucursal</label>
+                        <select ng-disabled="!branchSelectVisible" ng-model="branch" class="form-control" ng-change="changeBranch(branch)" ng-options="sucursal.suc_nombre for sucursal in sucursales track by sucursal.suc_idsucursal">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4 hidden-xs">
+                    <div class="form-group">
+                        <label for="pOrder.nOrder">Departamento</label>
+                        <select ng-disabled="!branchSelectVisible" ng-model="branch" class="form-control" ng-change="changeBranch(branch)" ng-options="sucursal.suc_nombre for sucursal in sucursales track by sucursal.suc_idsucursal">
+                        </select>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+    <!-- termina panel de combo box de filtros  -->
+
+    <!-- Panel para combobox filtro por tipo documento -->
+    <div class="panel" ng-show="getCompany.show ">
         <div class="panel">
             <div class="panel-heading">
                 <h3 class="panel-title">Facturas</h3>
@@ -53,25 +142,33 @@
                 <table id="facturasReferencia" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>Serie</th>
-                            <th>Folio</th>
-                            <th>fecha Vencimiento</th>
+                            <th>Tipo Documento</th>
+                            <th>Numero Documento</th>
+                            <th>Sucursal</th>
+                            <th>Departamento</th>
+                            <th>Nombre Cliente</th>
                             <th>Importe</th>
                             <th>Saldo</th>
-                            <th>rfc Emisor</th>
+                            <th>FechaDocumento</th>
                             <th>Referencia</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="factura in facturas">
                             <td>
-                                {{factura.serie}}
+                                {{factura.tipoDocumento}}
                             </td>
                             <td>
-                                {{factura.folio}}
+                                {{factura.idDocumento}}
                             </td>
                             <td>
-                                {{factura.fechaVencimiento | date:"dd/MM/yyyy" }}
+                                {{factura.sucursal }}
+                            </td>
+                            <td>
+                                {{factura.departamento }}
+                            </td>
+                            <td>
+                                {{idClientes }}
                             </td>
                             <td>
                                 {{factura.importe | currency}}
@@ -80,10 +177,13 @@
                                 {{factura.saldo | currency}}
                             </td>
                             <td>
-                                {{factura.rfcEmisor}}
+                                {{factura.fechaVencimiento | date:"dd/MM/yyyy"}}
                             </td>
                             <td>
-                                <button class="btn btn-default btn-icon btn-circle" style="margin-left:35%;" data-toggle="modal" data-target="#demo-default-modal" ng-click="generateReference(factura.serie,factura.folio)"><i class="demo-pli-monitor-2 icon-lg"></i></button>
+                                {{referencias}}
+                            </td>
+                            <td>
+                                <button class="btn btn-default btn-icon btn-circle" style="margin-left:10%;" data-toggle="modal" data-target="#demo-default-modal" ng-click="generateReference(factura.serie,factura.idDocumento,factura.departamento)"><i class="demo-pli-monitor-2 icon-lg"></i></button>
                             </td>
                         </tr>
                     </tbody>
@@ -178,72 +278,18 @@
 </div>
 
 
-<!--div class="modal fade ng-scope" id="demo-default-modal" role="dialog" tabindex="-1" aria-labelledby="demo-default-modal" aria-hidden="true" style="display: none;" data-backdrop="static" cg-busy="{promise:promise,message:message2}">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!--Modal header- ->
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
-                <h4 class="modal-title">Detalles del Documento </h4>
-            </div>
-
-            <!--Modal body- ->
-            <div class="modal-body" style="min-height: 350px">
-                <div class="form-group pad-ver">
-                    <div class="col-md-9">
-                        <label class="control-label">Serie: {{facturaSerie}} </label>
-                    </div>
-                    <div class="col-md-9">
-                        <label class="control-label">Folio: {{facturaFolio}} </label>
-                    </div>
-                    <div class="col-md-9">
-                        <label class="control-label">Referencia: {{referencia}}</label>
-                    </div>
-                </div>
-                <br/>
-                <div class="col-md-12">
-                <h5 class="modal-title">Selecciona el banco a pagar </h5>
-                </div>
-                <div class="form-group pad-ver">
-                    <div class="col-md-9">
-                        <div class="radio">
-                            <input id="demo-form-radio" class="magic-radio" type="radio" name="form-radio-button" value="1" ng-model="idBanco">
-                            <label for="demo-form-radio"></label>
-                            <img class="image-responsive" src="image/bancomer.jpg" alt="image" style="with:12px; height:40px; margin-top: 13px; margin-left:10px">
-                        </div>
-                        <div class="radio">
-                            <input id="demo-form-radio2" class="magic-radio" type="radio" name="form-radio-button" value="2" ng-model="idBanco">
-                            <label for="demo-form-radio2"></label>
-                            <img class="image-responsive" src="image/banorte.jpg" alt="image" style="with:18px; height:45px; margin-top: 5px; margin-left:10px">
-                        </div>
-                        <div class="radio">
-                            <input id="demo-form-radio3" class="magic-radio" type="radio" name="form-radio-button" value="3" ng-model="idBanco">
-                            <label for="demo-form-radio3"></label>
-                            <img class="image-responsive" src="image/scotiabank.jpg" alt="image" style="with:18px; height:45px; margin-top: 5px; margin-left:10px">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Modal footer- ->
-            <div class="modal-footer">
-                <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
-                <button class="btn btn-primary" ng-click="generarPdf(idBanco)">Imprimir</button>
-            </div>
-        </div>
-    </div>
-</div-->
-
-
-
-
 <div class="modal fade" id="demo-default-modal" tabindex="-1" role="dialog" aria-labelledby="payInvoceModalLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
+            <!--div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button->
+                <h1 class="pull-right">{{invoce.importe |currency}}</h1>
+                <!--h3>Pagar antes de: {{invoce.fechaVencimiento | date:"dd/MM/yyyy" }} </h3- ->
+            </div-->
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <!--h1 class="pull-right">{{invoce.importe |currency}}</h1-->
-                <h2 class="modal-title" id="payInvoceModalLabel">Factura {{facturaSerie}}{{facturaFolio}}</h2>
-                <!--h3>Pagar antes de: {{invoce.fechaVencimiento | date:"dd/MM/yyyy" }} </h3-->
+                <button type="button" class="close" data-dismiss="modal"><i class="pci-cross pci-circle"></i></button>
+                <h4 class="modal-title">Factura {{facturaSerie}}{{facturaFolio}} </h4>
+                <h5>Pagar antes de: {{invoce.fechaVencimiento | date:"dd/MM/yyyy" }} </h5>
             </div>
             <div class="modal-body">
                 <div ng-show="content">
@@ -252,18 +298,10 @@
                         <div class="row">
                             <div class="col-xs-6">
                                 <p>
-                                    <b>Descripcion</b>
-                                </p>
-                                <p>
-                                    {{invoce.descripcion}}
-                                </p>
-                            </div>
-                            <div class="col-xs-6">
-                                <p>
                                     <b>Departamento</b>
                                 </p>
                                 <p>
-                                    {{invoce.departamento}}
+                                    {{departamentoss}}
                                 </p>
                             </div>
                         </div>
@@ -275,46 +313,31 @@
                                     <b>Fecha de emision</b>
                                 </p>
                                 <p>
-                                    {{invoce.fechaEmision | date:"dd/MM/yyyy" }}
+                                    {{fechaHoy | date:"dd/MM/yyyy" }}
                                 </p>
                             </div>
                             <div class="col-xs-6">
                                 <p>
-                                    <b>Estatus</b>
+                                    <b>Referencia</b>
                                 </p>
                                 <p>
-                                    {{invoce.estatus}} hace {{invoce.diasCartera}}  días.
+                                    {{referencia}}
                                 </p>
                             </div>
                         </div>
-
-
                         <hr>
-                        <h2>Selecciona metodo de pago</h2>
-                        <br>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <div class="radio">
-                                    <input ng-model="payMethod" type="radio" id="radioBank" value="1" name="radioInline">
-                                    <label for="radioBank">Pago en bancos</label>
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="radio">
-                                    <input ng-model="payMethod" type="radio" id="radioReference" value="2" name="radioInline">
-                                    <label for="radioReference">Linea de captura</label>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
+                        <button class="btn btn-primary" ng-click="generarPdf(idBanco)">Imprimir</button>
                         <div ng-show="payMethod">
                             <hr>
-                            <h2>Selecciona banco para pagar</h2>
+                            <h3>Selecciona banco para pagar</h3>
+
                             <div class="cc-selector">
+
                                 <div ng-show="bank.disponible == 3 || payMethod == 1 && bank.disponible ==2 || payMethod == 2 && bank.disponible ==1 " ng-repeat="bank in banks">
                                     <a ng-click="payInvoce(invoce.folio,bank.idBanco,invoce.idEmpresa)" class="bank-cc {{bank.nombre | lowercase}}"></a>
                                 </div>
                             </div>
+
                         </div>
                     </form>
                 </div>

@@ -95,11 +95,12 @@ registrationModule.factory('referenceRepository', function ($http) {
                 }
             });
         },
-          getBills: function(idEmpresa) {
+          getBills: function(idCliente,idEmpresa) {
             return $http({
                 url: referenceURL + 'bills/',
                 method: "GET",
-                 params: {idEmpresa: idEmpresa},
+                 params: {idCliente:idCliente,
+                     idEmpresa: idEmpresa},
                 headers: {
                 'Content-Type': 'application/json'
                 }

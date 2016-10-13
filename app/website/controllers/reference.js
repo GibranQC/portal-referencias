@@ -295,12 +295,13 @@ Reference.prototype.get_referenceWS = function (req, res, next) {
             type: self.model.types.STRING
         });
 
-        getReferenceFromWS(this.conf.parameters.WSReference, req.query.serie, req.query.folio, 23, 0, 0,
+        getReferenceFromWS(this.conf.parameters.WSReference,4, 14, 24,1, req.query.serie, req.query.folio, 3,
             function (err, data) {
                 self.model.query('SEL_FACTURA_DATOS_SP', params, function (error, result) {
                     self.view.expositor(res, {
                         err: err,
                         result:data.REFERENCIA
+                        //resultreferencia = data.REFERENCIA
                     });
                     
                     if (err) {
@@ -335,9 +336,10 @@ Reference.prototype.get_bills = function(req, res, next) {
 
     var self = this;
     //asignación de valores mediante parámetros del request
-    var params = [{ name: 'idEmpresa', value: req.query.idEmpresa, type: self.model.types.INT }];
+    var params = [{ name: 'idCliente', value: req.query.idCliente, type: self.model.types.INT },
+                 { name: 'idEmpresa', value: req.query.idEmpresa, type: self.model.types.INT }];
 
-    this.model.query('SEL_FACTURAS_SP', params, function(error, result) {
+    this.model.query('SEL_CARTERA_DETALLE_SP', params, function(error, result) {
         self.view.expositor(res, {
             error: error,
             result: result
@@ -346,20 +348,8 @@ Reference.prototype.get_bills = function(req, res, next) {
 };
 
 
-/*function getReferenceFromWS(url, serie, folio, tipo, idCliente, cb) {
-    request.get(url + "?serie=" + serie + "&folio=" + folio + "&tipo=" + tipo + "&idCliente=" + idCliente, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            body = JSON.parse(body);
-            console.log(body)
-            cb(null, body);
-        } else {
-            cb(error)
-        }
-    })
-};*/
-
-function getReferenceFromWS(url, serie, folio,idSucursal, tipo, idCliente, cb) {
-    request.get(url + "?serie=" + serie + "&folio=" + folio + "&idSucursal=" + idSucursal + "&tipo=" + tipo + "&idCliente=" + idCliente, function (error, response, body) {
+function getReferenceFromWS(url, idEmpresa, idSucursal,idDepartamento, idTipoDocumento, serie, folio, idCliente, cb) {
+    request.get(url + "?idEmpresa=" + idEmpresa + "&idSucursal=" + idSucursal + "&idDepartamento=" + idDepartamento + "&idTipoDocumento=" + idTipoDocumento + "&serie=" + serie + "&folio="+ folio +"&idCliente=" + idCliente, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             body = JSON.parse(body);
             console.log(body)
@@ -372,7 +362,7 @@ function getReferenceFromWS(url, serie, folio,idSucursal, tipo, idCliente, cb) {
 
 
 //http://192.168.20.9:1430/api/referencia/referencia?serie=AA&folio=14968&idSucursal=4
-var fs = require('fs');
+/*var fs = require('fs');
 fs.readFile('./prueba.txt', 'utf8', function(err, data) {
     if( err ){
         console.log(err)
@@ -380,8 +370,6 @@ fs.readFile('./prueba.txt', 'utf8', function(err, data) {
     else{
         console.log(data);
     }
-});
-
-
+});*/
 
 module.exports = Reference;

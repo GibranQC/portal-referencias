@@ -1,6 +1,7 @@
 registrationModule.controller('referenceController', function ($scope, alertFactory, referenceRepository, $rootScope) {
     $scope.message = 'Buscando...';
     $scope.message2 = 'Cargando PDF......';
+    $scope.fechaHoy = new Date();
     //this is the first method executed in the view
     $scope.init = function () {
         $scope.idUsuario = 16;
@@ -10,7 +11,11 @@ registrationModule.controller('referenceController', function ($scope, alertFact
         $scope.getCompanyByUser();
     };
 
-    // Función para mosrtrar las empresas
+    $scope.selectIdCliente = function (idCliente) {
+            $scope.idClientes = idCliente;
+            console.log($scope.idCliente);
+        }
+        // Función para mosrtrar las empresas
     $scope.getCompany = function () {
         referenceRepository.getCompany().then(function (result) {
             if (result.data.length > 0) {
@@ -25,7 +30,9 @@ registrationModule.controller('referenceController', function ($scope, alertFact
         $scope.selectTypeDoc.show = false;
         $scope.idEmpresa = idEmpresa;
         console.log($scope.idEmpresa)
+        console.log($scope.idClientes);
         $scope.nombreEmpresa = nombreEmpresa;
+        
         $scope.idSucursal = null;
         $scope.nombreSucursal = null;
         $scope.departamentos = null;
@@ -82,14 +89,14 @@ registrationModule.controller('referenceController', function ($scope, alertFact
     };
 
     $scope.tipoDocumentos = [{
-            idDocumento: 1
-            , nombreDocumento: 'Factura'
+        idDocumento: 1,
+        nombreDocumento: 'Factura'
         }, {
-            idDocumento: 2
-            , nombreDocumento: 'Cotización'
+        idDocumento: 2,
+        nombreDocumento: 'Cotización'
         }, {
-            idDocumento: 3
-            , nombreDocumento: 'Pedido'
+        idDocumento: 3,
+        nombreDocumento: 'Pedido'
         }];
 
     $scope.selectBank = function (idBanco) {
@@ -121,10 +128,11 @@ registrationModule.controller('referenceController', function ($scope, alertFact
         });
     };
 
-    $scope.generateReference = function (facturaSerie, facturaFolio) {
+    $scope.generateReference = function (facturaSerie, facturaFolio, departamento) {
         $scope.referencia = "";
         $scope.facturaSerie = facturaSerie;
         $scope.facturaFolio = facturaFolio;
+        $scope.departamentoss = departamento;
         referenceRepository.getReferenceWS($scope.facturaSerie, $scope.facturaFolio).then(function (result) {
             if (result.data.length > 0) {
                 console.log($scope.referencia);
@@ -161,57 +169,67 @@ registrationModule.controller('referenceController', function ($scope, alertFact
 
     $scope.getBills = function () {
         $('#facturasReferencia').DataTable().destroy();
-        $scope.promise = referenceRepository.getBills($scope.idEmpresa).then(function (result) {
+        $scope.promise = referenceRepository.getBills($scope.idClientes, $scope.idEmpresa).then(function (result) {
             if (result.data.length > 0) {
                 $scope.facturas = result.data;
                 setTimeout(function () {
                     $('#facturasReferencia').DataTable({
                         "responsive": true,
-        "language": {
-            "paginate": {
-              "previous": '<i class="demo-psi-arrow-left"></i>',
-              "next": '<i class="demo-psi-arrow-right"></i>'
-            }
-        }});
-                }, 1000);
+                        "language": {
+                            "paginate": {
+                                "previous": '<i class="demo-psi-arrow-left"></i>',
+                                "next": '<i class="demo-psi-arrow-right"></i>'
+                            }
+                        }
+                    });
+                }, 100);
             } else {}
         });
     };
+
+    $scope.content = true;
+    $scope.selectedOptionBank;
+
+    $('#payInvoceModal').on('show.bs.modal', function (e) {
+        $scope.invoce = InvoceFactory.getInvoce();
+        $scope.$apply($scope.invoce)
+        console.log($scope.invoce)
+    })
+
+    $('#payInvoceModal').on('hide.bs.modal', function (e) {
+        $scope.payMethod = ""
+        $scope.pendingInvoceModalForm.$setPristine();
+        $('.lineaCaptura').remove();
+        $scope.content = true;
+    })
+
+    $scope.selectedBank = function (bank) {
+        $scope.selectedOptionBank = bank;
+    }
+    $scope.removeModal = function () {
+        $('#payInvoceModal').modal('hide')
+
+    }
     
-    $scope.content = true;
-  $scope.selectedOptionBank;
+    
+   /* 
+    $scope.changeCompany = function(company) {
+    if (company.emp_idempresa != 0) {
+        console.log(company.emp_idempresa)
+      $scope.branchSelectVisible = true;
+        $scope.idEmpresa = company.emp_idempresa;
+         $scope.getBranchOfficeByIdUser();
+      $scope.branchListTemp = $scope.branchList.filter(function(d) {
+        if (company.idEmpresa === d.idEmpresa || d.idSucursal === 0) return true
+      })
+      $scope.branch = $scope.branchListTemp[0];
+      filterApply()
+    } else {
+      filterApply()
+      $scope.branchSelectVisible = false;
+      $scope.branch = null;
+    }
+  }*/
 
-  $('#payInvoceModal').on('show.bs.modal', function(e) {
-    $scope.invoce = InvoceFactory.getInvoce();
-    $scope.$apply($scope.invoce)
-    console.log($scope.invoce)
-  })
-
-  $('#payInvoceModal').on('hide.bs.modal', function(e) {
-    $scope.payMethod = ""
-    $scope.pendingInvoceModalForm.$setPristine();
-    $('.lineaCaptura').remove();
-    $scope.content = true;
-  })
-
-  $scope.selectedBank = function(bank) {
-    $scope.selectedOptionBank = bank;
-  }
-  $scope.removeModal = function() {
-    $('#payInvoceModal').modal('hide')
-
-  }
- 
+    
 });
-
-/*
-bancomer
-banamex
-santander
-idCliente
-Nombre
-Modulo de status de referencias
-modulo de referencias con deposito, aplicacion en BPRO
-xml bancos cuanta clabe y cuenta de mismo banco 
-
-*/

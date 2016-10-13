@@ -13,6 +13,10 @@ var registrationModule = angular.module("registrationModule", ["ngRoute","cgBusy
             templateUrl: 'AngularJS/Templates/reference.html', //example 1
             controller: 'referenceController'
         });
+         $routeProvider.when('/referencefactura', {
+            templateUrl: 'AngularJS/Templates/referencefactura.html', //example 1
+            controller: 'referenceController'
+        });
 
         $locationProvider.html5Mode({
             enabled: true,
