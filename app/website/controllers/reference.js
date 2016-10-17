@@ -64,7 +64,8 @@ Reference.prototype.get_generarPdf = function (req, res, next) {
                 height: 400
             };
             //page.open("http://google.com").then(function (status) {
-            page.open("http://localhost:4400/api/reference/company?referencia=" + req.query.referencia).then(function (status) {
+            page.open("http://localhost:4430/api/reference/company?referencia=" + req.query.referencia).then(function (status) {
+             // page.open("http://localhost:4400/referencefactura").then(function (status) {
                 page.render('Reporte_90.pdf').then(function () {
                     console.log('Page Rendered');
                     page.close();
@@ -82,6 +83,162 @@ Reference.prototype.get_generarPdf = function (req, res, next) {
         });
     });
 };
+
+
+
+
+
+
+
+
+
+
+
+Reference.prototype.get_facturasAll = function (req, res, next) {
+
+    var self = this;
+
+    var params = [{name: 'idCliente',value: req.query.idCliente,type: self.model.types.INT}];
+
+    this.model.query('SEL_TOTAL_FACTURAS_TODOS_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+
+Reference.prototype.get_facturasEmp = function (req, res, next) {
+
+    var self = this;
+
+    var params = [{name: 'idCliente',value: req.query.idCliente,type: self.model.types.INT},
+          {name: 'idEmpresas',value: req.query.idEmpresas,type: self.model.types.INT}    
+    ];
+
+    this.model.query('SEL_TOTAL_FACTURAS_TODOS_EMPRESAS_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+
+
+
+Reference.prototype.get_facturasSuc = function (req, res, next) {
+
+    var self = this;
+
+    var params = [{name: 'idCliente',value: req.query.idCliente,type: self.model.types.INT},
+    {name: 'idEmpresas',value: req.query.idEmpresas,type: self.model.types.INT},
+    {name: 'idSucursales',value: req.query.idSucursales,type: self.model.types.INT}];
+
+    this.model.query('SEL_TOTAL_FACTURAS_TODOS_SUCURSALES_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+
+
+
+
+Reference.prototype.get_pedidosAll = function (req, res, next) {
+
+    var self = this;
+
+    var params = [{name: 'idCliente',value: req.query.idCliente,type: self.model.types.INT}];
+
+    this.model.query('SEL_TOTAL_PEDIDOS_TODOS_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+
+Reference.prototype.get_pedidosEmp = function (req, res, next) {
+
+    var self = this;
+
+    var params = [{name: 'idCliente',value: req.query.idCliente,type: self.model.types.INT},
+          {name: 'idEmpresas',value: req.query.idEmpresas,type: self.model.types.INT}    
+    ];
+
+    this.model.query('SEL_TOTAL_PEDIDOS_TODOS_EMPRESA_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+
+
+
+Reference.prototype.get_pedidosSuc = function (req, res, next) {
+
+    var self = this;
+
+    var params = [{name: 'idCliente',value: req.query.idCliente,type: self.model.types.INT},
+    {name: 'idEmpresas',value: req.query.idEmpresas,type: self.model.types.INT},
+    {name: 'idSucursales',value: req.query.idSucursales,type: self.model.types.INT}];
+
+    this.model.query('SEL_TOTAL_PEDIDOS_TODOS_SUCURSAL_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Reference.prototype.get_clientByName = function (req, res, next) {
+    //Con req.query se obtienen los parametros de la url
+    //Ejemplo: ?p1=a&p2=b
+    //Retorna {p1:'a',p2:'b'}
+    //Objeto que envía los parámetros
+    //var params = [];
+    //Referencia a la clase para callback
+    var self = this;
+    //asignación de valores mediante parámetros del request
+    var params = [{
+        name: 'varBusqueda',
+        value: req.query.clientName,
+        type: self.model.types.STRING
+    }];
+
+    this.model.query('SEL_CLIENTE_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+
+
+
+
+
+
+
+
+
+
 
 Reference.prototype.get_company = function (req, res, next) {
     //Con req.query se obtienen los parametros de la url
@@ -274,6 +431,92 @@ Reference.prototype.get_docReference = function (req, res, next) {
 };
 
 
+
+
+
+
+Reference.prototype.get_referenceWS = function (req, res, next) {
+   //Con req.query se obtienen los parametros de la url
+   //Ejemplo: ?p1=a&p2=b
+   //Retorna {p1:'a',p2:'b'}
+   //Objeto que envía los parámetros
+   //var params = [];
+   //Referencia a la clase para callback  
+   var self = this;
+   var params = []
+   if (req.query.serie, req.query.folio) {
+       params.push({
+           name: 'idEmpresa',
+           value: req.query.idEmpresa,
+           type: self.model.types.STRING
+       });
+       params.push({
+           name: 'idSucursal',
+           value: req.query.idSucursal,
+           type: self.model.types.STRING
+       });
+       params.push({
+           name: 'idDepartamento',
+           value: req.query.idDepartamento,
+           type: self.model.types.STRING
+       });
+       params.push({
+           name: 'idTipoDocumento',
+           value: req.query.idTipoDocumento,
+           type: self.model.types.STRING
+       });
+       params.push({
+           name: 'serie',
+           value: req.query.serie,
+           type: self.model.types.STRING
+       });
+       params.push({
+           name: 'folio',
+           value: req.query.folio,
+           type: self.model.types.STRING
+       });
+       params.push({
+           name: 'idCliente',
+           value: req.query.idCliente,
+           type: self.model.types.STRING
+       });
+       params.push({
+           name: 'idAlma',
+           value: req.query.idAlma,
+           type: self.model.types.STRING
+       });
+
+       getReferenceFromWS(this.conf.parameters.WSReference,req.query.idEmpresa, req.query.idSucursal, req.query.idDepartamento,req.query.idTipoDocumento, req.query.serie, req.query.folio, req.query.idCliente,req.query.idAlma,
+           function (err, data) {
+               self.model.query('SEL_FACTURA_DATOS_SP', params, function (error, result) {
+                   self.view.expositor(res, {
+                       err: err,
+                       result:data.REFERENCIA
+                       //resultreferencia = data.REFERENCIA
+                   });
+                   
+                   if (err) {
+                       console.log('Error 1')
+                   } else {
+                       console.log(result)
+                       console.log("todo bien");
+                   }
+               });
+           });
+
+   } else {
+       console.log('Error 2')
+   }
+};
+
+
+
+
+
+
+
+
+/*
 Reference.prototype.get_referenceWS = function (req, res, next) {
     //Con req.query se obtienen los parametros de la url
     //Ejemplo: ?p1=a&p2=b
@@ -316,7 +559,7 @@ Reference.prototype.get_referenceWS = function (req, res, next) {
     } else {
         console.log('Error 2')
     }
-};
+};*/
 
 Reference.prototype.get_getEmpleado = function(req, res, next) {
 
@@ -348,6 +591,54 @@ Reference.prototype.get_bills = function(req, res, next) {
 };
 
 
+
+
+
+
+Reference.prototype.get_cotizacion = function(req, res, next) {
+
+    var self = this;
+    //asignación de valores mediante parámetros del request
+    var params = [{ name: 'idCliente', value: req.query.idCliente, type: self.model.types.INT }];
+
+    this.model.query('SEL_TOTAL_COTIZACIONES_TODAS_SP', params, function(error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+
+
+
+
+
+
+
+
+
+
+
+function getReferenceFromWS(url, idEmpresa, idSucursal,idDepartamento, idTipoDocumento, serie, folio, idCliente,idAlma, cb) {
+   request.get(url + "?idEmpresa=" + idEmpresa + "&idSucursal=" + idSucursal + "&idDepartamento=" + idDepartamento + "&idTipoDocumento=" + idTipoDocumento + "&serie=" + serie + "&folio="+ folio +"&idCliente=" + idCliente +"&idAlma="+ idAlma, function (error, response, body) {
+       if (!error && response.statusCode == 200) {
+           body = JSON.parse(body);
+           console.log(body)
+           cb(null, body);
+       } else {
+           cb(error)
+       }
+   })
+};
+
+
+
+
+
+
+
+
+/*
 function getReferenceFromWS(url, idEmpresa, idSucursal,idDepartamento, idTipoDocumento, serie, folio, idCliente, cb) {
     request.get(url + "?idEmpresa=" + idEmpresa + "&idSucursal=" + idSucursal + "&idDepartamento=" + idDepartamento + "&idTipoDocumento=" + idTipoDocumento + "&serie=" + serie + "&folio="+ folio +"&idCliente=" + idCliente, function (error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -359,7 +650,7 @@ function getReferenceFromWS(url, idEmpresa, idSucursal,idDepartamento, idTipoDoc
         }
     })
 };
-
+*/
 
 //http://192.168.20.9:1430/api/referencia/referencia?serie=AA&folio=14968&idSucursal=4
 /*var fs = require('fs');

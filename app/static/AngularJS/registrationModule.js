@@ -5,22 +5,22 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-var registrationModule = angular.module("registrationModule", ["ngRoute","cgBusy","ui.bootstrap"])
+var registrationModule = angular.module("registrationModule", ["ngRoute"])
     .config(function($routeProvider, $locationProvider) {
 
         /*cheange the routes*/
-        $routeProvider.when('/', {
+        $routeProvider.when('/referencefactura', {
             templateUrl: 'AngularJS/Templates/reference.html', //example 1
             controller: 'referenceController'
         });
-         $routeProvider.when('/referencefactura', {
+         $routeProvider.when('/', {
             templateUrl: 'AngularJS/Templates/referencefactura.html', //example 1
             controller: 'referenceController'
         });
 
         $locationProvider.html5Mode({
             enabled: true,
-            requireBase: false
+            requireBase: false  
         });
     });
 

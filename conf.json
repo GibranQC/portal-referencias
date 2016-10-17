@@ -1,6 +1,6 @@
 {
     "WSReference": "http://192.168.20.9:1430/api/referencia/referencia",
-	"port": 4400,
+	"port": 4430,
 	"SQL_user": "sa",
     "SQL_password": "S0p0rt3",
     "SQL_server": "192.168.20.9",

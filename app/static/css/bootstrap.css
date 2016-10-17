@@ -185,7 +185,7 @@ table {
 }
 td,
 th {
-  padding: 0;
+  padding: 0;  
 }
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 @media print {
@@ -251,6 +251,7 @@ th {
   .table {
     border-collapse: collapse !important;
   }
+
   .table td,
   .table th {
     background-color: #fff !important;
@@ -2280,6 +2281,7 @@ th {
 .table > thead > tr > th {
   vertical-align: bottom;
   border-bottom: 2px solid #ddd;
+  
 }
 .table > caption + thead > tr:first-child > th,
 .table > colgroup + thead > tr:first-child > th,
@@ -2322,7 +2324,8 @@ th {
   background-color: #f9f9f9;
 }
 .table-hover > tbody > tr:hover {
-  background-color: #f5f5f5;
+  background-color: #00CDAC;
+  color:#fff;
 }
 table col[class*="col-"] {
   position: static;
@@ -3037,6 +3040,7 @@ select[multiple].input-lg {
 }
 .btn:active,
 .btn.active {
+   
   background-image: none;
   outline: 0;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
@@ -3056,9 +3060,9 @@ fieldset[disabled] a.btn {
   pointer-events: none;
 }
 .btn-default {
-  color: #333;
-  background-color: #fff;
-  border-color: #ccc;
+  color: #fff;
+  background-color: #00CDAC;
+  border-color: #02AAB0;
 }
 .btn-default:focus,
 .btn-default.focus {
@@ -3068,8 +3072,8 @@ fieldset[disabled] a.btn {
 }
 .btn-default:hover {
   color: #333;
-  background-color: #e6e6e6;
-  border-color: #adadad;
+  background-color: #fff;
+  border-color: #00CDAC;
 }
 .btn-default:active,
 .btn-default.active,
@@ -4772,7 +4776,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   padding: 6px 12px;
   margin-left: -1px;
   line-height: 1.42857143;
-  color: #337ab7;
+  color: #00CDAC;
   text-decoration: none;
   background-color: #fff;
   border: 1px solid #ddd;
@@ -4793,7 +4797,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > li > a:focus,
 .pagination > li > span:focus {
   z-index: 3;
-  color: #23527c;
+  color: #00CDAC;
   background-color: #eee;
   border-color: #ddd;
 }
@@ -4806,8 +4810,8 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   z-index: 2;
   color: #fff;
   cursor: default;
-  background-color: #337ab7;
-  border-color: #337ab7;
+  background-color: #00CDAC;
+  border-color: #00CDAC;
 }
 .pagination > .disabled > span,
 .pagination > .disabled > span:hover,
@@ -5981,6 +5985,8 @@ button.close {
   min-height: 16.42857143px;
   padding: 15px;
   border-bottom: 1px solid #e5e5e5;
+  background-color: #00CDAC;
+  color:#fff;
 }
 .modal-header .close {
   margin-top: -2px;

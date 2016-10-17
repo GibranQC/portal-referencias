@@ -9,6 +9,129 @@ registrationModule.factory('referenceRepository', function ($http) {
                 method: "GET"
             });
         },
+        getClientByName: function (clientName) {
+            return $http({
+                url: referenceURL + 'clientByName/',
+                method: "GET",
+                params: {
+                    clientName: clientName
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+                getFacturasAll: function (idCliente) {
+            return $http({
+                url: referenceURL + 'facturasAll/',
+                method: "GET",
+                params: {
+                    idCliente: idCliente
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+                getFacturasEmp: function (cliente) {
+            return $http({
+                url: referenceURL + 'facturasEmp/',
+                method: "GET",
+                params: {
+                      idCliente: cliente.idCliente,
+                      idEmpresas: cliente.idEmpresas
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+                getFacturasSuc: function (idCliente) {
+            return $http({
+                url: referenceURL + 'facturasSuc/',
+                method: "GET",
+                params: {
+                    idCliente: cliente.idCliente,
+                      idEmpresas: cliente.idEmpresas,
+                      idSucursales: cliente.idSucursales
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+
+
+
+
+                getPedidosAll: function (idCliente) {
+            return $http({
+                url: referenceURL + 'pedidosAll/',
+                method: "GET",
+                params: {
+                    idCliente: idCliente
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+                getPedidosEmp: function (cliente) {
+            return $http({
+                url: referenceURL + 'pedidosEmp/',
+                method: "GET",
+                params: {
+                      idCliente: cliente.idCliente,
+                      idEmpresas: cliente.idEmpresas
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+                getPedidosSuc: function (idCliente) {
+            return $http({
+                url: referenceURL + 'pedidosSuc/',
+                method: "GET",
+                params: {
+                    idCliente: cliente.idCliente,
+                      idEmpresas: cliente.idEmpresas,
+                      idSucursales: cliente.idSucursales
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+
+
+
+
+
+
+
+
+
+        getCotizacion: function (idCliente) {
+            return $http({
+                url: referenceURL + 'cotizacion/',
+                method: "GET",
+                params: {
+                    idCliente: idCliente
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
         getBranchOfficeByIdCompany: function (idEmpresa) {
             return $http({
                 url: referenceURL + 'branchOfficeByIdCompany/',
@@ -75,13 +198,22 @@ registrationModule.factory('referenceRepository', function ($http) {
                 });
             }, //Fin de genera pdf 
         
-        getReferenceWS: function (serie, folio) {
+        getReferenceWS: function (paramData) {
+            console.log("respository:",paramData   );
             return $http({
                 url: referenceURL + 'referenceWS/',
                 method: "GET",
                 params: {
-                    serie: serie,
-                    folio: folio
+
+                    idEmpresa: paramData.idEmpresa,
+                    idSucursal: paramData.idSucursal,
+                    idDepartamento: paramData.idDepartamento,
+                    idTipoDocumento: paramData.idTipoDocumento,
+                    serie: paramData.serie,
+                    folio: paramData.folio,
+                    idCliente: paramData.idCliente,
+                    idAlma: paramData.idAlma
+                    
                 },
             });
     },
