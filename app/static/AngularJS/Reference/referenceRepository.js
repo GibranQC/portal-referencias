@@ -1,15 +1,15 @@
 var referenceURL = global_settings.urlCORS + 'api/reference/';
 
 
-registrationModule.factory('referenceRepository', function ($http) {
+registrationModule.factory('referenceRepository', function($http) {
     return {
-        getCompany: function () {
+        getCompany: function() {
             return $http({
                 url: referenceURL + 'company/',
                 method: "GET"
             });
         },
-        getClientByName: function (clientName) {
+        getClientByName: function(clientName) {
             return $http({
                 url: referenceURL + 'clientByName/',
                 method: "GET",
@@ -22,7 +22,7 @@ registrationModule.factory('referenceRepository', function ($http) {
 
             });
         },
-                getFacturasAll: function (idCliente) {
+        getFacturasAll: function(idCliente) {
             return $http({
                 url: referenceURL + 'facturasAll/',
                 method: "GET",
@@ -35,13 +35,14 @@ registrationModule.factory('referenceRepository', function ($http) {
 
             });
         },
-                getFacturasEmp: function (cliente) {
+        getFacturasEmp: function(variableobj) {
+            
             return $http({
                 url: referenceURL + 'facturasEmp/',
                 method: "GET",
                 params: {
-                      idCliente: cliente.idCliente,
-                      idEmpresas: cliente.idEmpresas
+                    idCliente: variableobj.idCliente,
+                    idEmpresas: variableobj.idEmpresas
                 },
                 headers: {
                     'Content-Type': 'application/json'
@@ -49,14 +50,14 @@ registrationModule.factory('referenceRepository', function ($http) {
 
             });
         },
-                getFacturasSuc: function (idCliente) {
+        getFacturasSuc: function(objValues) {
             return $http({
                 url: referenceURL + 'facturasSuc/',
                 method: "GET",
                 params: {
-                    idCliente: cliente.idCliente,
-                      idEmpresas: cliente.idEmpresas,
-                      idSucursales: cliente.idSucursales
+                    idCliente: objValues.idCliente,
+                    idEmpresas: objValues.idEmpresas,
+                    idSucursales: objValues.idSucursales
                 },
                 headers: {
                     'Content-Type': 'application/json'
@@ -64,11 +65,25 @@ registrationModule.factory('referenceRepository', function ($http) {
 
             });
         },
+        getFacturasDepto: function(objValues) {
 
+            console.log("aqui en repos",objValues);
+            return $http({
+                url: referenceURL + 'facturasDepto/',
+                method: "GET",
+                params: {
+                    idCliente: objValues.idCliente,
+                    idEmpresas: objValues.idEmpresas,
+                    idSucursales: objValues.idSucursales,
+                    idDepartamentos: objValues.idDepartamentos
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
 
-
-
-                getPedidosAll: function (idCliente) {
+            });
+        },
+        getPedidosAll: function(idCliente) {
             return $http({
                 url: referenceURL + 'pedidosAll/',
                 method: "GET",
@@ -81,13 +96,13 @@ registrationModule.factory('referenceRepository', function ($http) {
 
             });
         },
-                getPedidosEmp: function (cliente) {
+        getPedidosEmp: function(cliente) {
             return $http({
                 url: referenceURL + 'pedidosEmp/',
                 method: "GET",
                 params: {
-                      idCliente: cliente.idCliente,
-                      idEmpresas: cliente.idEmpresas
+                    idCliente: cliente.idCliente,
+                    idEmpresas: cliente.idEmpresas
                 },
                 headers: {
                     'Content-Type': 'application/json'
@@ -95,14 +110,14 @@ registrationModule.factory('referenceRepository', function ($http) {
 
             });
         },
-                getPedidosSuc: function (idCliente) {
+        getPedidosSuc: function(idCliente) {
             return $http({
                 url: referenceURL + 'pedidosSuc/',
                 method: "GET",
                 params: {
                     idCliente: cliente.idCliente,
-                      idEmpresas: cliente.idEmpresas,
-                      idSucursales: cliente.idSucursales
+                    idEmpresas: cliente.idEmpresas,
+                    idSucursales: cliente.idSucursales
                 },
                 headers: {
                     'Content-Type': 'application/json'
@@ -110,18 +125,25 @@ registrationModule.factory('referenceRepository', function ($http) {
 
             });
         },
-
-
-
-
-
-
-
-
-
-        getCotizacion: function (idCliente) {
+        getPedidosDepto: function(idCliente) {
             return $http({
-                url: referenceURL + 'cotizacion/',
+                url: referenceURL + 'pedidosDepto/',
+                method: "GET",
+                params: {
+                    idCliente: cliente.idCliente,
+                    idEmpresas: cliente.idEmpresas,
+                    idSucursales: cliente.idSucursales,
+                    idDepartamentos: cliente.idDepartamentos
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+        getCotizacionAll: function(idCliente) {
+            return $http({
+                url: referenceURL + 'cotizacionAll/',
                 method: "GET",
                 params: {
                     idCliente: idCliente
@@ -132,7 +154,52 @@ registrationModule.factory('referenceRepository', function ($http) {
 
             });
         },
-        getBranchOfficeByIdCompany: function (idEmpresa) {
+        getCotizacionEmp: function(cliente) {
+            return $http({
+                url: referenceURL + 'cotizacionEmp/',
+                method: "GET",
+                params: {
+                    idCliente: cliente.idCliente,
+                    idEmpresas: cliente.idEmpresas
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+        getCotizacionSuc: function(idCliente) {
+            return $http({
+                url: referenceURL + 'cotizacionSuc/',
+                method: "GET",
+                params: {
+                    idCliente: cliente.idCliente,
+                    idEmpresas: cliente.idEmpresas,
+                    idSucursales: cliente.idSucursales
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+        getCotizacionDepto: function(idCliente) {
+            return $http({
+                url: referenceURL + 'cotizacionDepto/',
+                method: "GET",
+                params: {
+                    idCliente: cliente.idCliente,
+                    idEmpresas: cliente.idEmpresas,
+                    idSucursales: cliente.idSucursales,
+                    idDepartamentos: cliente.idDepartamentos
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+        getBranchOfficeByIdCompany: function(idEmpresa) {
             return $http({
                 url: referenceURL + 'branchOfficeByIdCompany/',
                 method: "GET",
@@ -145,7 +212,7 @@ registrationModule.factory('referenceRepository', function ($http) {
 
             });
         },
-        getDepartmentById: function (idSucursal) {
+        getDepartmentById: function(idSucursal) {
             return $http({
                 url: referenceURL + 'departmentById/',
                 method: "GET",
@@ -158,7 +225,7 @@ registrationModule.factory('referenceRepository', function ($http) {
 
             });
         },
-        getCompanyByUser: function (idUsuario) {
+        getCompanyByUser: function(idUsuario) {
             return $http({
                 url: referenceURL + 'companyByUser/',
                 method: "GET",
@@ -167,7 +234,7 @@ registrationModule.factory('referenceRepository', function ($http) {
                 },
             });
         },
-        getBranchOfficeByIdUser: function (idUsuario, idEmpresa) {
+        getBranchOfficeByIdUser: function(idUsuario, idEmpresa) {
             return $http({
                 url: referenceURL + 'branchOfficeByIdUser/',
                 method: "GET",
@@ -177,7 +244,7 @@ registrationModule.factory('referenceRepository', function ($http) {
                 },
             });
         },
-        getDepartmentByIdUser: function (idUsuario, idSucursal) {
+        getDepartmentByIdUser: function(idUsuario, idSucursal) {
             return $http({
                 url: referenceURL + 'departmentByIdUser/',
                 method: "GET",
@@ -188,18 +255,18 @@ registrationModule.factory('referenceRepository', function ($http) {
             });
         },
         //Genera PDF
-        generarPdf: function () {
-                return $http({
-                    url: referenceURL + 'generarPdf/',
-                    method: "GET",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-            }, //Fin de genera pdf 
-        
-        getReferenceWS: function (paramData) {
-            console.log("respository:",paramData   );
+        generarPdf: function() {
+            return $http({
+                url: referenceURL + 'generarPdf/',
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        }, //Fin de genera pdf 
+
+        getReferenceWS: function(paramData) {
+            console.log("respository:", paramData);
             return $http({
                 url: referenceURL + 'referenceWS/',
                 method: "GET",
@@ -213,31 +280,33 @@ registrationModule.factory('referenceRepository', function ($http) {
                     folio: paramData.folio,
                     idCliente: paramData.idCliente,
                     idAlma: paramData.idAlma
-                    
+
                 },
             });
-    },
+        },
         getEmpleado: function(idEmpleado) {
             return $http({
                 url: referenceURL + 'getEmpleado/',
                 method: "GET",
-                 params: {idEmpleado: idEmpleado},
+                params: { idEmpleado: idEmpleado },
                 headers: {
-                'Content-Type': 'application/json'
+                    'Content-Type': 'application/json'
                 }
             });
         },
-          getBills: function(idCliente,idEmpresa) {
+        getBills: function(idCliente, idEmpresa) {
             return $http({
                 url: referenceURL + 'bills/',
                 method: "GET",
-                 params: {idCliente:idCliente,
-                     idEmpresa: idEmpresa},
+                params: {
+                    idCliente: idCliente,
+                    idEmpresa: idEmpresa
+                },
                 headers: {
-                'Content-Type': 'application/json'
+                    'Content-Type': 'application/json'
                 }
             });
-        } 
+        }
     };
 
 });

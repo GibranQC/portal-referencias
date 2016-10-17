@@ -154,7 +154,7 @@ Reference.prototype.get_facturasDepto = function (req, res, next) {
     {name: 'idSucursales',value: req.query.idSucursales,type: self.model.types.INT},
     {name: 'idDepartamentos',value: req.query.idDepartamentos,type: self.model.types.INT}];
 
-    this.model.query('SEL_TOTAL_PEDIDOS_TODOS_DEPARTAMENTO_SP', params, function (error, result) {
+    this.model.query('SEL_TOTAL_FACTURAS_TODOS_DEPARTAMENTOS_SP', params, function (error, result) {
         self.view.expositor(res, {
             error: error,
             result: result
@@ -699,7 +699,7 @@ Reference.prototype.get_bills = function(req, res, next) {
 
 
 
-
+/*
 Reference.prototype.get_cotizacion = function(req, res, next) {
 
     var self = this;
@@ -716,7 +716,7 @@ Reference.prototype.get_cotizacion = function(req, res, next) {
 
 
 
-
+*/
 
 
 
