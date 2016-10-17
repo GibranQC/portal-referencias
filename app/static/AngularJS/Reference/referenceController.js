@@ -357,7 +357,7 @@ console.log($scope.storeParams);
 
         $scope.cotizacionDetalle = obj;
 
-        /*
+        
 
                 var wsData =[];
 
@@ -383,7 +383,7 @@ console.log($scope.storeParams);
                         $scope.referencia = result.data;
                     } else {}
                 });
-        */
+        
 
 
     }
@@ -394,7 +394,7 @@ console.log($scope.storeParams);
 
     //Genera el pdf
     $scope.generarPdf = function() {
-        $scope.promise = referenceRepository.generarPdf().then(function(response) {
+        $scope.promise = referenceRepository.generarPdf($scope.referencia).then(function(response) {
             $scope.url = response.config.url;
             window.open($scope.url, "ventana1", "width=700,height=500,scrollbars=NO");
             $scope.selectBank();

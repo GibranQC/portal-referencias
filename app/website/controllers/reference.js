@@ -53,8 +53,14 @@ var Reference = function (conf) {
 };*/
 
 Reference.prototype.get_generarPdf = function (req, res, next) {
-    var self = this;
 
+
+    var self = this;
+       var params = [{
+        name: 'referencia',
+        value: req.query.referencia,
+        type: self.model.types.STRING
+    }]
     console.log('estamos aqui en Selecciona un contrato');
 
     phantom.create().then(function (ph) {
@@ -63,11 +69,12 @@ Reference.prototype.get_generarPdf = function (req, res, next) {
                 width: 500,
                 height: 400
             };
-            //page.open("http://google.com").then(function (status) {
+            console.log('creo pdf')
             page.open("http://localhost:4430/api/reference/company?referencia=" + req.query.referencia).then(function (status) {
-             // page.open("http://localhost:4400/referencefactura").then(function (status) {
                 page.render('Reporte_90.pdf').then(function () {
+                    console.log(status,'estatus');
                     console.log('Page Rendered');
+                    console.log(req.query.referencia,'pdf');
                     page.close();
                     ph.exit();
                     console.log('Page Rendered2');
@@ -75,15 +82,16 @@ Reference.prototype.get_generarPdf = function (req, res, next) {
                         res.sendFile("Reporte_90.pdf", {
                             root: path.join(__dirname, '../../../')
                         });
+                        console.log(req.query.referencia,'entro al sendfile');
                         console.log('Page Rendered3');
                     }, 10)
 
                 });
+                console.log('Page termina');
             });
         });
     });
 };
-
 
 
 
@@ -359,16 +367,20 @@ Reference.prototype.get_company = function (req, res, next) {
         value: req.query.referencia,
         type: self.model.types.STRING
     }]
+    console.log(req.query.referencia,'funcion company')
 
     this.model.query('SEL_EMPRESA_SP', params, function (error, result) {
         //self.view.expositor( 
-        res.render('referencia.html');//,{
-            /*error: error,
+        res.render('referencia.html',{referencia:req.query.referencia} );//,{
+            console.log(req.query.referencia,'funcion company asignacion')
+            self.view.expositor({ error: error,
             result: result
-        });*/
-        console.log(result)
+        });
+        console.log('Termina')
     });
+    console.log('Termina todo')
 };
+
 
 Reference.prototype.get_branchOfficeByIdCompany = function (req, res, next) {
     //Con req.query se obtienen los parametros de la url
