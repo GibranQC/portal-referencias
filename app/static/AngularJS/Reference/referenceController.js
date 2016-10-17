@@ -43,7 +43,7 @@ registrationModule.controller('referenceController', function($scope, alertFacto
             if (result.data.length > 0) {
                 $scope.lstClient = result.data;                                   
                 $('#loadModal').modal('hide');                    
-            } else {}
+            } else {$('#loadModal').modal('hide'); }
         });
 
     };
@@ -140,8 +140,7 @@ $scope.lstCotizacion = '';
     $scope.seletionCompany = function(idEmpresa, nombreEmpresa) {
         $scope.getCompany.show = true;
         //$scope.selectTypeDoc.show = false;
-        $scope.idEmpresa = idEmpresa;
-        console.log($scope.idEmpresa)
+        $scope.idEmpresa = idEmpresa;        
         $scope.nombreEmpresa = nombreEmpresa;
         $scope.idSucursal = null;
         $scope.nombreSucursal = null;
@@ -210,15 +209,14 @@ $scope.lstCotizacion = '';
     }];
 
     $scope.selectBank = function(idBanco) {
-        $scope.idBanco = idBanco;
-        console.log($scope.idBanco);
+        $scope.idBanco = idBanco;        
     };
 
     $scope.getCompanyByUser = function() {
         $scope.promise = referenceRepository.getCompanyByUser($scope.idUsuario).then(function(result) {
             if (result.data.length > 0) {
                 $scope.empresas = result.data;
-                console.log($scope.empresas)
+                
             } else {}
         });
     };
@@ -227,7 +225,7 @@ $scope.lstCotizacion = '';
         referenceRepository.getBranchOfficeByIdUser($scope.idUsuario, $scope.idEmpresa).then(function(result) {
             if (result.data.length > 0) {
                 $scope.sucursales = result.data;
-                console.log($scope.sucursales)
+                
             } else {}
         });
     };

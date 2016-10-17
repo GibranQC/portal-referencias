@@ -145,6 +145,27 @@ Reference.prototype.get_facturasSuc = function (req, res, next) {
 
 
 
+Reference.prototype.get_facturasDepto = function (req, res, next) {
+
+    var self = this;
+
+    var params = [{name: 'idCliente',value: req.query.idCliente,type: self.model.types.INT},
+    {name: 'idEmpresas',value: req.query.idEmpresas,type: self.model.types.INT},
+    {name: 'idSucursales',value: req.query.idSucursales,type: self.model.types.INT},
+    {name: 'idDepartamentos',value: req.query.idDepartamentos,type: self.model.types.INT}];
+
+    this.model.query('SEL_TOTAL_PEDIDOS_TODOS_DEPARTAMENTO_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+
+
+
+
+
 Reference.prototype.get_pedidosAll = function (req, res, next) {
 
     var self = this;
@@ -194,7 +215,91 @@ Reference.prototype.get_pedidosSuc = function (req, res, next) {
 };
 
 
+Reference.prototype.get_pedidosDepto = function (req, res, next) {
 
+    var self = this;
+
+    var params = [{name: 'idCliente',value: req.query.idCliente,type: self.model.types.INT},
+    {name: 'idEmpresas',value: req.query.idEmpresas,type: self.model.types.INT},
+    {name: 'idSucursales',value: req.query.idSucursales,type: self.model.types.INT},
+    {name: 'idDepartamentos',value: req.query.idDepartamentos,type: self.model.types.INT}];
+
+    this.model.query('SEL_TOTAL_PEDIDOS_TODOS_DEPARTAMENTO_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+
+
+
+
+Reference.prototype.get_cotizacionAll = function (req, res, next) {
+
+    var self = this;
+
+    var params = [{name: 'idCliente',value: req.query.idCliente,type: self.model.types.INT}];
+
+    this.model.query('SEL_TOTAL_COTIZACIONES_TODAS_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+
+Reference.prototype.get_cotizacionEmp = function (req, res, next) {
+
+    var self = this;
+
+    var params = [{name: 'idCliente',value: req.query.idCliente,type: self.model.types.INT},
+          {name: 'idEmpresas',value: req.query.idEmpresas,type: self.model.types.INT}    
+    ];
+
+    this.model.query('SEL_TOTAL_COTIZACIONES_TODAS_EMPRESAS_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+
+
+
+Reference.prototype.get_cotizacionSuc = function (req, res, next) {
+
+    var self = this;
+
+    var params = [{name: 'idCliente',value: req.query.idCliente,type: self.model.types.INT},
+    {name: 'idEmpresas',value: req.query.idEmpresas,type: self.model.types.INT},
+    {name: 'idSucursales',value: req.query.idSucursales,type: self.model.types.INT}];
+
+    this.model.query('SEL_TOTAL_COTIZACIONES_TODAS_SUCURSALES_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+
+
+Reference.prototype.get_cotizacionDepto = function (req, res, next) {
+
+    var self = this;
+
+    var params = [{name: 'idCliente',value: req.query.idCliente,type: self.model.types.INT},
+    {name: 'idEmpresas',value: req.query.idEmpresas,type: self.model.types.INT},
+    {name: 'idSucursales',value: req.query.idSucursales,type: self.model.types.INT},
+    {name: 'idDepartamentos',value: req.query.idDepartamentos,type: self.model.types.INT}];
+
+    this.model.query('SEL_TOTAL_COTIZACIONES_TODAS_DEPARTAMENTOS_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
 
 
 
