@@ -115,9 +115,9 @@ registrationModule.factory('referenceRepository', function($http) {
                 url: referenceURL + 'pedidosSuc/',
                 method: "GET",
                 params: {
-                    idCliente: cliente.idCliente,
-                    idEmpresas: cliente.idEmpresas,
-                    idSucursales: cliente.idSucursales
+                    idCliente: idCliente.idCliente,
+                    idEmpresas: idCliente.idEmpresas,
+                    idSucursales: idCliente.idSucursales
                 },
                 headers: {
                     'Content-Type': 'application/json'
@@ -130,10 +130,10 @@ registrationModule.factory('referenceRepository', function($http) {
                 url: referenceURL + 'pedidosDepto/',
                 method: "GET",
                 params: {
-                    idCliente: cliente.idCliente,
-                    idEmpresas: cliente.idEmpresas,
-                    idSucursales: cliente.idSucursales,
-                    idDepartamentos: cliente.idDepartamentos
+                    idCliente: idCliente.idCliente,
+                    idEmpresas: idCliente.idEmpresas,
+                    idSucursales: idCliente.idSucursales,
+                    idDepartamentos: idCliente.idDepartamentos
                 },
                 headers: {
                     'Content-Type': 'application/json'
@@ -173,9 +173,9 @@ registrationModule.factory('referenceRepository', function($http) {
                 url: referenceURL + 'cotizacionSuc/',
                 method: "GET",
                 params: {
-                    idCliente: cliente.idCliente,
-                    idEmpresas: cliente.idEmpresas,
-                    idSucursales: cliente.idSucursales
+                    idCliente: idCliente.idCliente,
+                    idEmpresas: idCliente.idEmpresas,
+                    idSucursales: idCliente.idSucursales
                 },
                 headers: {
                     'Content-Type': 'application/json'
@@ -188,10 +188,10 @@ registrationModule.factory('referenceRepository', function($http) {
                 url: referenceURL + 'cotizacionDepto/',
                 method: "GET",
                 params: {
-                    idCliente: cliente.idCliente,
-                    idEmpresas: cliente.idEmpresas,
-                    idSucursales: cliente.idSucursales,
-                    idDepartamentos: cliente.idDepartamentos
+                    idCliente: idCliente.idCliente,
+                    idEmpresas: idCliente.idEmpresas,
+                    idSucursales: idCliente.idSucursales,
+                    idDepartamentos: idCliente.idDepartamentos
                 },
                 headers: {
                     'Content-Type': 'application/json'

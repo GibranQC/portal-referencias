@@ -184,11 +184,68 @@ registrationModule.controller('referenceController', function($scope, alertFacto
     };
 
 
+ $scope.getPedidosEmp = function(obj) {
+        $scope.lstPedido = '';
+        $('#tblPedido').DataTable().destroy();
+        referenceRepository.getPedidosEmp(obj).then(function(result) {
+
+            if (result.data.length > 0) {
+                $scope.lstPedido = result.data;
+                setTimeout(function() {
+                    $scope.setTablePaging('tblPedido');
+                    $("#tblPedido_filter").removeClass("dataTables_info").addClass("hide-div");
+                    $('#loadModal').modal('hide');
+                }, 1000);
+
+            } else { $('#loadModal').modal('hide'); }
+        });
+
+    };
+
+   $scope.getPedidosSuc = function(obj) {
+        $scope.lstPedido = '';
+        $('#tblPedido').DataTable().destroy();
+        $('#loadModal').modal('show');
 
 
+        referenceRepository.getPedidosSuc(obj).then(function(result) {
+
+            if (result.data.length > 0) {
+                $scope.lstPedido = result.data;
+                setTimeout(function() {
+                    $scope.setTablePaging('tblPedido');
+                    $("#tblPedido_filter").removeClass("dataTables_info").addClass("hide-div");
+
+                    $('#loadModal').modal('hide');
+                }, 1000);
+
+            } else { $('#loadModal').modal('hide'); }
+        });
+
+    };
 
 
+    $scope.getPedidosDepto = function(obj) {
+        $scope.lstPedido = '';
+        $('#tblPedido').DataTable().destroy();
+        $('#loadModal').modal('show');
 
+
+        referenceRepository.getPedidosDepto(obj).then(function(result) {
+
+            if (result.data.length > 0) {
+                $scope.lstPedido = result.data;
+                setTimeout(function() {
+                    $scope.setTablePaging('tblPedido');
+                    $("#tblPedido_filter").removeClass("dataTables_info").addClass("hide-div");
+
+                    $('#loadModal').modal('hide');
+                }, 1000);
+
+            } else { $('#loadModal').modal('hide'); }
+        });
+
+    };
 
 
     $scope.lstCotizacion = [];
@@ -215,6 +272,68 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
     };
 
+ $scope.getCotizacionEmp = function(obj) {
+        $scope.lstCotizacion = '';
+        $('#tblReference').DataTable().destroy();
+        referenceRepository.getCotizacionEmp(obj).then(function(result) {
+
+            if (result.data.length > 0) {
+                $scope.lstCotizacion = result.data;
+                setTimeout(function() {
+                    $scope.setTablePaging('tblReference');
+                    $("#tblReference_filter").removeClass("dataTables_info").addClass("hide-div");
+                    $('#loadModal').modal('hide');
+                }, 1000);
+
+            } else { $('#loadModal').modal('hide'); }
+        });
+
+    };
+
+       $scope.getCotizacionSuc = function(obj) {
+        $scope.lstCotizacion = '';
+        $('#tblReference').DataTable().destroy();
+        $('#loadModal').modal('show');
+
+
+        referenceRepository.getPedidosSuc(obj).then(function(result) {
+
+            if (result.data.length > 0) {
+                $scope.lstCotizacion = result.data;
+                setTimeout(function() {
+                    $scope.setTablePaging('tblReference');
+                    $("#tblReference_filter").removeClass("dataTables_info").addClass("hide-div");
+
+                    $('#loadModal').modal('hide');
+                }, 1000);
+
+            } else { $('#loadModal').modal('hide'); }
+        });
+
+    };
+
+
+    $scope.getCotizacionDepto = function(obj) {
+        $scope.lstCotizacion = '';
+        $('#tblReference').DataTable().destroy();
+        $('#loadModal').modal('show');
+
+
+        referenceRepository.getPedidosDepto(obj).then(function(result) {
+
+            if (result.data.length > 0) {
+                $scope.lstCotizacion = result.data;
+                setTimeout(function() {
+                    $scope.setTablePaging('tblReference');
+                    $("#tblReference_filter").removeClass("dataTables_info").addClass("hide-div");
+
+                    $('#loadModal').modal('hide');
+                }, 1000);
+
+            } else { $('#loadModal').modal('hide'); }
+        });
+
+    };
     // Función para mosrtrar las empresas
     $scope.getCompany = function() {
         referenceRepository.getCompany().then(function(result) {
@@ -232,7 +351,8 @@ registrationModule.controller('referenceController', function($scope, alertFacto
         $scope.storeParams.idCliente = $scope.currentIDClient;
         $scope.storeParams.idEmpresas = idEmpresa;
         $scope.getFacturasEmp($scope.storeParams);
-
+        $scope.getPedidosEmp($scope.storeParams);
+        $scope.getCotizacionEmp($scope.storeParams);
         $scope.getCompany.show = true;
         //$scope.selectTypeDoc.show = false;
         $scope.idEmpresa = idEmpresa;
@@ -250,14 +370,12 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
     // Función para selecciobnar el idSucursal y nombre 
     $scope.seletionBranchoOffice = function(idSucursal, nombreSucursal) {
-
         $scope.storeParams.idCliente = $scope.currentIDClient;
         $scope.storeParams.idEmpresas = $scope.idEmpresa;
         $scope.storeParams.idSucursales = idSucursal;
         $scope.getFacturasSuc($scope.storeParams);
-
-
-
+        $scope.getPedidosSuc($scope.storeParams);
+        $scope.getCotizacionSuc($scope.storeParams);
         $scope.idSucursal = idSucursal;
         $scope.nombreSucursal = nombreSucursal;
         $scope.getDepartmentByIdUser();
@@ -269,12 +387,9 @@ registrationModule.controller('referenceController', function($scope, alertFacto
         $scope.storeParams.idEmpresas = $scope.idEmpresa;
         $scope.storeParams.idSucursales = $scope.idSucursal;
         $scope.storeParams.idDepartamentos = idDepartamento;
-
-
-
         $scope.getFacturasDepto($scope.storeParams);
-
-
+        $scope.getPedidosDepto($scope.storeParams);
+        $scope.getCotizacionDepto($scope.storeParams);
         $scope.idDepartamento = idDepartamento;
         $scope.nombreDepartamento = nombreDepartamento;
     };
@@ -481,16 +596,22 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
     $scope.setSearchType = function(val) {
 
-        if (val == 1) {
-            $scope.searchType = "ID cliente";
-            $scope.searchTypeID = 1;
-        } else {
-            $scope.searchType = "Nombre Cliente";
-            $scope.searchTypeID = 2;
-        }
+      if (val == 1) {
+          $scope.searchType = "ID cliente";
+          $scope.searchTypeID = 1;
+          $scope.nombreEmpresa = '';
+      } else {
+          if (val == 2) {
+              $scope.searchType = "Nombre Cliente";
+              $scope.searchTypeID = 2;
+          } else {
+              $scope.searchType = "ID  Documento";
+              $scope.searchTypeID = 3;
+          }
+      }
 
-        $scope.txtSearchClient = "";
-    }
+      $scope.txtSearchClient = "";
+  }
 
 
 
@@ -516,8 +637,11 @@ registrationModule.controller('referenceController', function($scope, alertFacto
             $scope.getCotizacionAll($scope.txtSearchClient);
             $scope.getFacturasAll($scope.txtSearchClient);
             $scope.getPedidosAll($scope.txtSearchClient);
-
+            $scope.nombreEmpresa = '';
+            $scope.idEmpresa = null;
         } else {
+            $scope.nombreEmpresa = '';
+            $scope.idEmpresa = null;
             $scope.getClient($scope.txtSearchClient);
             $scope.showPanel = true;
         }
