@@ -22,7 +22,6 @@ var Reference = function (conf) {
 
 
 Reference.prototype.get_generarPdf = function (req, res, next) {
-
     var self = this;
        var params = [{
         name: 'referencia',
@@ -61,7 +60,6 @@ Reference.prototype.get_generarPdf = function (req, res, next) {
         });
     });
 };
-
 
 Reference.prototype.get_facturasAll = function (req, res, next) {
 

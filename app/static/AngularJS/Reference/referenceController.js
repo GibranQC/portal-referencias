@@ -360,6 +360,7 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
     $scope.generateReference = function(obj) {
         $scope.cotizacionDetalle = obj;
+
                 wsData.idEmpresa = obj.idEmpresa;
                 wsData.idSucursal = obj.idSucursal;
                 wsData.idDepartamento = obj.idDepartamento;
@@ -368,6 +369,22 @@ registrationModule.controller('referenceController', function($scope, alertFacto
                 wsData.folio = obj.idDocumento;
                 wsData.idCliente = obj.idCliente;
                 wsData.idAlma = obj.estatus;
+
+                //console.log(wsData);
+
+
+/*
+                $scope.referencia = "";
+
+                //$scope.departamentoss = departamento;
+                referenceRepository.getReferenceWS(wsData).then(function(result) {
+                    if (result.data.length > 0) {
+                        console.log($scope.referencia);
+                        $scope.referencia = result.data;
+                    } else {}
+                });
+        
+*/
 
     }
 
@@ -395,6 +412,14 @@ registrationModule.controller('referenceController', function($scope, alertFacto
            } else {}
        });
    };
+/*
+        $scope.promise = referenceRepository.generarPdf($scope.referencia).then(function(response) {
+            $scope.url = response.config.url;
+            window.open($scope.url, "ventana1", "width=700,height=500,scrollbars=NO");
+            $scope.selectBank();
+            alertFactory.success('Se genero el pdf');
+        });
+    };*/
 
     $scope.getEmpleado = function() {
         referenceRepository.getEmpleado($scope.idUsuario).then(function(result) {
