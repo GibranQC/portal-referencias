@@ -67,7 +67,7 @@ registrationModule.factory('referenceRepository', function($http) {
         },
         getFacturasDepto: function(objValues) {
 
-            console.log("aqui en repos",objValues);
+            
             return $http({
                 url: referenceURL + 'facturasDepto/',
                 method: "GET",

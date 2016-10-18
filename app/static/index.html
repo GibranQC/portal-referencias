@@ -9,7 +9,7 @@
     <meta name="author" content="name" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--Hojas de estilos-->
-    <link href="css/bootstrap.css" rel="stylesheet" />    
+    <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/toastr.css" rel="stylesheet" />
     <link href="css/angular-busy.css" rel="stylesheet" />
     <link href="datatables.min.css" rel="stylesheet" />
@@ -20,73 +20,26 @@
 </head>
 
 <body ng-app="registrationModule" style="background:#EAEAEA">
-        <div id="wrapper">
 
-        <div id="page-wrapper" class="gray-bg">
-            <div class="row border-bottom" style="background:#FFF">
-                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-                    <div class="navbar-header" style="margin:5px 20px 1px">
-                       <img alt="image"  src="/image/logoA.png" style="width:130px; height:60px"/>
-                        <!--a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href=""><i class="fa fa-bars"></i> </a-->
-                    </div>
-                    <div class="navbar-content clearfix">
-                    <ul class="nav navbar-top-links pull-left">
-
-                        <!--Navigation toogle button-->
-                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                        <li class="tgl-menu-btn">
-                            <a class="mainnav-toggle" href="#">
-                                <i class="demo-pli-view-list"></i>
-                            </a>
-                        </li>
-                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                        <!--End Navigation toogle button-->
-
-                    </ul>
-                    <ul class="nav navbar-top-links pull-right" style="margin-right:20px">
-
-                        <!--User dropdown-->
-                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                        <li id="dropdown-user" class="dropdown">
-                            <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
-                                <span class="pull-right">
-                                    <!--<img class="img-circle img-user media-object" src="img/profile-photos/1.png" alt="Profile Picture">-->
-                                    <i class="demo-pli-male ic-user"></i>
-                                </span>
-                                <div class="username hidden-xs" style="margin-top:15px">{{empleado[0].nombre}}</div>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-md dropdown-menu-right panel-default" 
-                                <!-- User dropdown menu -->
-                                <ul class="head-list">
-                                    <li>
-                                        <a href="#">
-                                            <i class="demo-pli-male icon-lg icon-fw"></i> Cerrar Sesión
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                        <!--End user dropdown-->
-
-                        <li>
-                            <a href="#" class="aside-toggle navbar-aside-icon">
-                                <i class="pci-ver-dots"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                </nav>
-            </div>
-            <div id="page-title">
-            <h4 class="page-header text-overflow ng-binding" style="margin-top:-20px">
-            </h4>
-            </div>
-            <div ng-view></div>
-        </div>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <img alt="image"  src="/image/logoA.png" style="width:130px;"/>
     </div>
+
+
+ <ul class="nav navbar-nav navbar-right">
+    <li><a href="#">{{empleado[0].nombre}}</a></li>
+    <li><a href="#"><span class="glyphicon glyphicon-user"> </span></a></li>
+        <li></li>
+    </ul>
+
+
+
+  </div>
+</nav>
+
+    <div ng-view></div>
     <!--Interface de usuario-->
     <script src="js/libs/toastr/toastr.min.js"></script>
     <!-- Librerias Angular-->
@@ -99,7 +52,7 @@
     <!--librerias de componenetes-->
     <script src="AngularJS/alertFactory.js"></script>
     <!--Controllers-->
-        <script src="AngularJS/Reference/referenceController.js"></script>
+    <script src="AngularJS/Reference/referenceController.js"></script>
     <script src="AngularJS/Reference/referenceRepository.js"></script>
 </body>
 

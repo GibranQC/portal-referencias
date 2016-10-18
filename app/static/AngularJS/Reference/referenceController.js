@@ -4,7 +4,7 @@ registrationModule.controller('referenceController', function($scope, alertFacto
     $scope.fechaHoy = new Date();
     $scope.searchTypeID = 1;
 
-    $scope.currentIDClient =0;
+    $scope.currentIDClient = 0;
 
     $scope.isWaiting = false;
 
@@ -42,12 +42,19 @@ registrationModule.controller('referenceController', function($scope, alertFacto
         $('#tblClient').DataTable().destroy();
         $('#loadModal').modal('show');
 
-
         referenceRepository.getClientByName(clientName).then(function(result) {
 
             if (result.data.length > 0) {
                 $scope.lstClient = result.data;
-                $('#loadModal').modal('hide');
+
+
+                setTimeout(function() {
+                    $scope.setTablePaging('tblClient');
+                    $("#tblClient_filter").removeClass("dataTables_info").addClass("hide-div");
+                    $('#loadModal').modal('hide');
+                }, 1000);
+
+
             } else { $('#loadModal').modal('hide'); }
         });
 
@@ -120,7 +127,7 @@ registrationModule.controller('referenceController', function($scope, alertFacto
                     $('#loadModal').modal('hide');
                 }, 1000);
 
-            } else {$('#loadModal').modal('hide');}
+            } else { $('#loadModal').modal('hide'); }
         });
 
     };
@@ -144,7 +151,7 @@ registrationModule.controller('referenceController', function($scope, alertFacto
                     $('#loadModal').modal('hide');
                 }, 1000);
 
-            } else {$('#loadModal').modal('hide');}
+            } else { $('#loadModal').modal('hide'); }
         });
 
     };
@@ -222,9 +229,8 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
 
 
-        $scope.storeParams.idCliente = $scope.currentIDClient ;
+        $scope.storeParams.idCliente = $scope.currentIDClient;
         $scope.storeParams.idEmpresas = idEmpresa;
-console.log($scope.storeParams);
         $scope.getFacturasEmp($scope.storeParams);
 
         $scope.getCompany.show = true;
@@ -245,11 +251,11 @@ console.log($scope.storeParams);
     // Función para selecciobnar el idSucursal y nombre 
     $scope.seletionBranchoOffice = function(idSucursal, nombreSucursal) {
 
-        $scope.storeParams.idCliente = $scope.currentIDClient ;
+        $scope.storeParams.idCliente = $scope.currentIDClient;
         $scope.storeParams.idEmpresas = $scope.idEmpresa;
         $scope.storeParams.idSucursales = idSucursal;
         $scope.getFacturasSuc($scope.storeParams);
-        console.log($scope.storeParams);
+
 
 
         $scope.idSucursal = idSucursal;
@@ -265,7 +271,7 @@ console.log($scope.storeParams);
         $scope.storeParams.idDepartamentos = idDepartamento;
 
 
-        console.log($scope.storeParams);
+
         $scope.getFacturasDepto($scope.storeParams);
 
 
