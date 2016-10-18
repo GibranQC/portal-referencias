@@ -360,19 +360,6 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
     $scope.generateReference = function(obj) {
         $scope.cotizacionDetalle = obj;
-        if(obj.tipoDocumento = 1)
-        {
-                wsData.idEmpresa = obj.idEmpresa;
-                wsData.idSucursal = obj.idSucursal;
-                wsData.idDepartamento = obj.idDepartamento;
-                wsData.idTipoDocumento = obj.tipoDocumento; //hardcore
-                wsData.serie = obj.serie;
-                wsData.folio = obj.folio;
-                wsData.idCliente = obj.idCliente;
-                wsData.idAlma = obj.estatus;
-        }
-        else
-        {
                 wsData.idEmpresa = obj.idEmpresa;
                 wsData.idSucursal = obj.idSucursal;
                 wsData.idDepartamento = obj.idDepartamento;
@@ -381,7 +368,6 @@ registrationModule.controller('referenceController', function($scope, alertFacto
                 wsData.folio = obj.idDocumento;
                 wsData.idCliente = obj.idCliente;
                 wsData.idAlma = obj.estatus;
-        }
 
     }
 

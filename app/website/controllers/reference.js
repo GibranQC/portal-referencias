@@ -23,7 +23,6 @@ var Reference = function (conf) {
 
 Reference.prototype.get_generarPdf = function (req, res, next) {
 
-
     var self = this;
        var params = [{
         name: 'referencia',
@@ -62,15 +61,6 @@ Reference.prototype.get_generarPdf = function (req, res, next) {
         });
     });
 };
-
-
-
-
-
-
-
-
-
 
 
 Reference.prototype.get_facturasAll = function (req, res, next) {
@@ -281,16 +271,6 @@ Reference.prototype.get_cotizacionDepto = function (req, res, next) {
 };
 
 
-
-
-
-
-
-
-
-
-
-
 Reference.prototype.get_clientByName = function (req, res, next) {
     //Con req.query se obtienen los parametros de la url
     //Ejemplo: ?p1=a&p2=b
@@ -313,16 +293,6 @@ Reference.prototype.get_clientByName = function (req, res, next) {
         });
     });
 };
-
-
-
-
-
-
-
-
-
-
 
 Reference.prototype.get_company = function (req, res, next) {
     //Con req.query se obtienen los parametros de la url

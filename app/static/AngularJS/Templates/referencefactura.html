@@ -236,7 +236,7 @@
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="fact in lstFactura">
-                                                <td>{{fact.idDocumento}}</td>
+                                                <td>{{fact.folio}}</td>
                                                 <td>{{fact.nombreSucursal}}</td>
                                                 <td>{{fact.origenMovimiento}}</td>
                                                 <td>{{fact.idCliente}}</td>
@@ -354,7 +354,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Documento {{cotizacionDetalle.tipoDocumento}}   {{cotizacionDetalle.idDocumento}}</h4>
+                <h4 class="modal-title">Documento    {{cotizacionDetalle.idDocumento}}</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -435,7 +435,7 @@
 <div id="loadModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div id="pnlAnimation">
-            <h1><b>Cargando...</b></h1>
+            <h1>Cargando...</h1>
         </div>
     </div>
 </div>
