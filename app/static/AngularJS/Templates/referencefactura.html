@@ -230,6 +230,7 @@
                                                 <th>Importe</th>
                                                 <th>Saldo</th>
                                                 <th>Fecha</th>
+                                                <th>Referencia</th>
                                                 <th>Generar Referencia</th>
                                             </tr>
                                         </thead>
@@ -240,9 +241,10 @@
                                                 <td>{{fact.origenMovimiento}}</td>
                                                 <td>{{fact.idCliente}}</td>
                                                 <td>{{fact.nombreCliente}}</td>
-                                                <td>{{fact.importe}}</td>
-                                                <td>{{fact.saldo}}</td>
+                                                <td>{{fact.importe | currency:"$":2}}</td>
+                                                <td>{{fact.saldo | currency:"$":2}}</td>
                                                 <td>{{fact.fecha}}</td>
+                                                <td>{{fact.referencia}}</td>
                                                 <td>
                                                     <button class="btn btn-default btn-icon btn-circle" data-toggle="modal" data-target="#myModal" ng-click="generateReference(fact)"><span class="glyphicon glyphicon-share"> </span></button>
                                                 </td>
@@ -281,7 +283,7 @@
                                                 <td>{{pedido.nombreDepartamento}}</td>
                                                 <td>{{pedido.idCliente}}</td>
                                                 <td>{{pedido.nombreCliente}}</td>
-                                                <td>{{pedido.saldo}}</td>
+                                                <td>{{pedido.saldo| currency:"$":2}}</td>
                                                 <td>{{pedido.fecha}}</td>
                                                 <td>{{pedido.referencia}}</td>
                                                 <td>

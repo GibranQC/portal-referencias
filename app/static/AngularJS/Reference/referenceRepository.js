@@ -255,10 +255,13 @@ registrationModule.factory('referenceRepository', function($http) {
             });
         },
         //Genera PDF
-        generarPdf: function() {
+        generarPdf: function(referencia) {
             return $http({
                 url: referenceURL + 'generarPdf/',
                 method: "GET",
+                 params: {
+                    referencia:referencia
+                 },
                 headers: {
                     'Content-Type': 'application/json'
                 }

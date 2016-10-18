@@ -3,7 +3,7 @@ registrationModule.controller('referenceController', function($scope, alertFacto
     $scope.message2 = 'Cargando PDF......';
     $scope.fechaHoy = new Date();
     $scope.searchTypeID = 1;
-
+    var wsData =[];
     $scope.currentIDClient = 0;
 
     $scope.isWaiting = false;
@@ -359,38 +359,29 @@ registrationModule.controller('referenceController', function($scope, alertFacto
     $scope.cotizacionDetalle = [];
 
     $scope.generateReference = function(obj) {
-
-
         $scope.cotizacionDetalle = obj;
-
-        /*
-
-                var wsData =[];
-
+        if(obj.tipoDocumento = 1)
+        {
                 wsData.idEmpresa = obj.idEmpresa;
                 wsData.idSucursal = obj.idSucursal;
                 wsData.idDepartamento = obj.idDepartamento;
-                wsData.idTipoDocumento = 2; //hardcore
-                wsData.serie = 0;
+                wsData.idTipoDocumento = obj.tipoDocumento; //hardcore
+                wsData.serie = obj.serie;
+                wsData.folio = obj.folio;
+                wsData.idCliente = obj.idCliente;
+                wsData.idAlma = obj.estatus;
+        }
+        else
+        {
+                wsData.idEmpresa = obj.idEmpresa;
+                wsData.idSucursal = obj.idSucursal;
+                wsData.idDepartamento = obj.idDepartamento;
+                wsData.idTipoDocumento = obj.tipoDocumento; //hardcore
+                wsData.serie = obj.serie;
                 wsData.folio = obj.idDocumento;
                 wsData.idCliente = obj.idCliente;
                 wsData.idAlma = obj.estatus;
-
-                //console.log(wsData);
-
-
-
-                $scope.referencia = "";
-
-                //$scope.departamentoss = departamento;
-                referenceRepository.getReferenceWS(wsData).then(function(result) {
-                    if (result.data.length > 0) {
-                        console.log($scope.referencia);
-                        $scope.referencia = result.data;
-                    } else {}
-                });
-        */
-
+        }
 
     }
 
@@ -400,13 +391,24 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
     //Genera el pdf
     $scope.generarPdf = function() {
-        $scope.promise = referenceRepository.generarPdf().then(function(response) {
-            $scope.url = response.config.url;
-            window.open($scope.url, "ventana1", "width=700,height=500,scrollbars=NO");
-            $scope.selectBank();
-            alertFactory.success('Se genero el pdf');
-        });
-    };
+       $scope.referencia = "";
+       referenceRepository.getReferenceWS(wsData).then(function(result) {
+           if (result.data.length > 0) {
+               console.log($scope.referencia);
+               $scope.referencia = result.data;
+
+               referenceRepository.generarPdf($scope.referencia).then(function(response) {
+                 if (response.data.length > 0) {
+                    $scope.content = false;
+                  $scope.url = response.config.url;
+                   window.open($scope.url+"?referencia="+$scope.referencia, "ventana1", "width=700,height=500,scrollbars=NO");
+                   $scope.selectBank();
+         alertFactory.success('Se genero el pdf');
+               }
+               });
+           } else {}
+       });
+   };
 
     $scope.getEmpleado = function() {
         referenceRepository.getEmpleado($scope.idUsuario).then(function(result) {
