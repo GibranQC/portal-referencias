@@ -561,11 +561,12 @@ registrationModule.controller('referenceController', function($scope, alertFacto
                 wsData.folio = obj.idDocumento;
                 wsData.idCliente = obj.idCliente;
                 wsData.idAlma = obj.estatus;
+                $scope.tipoDocumentos = obj.tipoDocumento;
                 $scope.nombreDepartamento = obj.nombreDepartamento;  
                 $scope.nombreSucursal = obj.nombreSucursal; 
                 $scope.nombreCliente = obj.nombreCliente;
                 $scope.saldo = obj.saldo;
-                $scope.idDocumento = obj.idDocumento;   
+                $scope.idDocumento =  obj.idDocumento;   
                 $scope.nombreEmpresa = obj.nombreEmpresa;
                 $scope.serie = obj.serie;  
 
@@ -600,11 +601,38 @@ registrationModule.controller('referenceController', function($scope, alertFacto
            if (result.data.length > 0) {
             console.log($scope.nombreEmpresa)
                $scope.referencia = result.data;
-               referenceRepository.generarPdf($scope.referencia,$scope.nombreSucursal,$scope.nombreDepartamento,
-                                                $scope.idDocumento,$scope.nombreCliente,$scope.saldo,$scope.nombreEmpresa
+               console.log($scope.tipoDocumentos + 'TipoDocu')
+               if($scope.tipoDocumentos == 1){
+                $scope.folioSerie = $scope.serie + $scope.idDocumento;
+                console.log($scope.folioSerie+'serie y folio tipo doc 1')
+                referenceRepository.generarPdf($scope.referencia,$scope.nombreSucursal,$scope.nombreDepartamento,
+                                                $scope.folioSerie,$scope.nombreCliente,$scope.saldo,$scope.nombreEmpresa
                                                 ,$scope.serie).then(function(response) {
                  if (response.data.length > 0) {
                     $scope.content = false;
+                  $scope.url = response.config.url;
+                   window.open($scope.url+"?referencia="+$scope.referencia+
+                    '&nombreSucursal='+$scope.nombreSucursal+
+                    '&nombreDepartamento='+$scope.nombreDepartamento+
+                    '&idDocumento='+$scope.folioSerie+
+                    '&nombreCliente='+$scope.nombreCliente+
+                    '&saldo='+$scope.saldo+
+                    '&nombreEmpresa='+$scope.nombreEmpresa+
+                    '&serie='+$scope.serie , "ventana1", "width=700,height=500,scrollbars=NO");
+                   //$scope.selectBank();
+         alertFactory.success('Se genero el pdf');
+         $('#pnlProgress').modal('hide');
+               }
+               });
+
+               }else{
+
+               referenceRepository.generarPdf($scope.referencia,$scope.nombreSucursal,$scope.nombreDepartamento,
+                                            $scope.idDocumento,$scope.nombreCliente,$scope.saldo,$scope.nombreEmpresa
+                                            ,$scope.serie).then(function(response) {
+                 if (response.data.length > 0) {
+                    $scope.content = false;
+                    console.log('serie y folio tipo doc 2,3,4,5');
                   $scope.url = response.config.url;
                    window.open($scope.url+"?referencia="+$scope.referencia+
                     '&nombreSucursal='+$scope.nombreSucursal+
@@ -619,6 +647,7 @@ registrationModule.controller('referenceController', function($scope, alertFacto
          $('#pnlProgress').modal('hide');
                }
                });
+            }
            } else {$('#pnlProgress').modal('hide');}
        });
    };
