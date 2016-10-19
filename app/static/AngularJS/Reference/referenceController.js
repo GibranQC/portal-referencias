@@ -594,6 +594,8 @@ registrationModule.controller('referenceController', function($scope, alertFacto
     //Genera el pdf
     $scope.generarPdf = function() {
        $scope.referencia = "";
+
+       $('#pnlProgress').modal('show');
        referenceRepository.getReferenceWS(wsData).then(function(result) {
            if (result.data.length > 0) {
             console.log($scope.nombreEmpresa)
@@ -614,9 +616,10 @@ registrationModule.controller('referenceController', function($scope, alertFacto
                     '&serie='+$scope.serie , "ventana1", "width=700,height=500,scrollbars=NO");
                    //$scope.selectBank();
          alertFactory.success('Se genero el pdf');
+         $('#pnlProgress').modal('hide');
                }
                });
-           } else {}
+           } else {$('#pnlProgress').modal('hide');}
        });
    };
 /*
