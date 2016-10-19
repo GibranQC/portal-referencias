@@ -1,101 +1,4 @@
-<style>
-.ibox {
-    clear: both;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    padding: 0;
-}
-
-.ibox-title {
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-    background-color: #ffffff;
-    border-color: #e7eaec;
-    border-image: none;
-    border-style: solid solid none;
-    border-width: 3px 0 0;
-    color: inherit;
-    margin-bottom: 0;
-    padding: 14px 15px 7px;
-    min-height: 48px;
-}
-
-.ibox-tools {
-    display: block;
-    float: none;
-    margin-top: 0;
-    position: relative;
-    padding: 0;
-    text-align: right;
-}
-
-.ibox-content {
-    clear: both;
-}
-
-.ibox-content {
-    background-color: #ffffff;
-    color: inherit;
-    padding: 15px 20px 20px 20px;
-    border-color: #e7eaec;
-    border-image: none;
-    border-style: solid solid none;
-    border-width: 1px 0;
-}
-
-.lineal {
-    display: inline-block;
-}
-
-.input-modify {
-    width: 100%;
-    height: 34px;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-}
-
-.hide-div {
-    display: none;
-}
-
-@keyframes example {
-    from {
-        color: white;
-    }
-    to {
-        color: #00CDAC;
-    }
-}
-
-
-/* The element to apply the animation to */
-
-#pnlAnimation {
-    width: 300px;
-    height: 500px;
-    color: white;
-    padding: 220px;
-    animation-name: example;
-    animation-duration: 2s;
-    -webkit-animation-iteration-count: infinite;
-    /* Chrome, Safari, Opera */
-    animation-iteration-count: infinite;
-}
-</style>
-<div ng-init="init()" cg-busy="{promise:promise,message:message}">
+<div ng-init="init()">
     <div id="page-title">
         <h4 style="margin-left:112px">{{nombreEmpresa}} <span ng-show="idEmpresa != null" class="ng-binding ng-hide">/ {{nombreSucursal}}  </span><span ng-show="idDepartamento != null" class="ng-binding ng-hide">/ {{nombreDepartamento}} </span> </h4>
     </div>
@@ -406,7 +309,7 @@
                         </p>
                     </div>
                 </div>
-               <!--  <div class="row">
+                <!--  <div class="row">
                     <div class="col-sm-4">
                         <input type="image" src="/image/banamex_logo.jpg" alt="Submit" style="width:140px;">
                     </div>
@@ -435,8 +338,12 @@
 <!-- Modal 2-->
 <div id="loadModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
-        <div id="pnlAnimation">
-            <h1>Cargando...</h1>
+        <div class="sk-folding-cube">
+            <div class="sk-cube1 sk-cube"></div>
+            <div class="sk-cube2 sk-cube"></div>
+            <div class="sk-cube4 sk-cube"></div>
+            <div class="sk-cube3 sk-cube"></div>
         </div>
+        <div style="color:white;margin-left: 40%; margin-top:20px">Cargando...</div>
     </div>
 </div>
