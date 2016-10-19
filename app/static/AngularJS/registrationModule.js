@@ -5,7 +5,7 @@
 // -- Modificó: 
 // -- Fecha: 
 // -- =============================================
-var registrationModule = angular.module("registrationModule", ["ngRoute"])
+var registrationModule = angular.module("registrationModule", ["ngRoute","LocalStorageModule"])
     .config(function($routeProvider, $locationProvider) {
 
         /*cheange the routes*/
@@ -34,3 +34,7 @@ registrationModule.directive('resize', function($window) {
         changeHeight(); // when page loads          
     };
 });
+registrationModule.run(function($rootScope) {
+    $rootScope.var = "full";
+
+})

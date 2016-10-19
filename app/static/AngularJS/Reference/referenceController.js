@@ -22,7 +22,7 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
     //this is the first method executed in the view
     $scope.init = function() {
-        $scope.idUsuario = 16;
+        $scope.idUsuario = 15;
         $scope.getCompany.show = false;
         $scope.selectTypeDoc.show = false;
         $scope.getEmpleado();
@@ -30,6 +30,22 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
         $scope.setTablePaging('prueba');
         $scope.searchType = "ID cliente";
+               /* if (!($('#lgnUser').val().indexOf('[') > -1)) {
+                localStorageService.set('lgnUser', $('#lgnUser').val());
+                $scope.getEmpleado();
+                location.href = '/newUnits';
+            } else {
+                if (($('#lgnUser').val().indexOf('[') > -1) && !localStorageService.get('lgnUser')) {
+                    if (getParameterByName('employee') != '') {
+                        $rootScope.currentEmployee = getParameterByName('employee');
+                        location.href = '/newUnits';
+                    } else {
+                        alert('Inicie sesión desde panel de aplicaciones o desde el login.');
+                    }
+
+                }
+            }
+        $rootScope.currentEmployee = localStorageService.get('lgnUser');*/
 
 
     };
@@ -545,6 +561,9 @@ registrationModule.controller('referenceController', function($scope, alertFacto
                 wsData.folio = obj.idDocumento;
                 wsData.idCliente = obj.idCliente;
                 wsData.idAlma = obj.estatus;
+                wsData.idNombreCliente = obj.nombreCliente;
+                wsData.nombreSucursal = obj.nombreSucursal;
+                wsData.nombreDepartamento = obj.nombreDepartamento;
 
                 //console.log(wsData);
 
@@ -580,7 +599,7 @@ registrationModule.controller('referenceController', function($scope, alertFacto
                  if (response.data.length > 0) {
                     $scope.content = false;
                   $scope.url = response.config.url;
-                   window.open($scope.url+"?referencia="+$scope.referencia, "ventana1", "width=700,height=500,scrollbars=NO");
+                   window.open($scope.url+"?referencia="+$scope.referencia + wsData, "ventana1", "width=700,height=500,scrollbars=NO");
                    $scope.selectBank();
          alertFactory.success('Se genero el pdf');
                }

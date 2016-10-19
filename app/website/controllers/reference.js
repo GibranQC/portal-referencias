@@ -28,7 +28,6 @@ Reference.prototype.get_generarPdf = function (req, res, next) {
         value: req.query.referencia,
         type: self.model.types.STRING
     }]
-    console.log('estamos aqui en Selecciona un contrato');
 
     phantom.create().then(function (ph) {
         ph.createPage().then(function (page) {
@@ -44,18 +43,13 @@ Reference.prototype.get_generarPdf = function (req, res, next) {
                     console.log(req.query.referencia,'pdf');
                     page.close();
                     ph.exit();
-                    console.log('Page Rendered2');
                     setTimeout(function () {
                         console.log(req.query.referencia,'pdf2');
                         res.sendFile("Reporte_90.pdf", {
                             root: path.join(__dirname, '../../../')
                         });
-                        console.log(req.query.referencia,'entro al sendfile');
-                        console.log('Page Rendered3');
                     }, 1)
-                console.log('Page termina semi');
                 });
-                console.log('Page termina');
             });
         });
     });
@@ -354,7 +348,9 @@ Reference.prototype.get_company = function (req, res, next) {
 
     this.model.query('SEL_EMPRESA_SP', params, function (error, result) {
         //self.view.expositor( 
-        res.render('referencia.html',{referencia:req.query.referencia} );//,{
+       // var query = '';
+        //query = result;
+        res.render('referencia.html',{referencia:req.query.referencia});//,{
             console.log(req.query.referencia,'funcion company asignacion')
             self.view.expositor({ error: error,
             result: result

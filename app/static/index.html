@@ -30,6 +30,9 @@
 
  <ul class="nav navbar-nav navbar-right">
     <li><a href="#">{{empleado[0].nombre}}</a></li>
+             <!--div class="main">
+                <input type="hidden" id="lgnUser" value="[[ user.idUsuario ]]">                  
+         </div-->
     <li><a href="#"><span class="glyphicon glyphicon-user"> </span></a></li>
         <li></li>
     </ul>
@@ -39,12 +42,14 @@
   </div>
 </nav>
 
-    <div ng-view></div>
+    <div ng-view>
+    </div>
     <!--Interface de usuario-->
     <script src="js/libs/toastr/toastr.min.js"></script>
     <!-- Librerias Angular-->
     <script src="js/libs/angular/angular.min.js"></script>
     <script src="js/libs/angular/angular-route.min.js"></script>
+     <script src="js/libs/angular/angular-local-storage.min.js"></script>
     <!--Funciones Comunes-->
     <script src="confront.js"></script>
     <!--Librerias de aplicación angular-->
