@@ -294,12 +294,18 @@ registrationModule.factory('referenceRepository', function($http) {
             });
         },
         //Genera PDF
-        generarPdf: function(referencia) {
+        generarPdf: function(referencia,nombreSucursal,nombreDepartamento,nombreCliente,saldo,idDocumento,nombreEmpresa) {
             return $http({
                 url: referenceURL + 'generarPdf/',
                 method: "GET",
                  params: {
-                    referencia:referencia
+                    referencia:referencia,
+                    nombreSucursal:nombreSucursal,
+                    nombreDepartamento:nombreDepartamento,
+                    nombreCliente:nombreCliente,
+                    saldo:saldo,
+                    idDocumento:idDocumento,
+                    nombreEmpresa:nombreEmpresa
                  },
                 headers: {
                     'Content-Type': 'application/json'

@@ -22,7 +22,7 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
     //this is the first method executed in the view
     $scope.init = function() {
-        $scope.idUsuario = 15;
+        $scope.idUsuario = 16;
         $scope.getCompany.show = false;
         $scope.selectTypeDoc.show = false;
         $scope.getEmpleado();
@@ -376,7 +376,7 @@ registrationModule.controller('referenceController', function($scope, alertFacto
         $('#loadModal').modal('show');
 
 
-        referenceRepository.getPedidosSuc(obj).then(function(result) {
+        referenceRepository.getCotizacionSuc(obj).then(function(result) {
 
             if (result.data.length > 0) {
                 $scope.lstCotizacion = result.data;
@@ -399,7 +399,7 @@ registrationModule.controller('referenceController', function($scope, alertFacto
         $('#loadModal').modal('show');
 
 
-        referenceRepository.getPedidosDepto(obj).then(function(result) {
+        referenceRepository.getCotizacionDepto(obj).then(function(result) {
 
             if (result.data.length > 0) {
                 $scope.lstCotizacion = result.data;
@@ -552,7 +552,7 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
     $scope.generateReference = function(obj) {
         $scope.cotizacionDetalle = obj;
-
+                wsData.nombreEmpresa = obj.nombreEmpresa;
                 wsData.idEmpresa = obj.idEmpresa;
                 wsData.idSucursal = obj.idSucursal;
                 wsData.idDepartamento = obj.idDepartamento;
@@ -561,9 +561,12 @@ registrationModule.controller('referenceController', function($scope, alertFacto
                 wsData.folio = obj.idDocumento;
                 wsData.idCliente = obj.idCliente;
                 wsData.idAlma = obj.estatus;
-                wsData.idNombreCliente = obj.nombreCliente;
-                wsData.nombreSucursal = obj.nombreSucursal;
-                wsData.nombreDepartamento = obj.nombreDepartamento;
+                $scope.nombreDepartamento = obj.nombreDepartamento;  
+                $scope.nombreSucursal = obj.nombreSucursal; 
+                $scope.nombreCliente = obj.nombreCliente;
+                $scope.saldo = obj.saldo;
+                $scope.idDocumento = obj.idDocumento;   
+                $scope.nombreEmpresa = obj.nombreEmpresa;  
 
                 //console.log(wsData);
 
@@ -592,15 +595,20 @@ registrationModule.controller('referenceController', function($scope, alertFacto
        $scope.referencia = "";
        referenceRepository.getReferenceWS(wsData).then(function(result) {
            if (result.data.length > 0) {
-               console.log($scope.referencia);
                $scope.referencia = result.data;
-
-               referenceRepository.generarPdf($scope.referencia).then(function(response) {
+               referenceRepository.generarPdf($scope.referencia,$scope.nombreSucursal,$scope.nombreDepartamento,
+                                                $scope.idDocumento,$scope.nombreCliente,$scope.saldo,$scope.nombreEmpresa).then(function(response) {
                  if (response.data.length > 0) {
                     $scope.content = false;
                   $scope.url = response.config.url;
-                   window.open($scope.url+"?referencia="+$scope.referencia + wsData, "ventana1", "width=700,height=500,scrollbars=NO");
-                   $scope.selectBank();
+                   window.open($scope.url+"?referencia="+$scope.referencia+
+                    '&nombreSucursal='+$scope.nombreSucursal+
+                    '&nombreDepartamento='+$scope.nombreDepartamento+
+                    '&idDocumento='+$scope.idDocumento+
+                    '&nombreCliente='+$scope.nombreCliente+
+                    '&saldo='+$scope.saldo+
+                    '&nombreEmpresa='+$scope.nombreEmpresa , "ventana1", "width=700,height=500,scrollbars=NO");
+                   //$scope.selectBank();
          alertFactory.success('Se genero el pdf');
                }
                });

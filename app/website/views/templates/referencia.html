@@ -18,7 +18,7 @@
       CONCEPTO DE COBRO
     </div>
     <div style="padding: 4px 8px;">
-      Referencia de pago para el/la {{tipoDocumento}} {{idDocumento}}
+      Referencia de pago para documento: {{tipoDocumento}} {{idDocumento}}
     </div>
     <div style="background-color: blue;color:white;padding:4px 8px;">
       <div style="display:inline-block; width:59%;">
@@ -30,20 +30,21 @@
     </div>
     <div class="">
       <div style="display:inline-block; width:48%; height:100px; padding: 4px 8px; box-sizing: border-box;">
-        Empresa: {{query.emp_nombre}}
-        <BR/>
+        Empresa: {{emp_nombre}}
+        <br/>
         Cliente: {{nombreCliente}}
-        <BR/>
+<br/>
          Sucursal: {{nombreSucursal}}
-         <BR/>
+<br/>
          Departamento: {{nombreDepartamento}}
-         <BR/>
+<br/>
+         Documento: {{idDocumento}}
       </div>
       <div style="display:inline-block; width:28%;height:100px; padding: 4px 8px; box-sizing: border-box; border-left: 2px solid blue;">
-        ABONO A LA {{tipoDocumento}} FOLIO: {{idDocumento}}
+        Abono a  {{tipoDocumento}} Documento: {{idDocumento}}
       </div>
       <div style="display:inline-block; width:18%;height:100px; padding: 4px 8px; box-sizing: border-box; border-left: 2px solid blue;">
-        Parte 3
+        Monto total {{saldo}}
       </div>
     </div>
   </div>
@@ -73,7 +74,7 @@
     width: 100%;
     display: block;
     margin: 6px 0;">
-        {{referencia}}
+        {{referencias}}
       </span>
     </div>
   </div>
@@ -94,7 +95,7 @@
         
       </div>
       <div style="display:block;  margin:4px 0px 4px 1%;  border: 2px solid blue; border-radius:12px; box-sizing: border-box;">
-        <span style="border-radius: 10px 10px 0 0;background-color: blue;display:block;color:white;padding:2px 16px;">CONCEPTO DE COBRO</span>
+        <span style="border-radius: 10px 10px 0 0;background-color: blue;display:block;color:white;padding:2px 16px;">CONCEPTO DE ABONO</span>
         <br>
         <br>
         <br>
@@ -107,7 +108,7 @@
       width: 100%;
       display: block;
       margin: 6px 0;">
-          {{referencia}}
+          {{referencias}}
         </span>
       </div>
     </div>
@@ -119,6 +120,7 @@
         <br>
         <br>
     <div class="">
+    <span style="display:block; text-align:center;font-size:10px;margin-bottom:4px;">Se puede pagar en cualquiera de estas sucursales</span>
      <div style="text-align:center;">
       <div style="display:inline-block; width:100%;">
           <div style="display:inline-block; width:20%">
