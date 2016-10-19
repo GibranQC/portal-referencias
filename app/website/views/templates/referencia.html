@@ -8,7 +8,7 @@
 
 <body style="font-size:10px; margin: 0;padding: 30px;">
   <div style="text-align:center;">
-    <img src="../image/logoa.png" alt="" style="height: 60px;">
+    <img src="logoa.png" alt="" style="height: 60px;">
   </div>
   <div style="background-color: blue; margin:0px -30px; height:14px;">
   </div>
@@ -18,7 +18,7 @@
       CONCEPTO DE COBRO
     </div>
     <div style="padding: 4px 8px;">
-      Concepto
+      Referencia de pago para el/la {{tipoDocumento}} {{idDocumento}}
     </div>
     <div style="background-color: blue;color:white;padding:4px 8px;">
       <div style="display:inline-block; width:59%;">
@@ -30,10 +30,17 @@
     </div>
     <div class="">
       <div style="display:inline-block; width:48%; height:100px; padding: 4px 8px; box-sizing: border-box;">
-        Parte 1
+        Empresa: {{nombreEmpresa}}
+        <BR/>
+        Cliente: {{nombreCliente}}
+        <BR/>
+         Sucursal: {{nombreSucursal}}
+         <BR/>
+         Departamento: {{nombreDepartamento}}
+         <BR/>
       </div>
       <div style="display:inline-block; width:28%;height:100px; padding: 4px 8px; box-sizing: border-box; border-left: 2px solid blue;">
-        Parte 2
+        ABONO A LA {{tipoDocumento}} FOLIO: {{idDocumento}}
       </div>
       <div style="display:inline-block; width:18%;height:100px; padding: 4px 8px; box-sizing: border-box; border-left: 2px solid blue;">
         Parte 3
@@ -59,7 +66,7 @@
       <br>
       <span style="display:block; text-align:center;">____________________________________________</span>
       <span style="display:block; text-align:center;font-size:8px;margin-bottom:4px;">NOMBRE Y FIRMA DEL CLIENTE</span>
-      <span style="background-color: blue;display:block;color:white;text-align:center;padding:2px;">LÍNEA DE CAPTURA</span>
+      <span style="background-color: blue;display:block;color:white;text-align:center;padding:2px;">REFERENCIA</span>
       <span style="
     font-size: 15px;
     text-align: center;
@@ -75,7 +82,7 @@
 
     </div>
     <div style="box-sizing: border-box; width:48.5%; display:inline-block;">
-      <img src="[[barcode]]" />'
+      <!--img src="[[barcode]]" />'-->
     </div>
   </div>
   <div style="border:dashed 1px blue; margin:0px -30px;">
@@ -84,7 +91,9 @@
   <div class="">
     <div style="box-sizing: border-box; width:48.5%; display:inline-block;">
       <div style="text-align:center;">
-        <img src="/images/logoA.png" alt="" style="height: 40px;">
+        <img src="banamex_logo.jpg" alt="" style="height: 40px;"> 
+        <img src="bancomer.jpg" alt="" style="height: 40px;"> 
+        <img src="santander_logo.jpg" alt="" style="height: 40px;"> 
       </div>
       <div style="display:block;  margin:4px 0px 4px 1%;  border: 2px solid blue; border-radius:12px; box-sizing: border-box;">
         <span style="border-radius: 10px 10px 0 0;background-color: blue;display:block;color:white;padding:2px 16px;">CONCEPTO DE COBRO</span>
@@ -93,7 +102,7 @@
         <br>
         <br>
         <br>
-        <span style="background-color: blue;display:block;color:white;text-align:center;padding:2px;">LÍNEA DE CAPTURA</span>
+        <span style="background-color: blue;display:block;color:white;text-align:center;padding:2px;">REFERENCIA</span>
         <span style="
       font-size: 15px;
       text-align: center;

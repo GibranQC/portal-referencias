@@ -140,6 +140,45 @@ registrationModule.factory('referenceRepository', function($http) {
                 }
 
             });
+        },//get_cotizacionAllIdDoc get_facturaAllIdDoc get_pedidoAllIdDoc
+         getCotizacionAllIdDoc: function(idDocumento) {
+            return $http({
+                url: referenceURL + 'cotizacionAllIdDoc/',
+                method: "GET",
+                params: {
+                    idDocumento: idDocumento
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+        getFacturaAllIdDoc : function(idDocumento) {
+            return $http({
+                url: referenceURL + 'facturaAllIdDoc/',
+                method: "GET",
+                params: {
+                    idDocumento: idDocumento
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+        getpedidoAllIdDoc : function(idDocumento) {
+            return $http({
+                url: referenceURL + 'pedidoAllIdDoc/',
+                method: "GET",
+                params: {
+                    idDocumento: idDocumento
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
         },
         getCotizacionAll: function(idCliente) {
             return $http({

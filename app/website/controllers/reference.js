@@ -216,6 +216,50 @@ Reference.prototype.get_cotizacionAll = function (req, res, next) {
     });
 };
 
+
+Reference.prototype.get_cotizacionAllIdDoc = function (req, res, next) {
+
+    var self = this;
+
+    var params = [{name: 'idDocumento',value: req.query.idDocumento ,type: self.model.types.STRING}];
+
+    this.model.query('SEL_TOTAL_COTIZACIONES_TODAS_IDDOC__SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+
+Reference.prototype.get_facturaAllIdDoc = function (req, res, next) {
+
+    var self = this;
+
+    var params = [{name: 'idDocumento',value: req.query.idDocumento ,type: self.model.types.STRING}];
+
+    this.model.query('SEL_TOTAL_FACTURAS_TODOS_IDDOC_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+
+Reference.prototype.get_pedidoAllIdDoc = function (req, res, next) {
+
+    var self = this;
+
+    var params = [{name: 'idDocumento',value: req.query.idDocumento ,type: self.model.types.STRING}];
+
+    this.model.query('SEL_TOTAL_PEDIDOS_TODOS__IDDOCSP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+
+
 Reference.prototype.get_cotizacionEmp = function (req, res, next) {
 
     var self = this;

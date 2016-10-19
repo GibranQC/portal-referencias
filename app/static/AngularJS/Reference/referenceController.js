@@ -60,8 +60,30 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
     };
 
+   
 
     $scope.lstFactura = [];
+
+    $scope.getFacturaAllIdDoc = function(clientId) {
+        $scope.lstFactura = '';
+        $('#tblFactura').DataTable().destroy();
+        $('#loadModal').modal('show');
+
+
+        referenceRepository.getFacturaAllIdDoc(clientId).then(function(result) {
+
+            if (result.data.length > 0) {
+                $scope.lstFactura = result.data;
+                setTimeout(function() {
+                    $scope.setTablePaging('tblFactura');
+                    $("#tblFactura_filter").removeClass("dataTables_info").addClass("hide-div");
+                    $('#loadModal').modal('hide');
+                }, 1000);
+
+            } else { $('#loadModal').modal('hide'); }
+        });
+
+    };
 
     $scope.getFacturasAll = function(clientId) {
         $scope.lstFactura = '';
@@ -159,8 +181,28 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
 
 
-
     $scope.lstPedido = [];
+
+    $scope.getpedidoAllIdDoc = function(clientId) {
+        $scope.lstPedido = '';
+        $('#tblPedido').DataTable().destroy();
+
+        referenceRepository.getpedidoAllIdDoc(clientId).then(function(result) {
+
+            if (result.data.length > 0) {
+                $scope.lstPedido = result.data;
+
+                setTimeout(function() {
+                    $scope.setTablePaging('tblPedido');
+                    $("#tblPedido_filter").removeClass("dataTables_info").addClass("hide-div");
+                    $('#loadModal').modal('hide');
+
+                }, 1000);
+
+            } else {}
+        });
+
+    };
 
     $scope.getPedidosAll = function(clientId) {
         $scope.lstPedido = '';
@@ -247,10 +289,32 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
     };
 
-
+//  
     $scope.lstCotizacion = [];
 
-    $scope.getCotizacionAll = function(idCliente) {
+    $scope.getCotizacionAllIdDoc = function(idCliente) {
+
+        $scope.lstCotizacion = '';
+        $('#tblReference').DataTable().destroy();
+
+        referenceRepository.getCotizacionAllIdDoc(idCliente).then(function(result) {
+
+            if (result.data.length > 0) {
+                $scope.lstCotizacion = result.data;
+
+                setTimeout(function() {
+                    $scope.setTablePaging('tblReference');
+                    $("#tblReference_filter").removeClass("dataTables_info").addClass("hide-div");
+                    $('#loadModal').modal('hide');
+
+                }, 1000);
+
+            } else {}
+        });
+
+    };
+
+        $scope.getCotizacionAll = function(idCliente) {
 
         $scope.lstCotizacion = '';
         $('#tblReference').DataTable().destroy();
@@ -345,9 +409,6 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
     // Función para selecciobnar el idEmpresa y nombre 
     $scope.seletionCompany = function(idEmpresa, nombreEmpresa) {
-
-
-
         $scope.storeParams.idCliente = $scope.currentIDClient;
         $scope.storeParams.idEmpresas = idEmpresa;
         $scope.getFacturasEmp($scope.storeParams);
@@ -640,10 +701,21 @@ registrationModule.controller('referenceController', function($scope, alertFacto
             $scope.nombreEmpresa = '';
             $scope.idEmpresa = null;
         } else {
+            if($scope.searchTypeID == 2){
             $scope.nombreEmpresa = '';
             $scope.idEmpresa = null;
             $scope.getClient($scope.txtSearchClient);
             $scope.showPanel = true;
+        }else{
+            $scope.nombreEmpresa = '';
+            $scope.idEmpresa = null;
+            $scope.currentIDDocumento = $scope.txtSearchClient;
+            //$scope.getClient($scope.txtSearchClient);
+            $scope.getFacturaAllIdDoc($scope.currentIDDocumento);
+            $scope.getpedidoAllIdDoc($scope.currentIDDocumento);
+            $scope.getCotizacionAllIdDoc($scope.currentIDDocumento);
+            //$scope.showPanel = true;
+        }
         }
     }
 
