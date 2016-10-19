@@ -294,7 +294,7 @@ registrationModule.factory('referenceRepository', function($http) {
             });
         },
         //Genera PDF
-        generarPdf: function(referencia,nombreSucursal,nombreDepartamento,nombreCliente,saldo,idDocumento,nombreEmpresa) {
+        generarPdf: function(referencia,nombreSucursal,nombreDepartamento,nombreCliente,saldo,idDocumento,nombreEmpresa,serie) {
             return $http({
                 url: referenceURL + 'generarPdf/',
                 method: "GET",
@@ -305,7 +305,8 @@ registrationModule.factory('referenceRepository', function($http) {
                     nombreCliente:nombreCliente,
                     saldo:saldo,
                     idDocumento:idDocumento,
-                    nombreEmpresa:nombreEmpresa
+                    nombreEmpresa:nombreEmpresa,
+                    serie:serie
                  },
                 headers: {
                     'Content-Type': 'application/json'

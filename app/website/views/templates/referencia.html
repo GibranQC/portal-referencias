@@ -18,7 +18,7 @@
       CONCEPTO DE COBRO
     </div>
     <div style="padding: 4px 8px;">
-      Referencia de pago para documento: {{tipoDocumento}} {{idDocumento}}
+      Referencia de pago para documento: {{serie}}{{idDocumento}}
     </div>
     <div style="background-color: blue;color:white;padding:4px 8px;">
       <div style="display:inline-block; width:59%;">
@@ -30,7 +30,7 @@
     </div>
     <div class="">
       <div style="display:inline-block; width:48%; height:100px; padding: 4px 8px; box-sizing: border-box;">
-        Empresa: {{emp_nombre}}
+        Empresa: {{nombreEmpresa}}
         <br/>
         Cliente: {{nombreCliente}}
 <br/>
@@ -38,13 +38,13 @@
 <br/>
          Departamento: {{nombreDepartamento}}
 <br/>
-         Documento: {{idDocumento}}
+         Documento: {{serie}}{{idDocumento}}
       </div>
       <div style="display:inline-block; width:28%;height:100px; padding: 4px 8px; box-sizing: border-box; border-left: 2px solid blue; vertical-align:top">
-        Abono a  {{tipoDocumento}} Documento: {{idDocumento}}
+        Abono a  {{tipoDocumento}} Documento: {{serie}}{{idDocumento}}
       </div>
       <div style="display:inline-block; width:18%;height:100px; padding: 4px 8px; box-sizing: border-box; border-left: 2px solid blue; vertical-align:top">
-        Monto total {{saldo}}
+        Monto total ${{saldo}}
       </div>
     </div>
   </div>

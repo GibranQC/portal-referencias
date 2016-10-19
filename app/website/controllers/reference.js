@@ -23,6 +23,19 @@ var Reference = function (conf) {
 
 Reference.prototype.get_generarPdf = function (req, res, next) {
     var self = this;
+    if(req.query.serie ==null || req.query.serie == undefined){
+        var params = [{
+        name: 'serie',
+        value: '',
+        type: self.model.types.STRING
+    }]
+    }else{
+        var params = [{
+        name: 'serie',
+        value: req.query.serie,
+        type: self.model.types.STRING
+    }]
+    }
        var params = [{
         name: 'referencia',
         value: req.query.referencia,
@@ -69,13 +82,14 @@ Reference.prototype.get_generarPdf = function (req, res, next) {
     phantom.create().then(function (ph) {
         ph.createPage().then(function (page) {
             page.viewportSize = {
-                width: 500,
-                height: 400
+                format: "A4",
+                orientation: 'portrait',
+                margin: '0cm'
             };
             console.log('creo pdf')
             page.open("http://localhost:4430/api/reference/company?referencia=" + req.query.referencia +'&nombreSucursal='+req.query.nombreSucursal+'&nombreDepartamento='+req.query.nombreDepartamento+
                         '&idDocumento='+req.query.idDocumento+'&nombreCliente='+req.query.nombreCliente+'&saldo='+req.query.saldo+
-                        '&nombreEmpresa='+req.query.nombreEmpresa).then(function (status) {
+                        '&nombreEmpresa='+req.query.nombreEmpresa+'&serie='+params.serie).then(function (status) {
                 page.render('Reporte_90.pdf').then(function () {
                     page.close();
                     ph.exit();
@@ -99,6 +113,19 @@ Reference.prototype.get_company = function (req, res, next) {
     //Referencia a la clase para callback
     var self = this;
     //asignación de valores mediante parámetros del request
+    if(req.query.serie =='null' || req.query.serie == 'undefined'){
+        var params = [{
+        name: 'serie',
+        value: '',
+        type: self.model.types.STRING
+    }]
+    }else{
+        var params = [{
+        name: 'serie',
+        value: req.query.serie,
+        type: self.model.types.STRING
+    }]
+    }
     var params = [{
         name: 'referencia',
         value: req.query.referencia,
@@ -141,7 +168,8 @@ Reference.prototype.get_company = function (req, res, next) {
                                         idDocumento:req.query.idDocumento,
                                          saldo:req.query.saldo, 
                                          nombreCliente:req.query.nombreCliente,
-                                         nombreEmpresa:req.query.nombreEmpresa});//,{
+                                         nombreEmpresa:req.query.nombreEmpresa,
+                                         serie:params.serie});//,{
             console.log(referencias,+nombreSucursal,+nombreDepartamento,'funcion company asignacion')
             self.view.expositor({ error: error,
             result: result

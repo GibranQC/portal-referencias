@@ -22,7 +22,7 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
     //this is the first method executed in the view
     $scope.init = function() {
-        $scope.idUsuario = 16;
+        $scope.idUsuario = 15;
         $scope.getCompany.show = false;
         $scope.selectTypeDoc.show = false;
         $scope.getEmpleado();
@@ -566,7 +566,8 @@ registrationModule.controller('referenceController', function($scope, alertFacto
                 $scope.nombreCliente = obj.nombreCliente;
                 $scope.saldo = obj.saldo;
                 $scope.idDocumento = obj.idDocumento;   
-                $scope.nombreEmpresa = obj.nombreEmpresa;  
+                $scope.nombreEmpresa = obj.nombreEmpresa;
+                $scope.serie = obj.serie;  
 
                 //console.log(wsData);
 
@@ -595,9 +596,11 @@ registrationModule.controller('referenceController', function($scope, alertFacto
        $scope.referencia = "";
        referenceRepository.getReferenceWS(wsData).then(function(result) {
            if (result.data.length > 0) {
+            console.log($scope.nombreEmpresa)
                $scope.referencia = result.data;
                referenceRepository.generarPdf($scope.referencia,$scope.nombreSucursal,$scope.nombreDepartamento,
-                                                $scope.idDocumento,$scope.nombreCliente,$scope.saldo,$scope.nombreEmpresa).then(function(response) {
+                                                $scope.idDocumento,$scope.nombreCliente,$scope.saldo,$scope.nombreEmpresa
+                                                ,$scope.serie).then(function(response) {
                  if (response.data.length > 0) {
                     $scope.content = false;
                   $scope.url = response.config.url;
@@ -607,7 +610,8 @@ registrationModule.controller('referenceController', function($scope, alertFacto
                     '&idDocumento='+$scope.idDocumento+
                     '&nombreCliente='+$scope.nombreCliente+
                     '&saldo='+$scope.saldo+
-                    '&nombreEmpresa='+$scope.nombreEmpresa , "ventana1", "width=700,height=500,scrollbars=NO");
+                    '&nombreEmpresa='+$scope.nombreEmpresa+
+                    '&serie='+$scope.serie , "ventana1", "width=700,height=500,scrollbars=NO");
                    //$scope.selectBank();
          alertFactory.success('Se genero el pdf');
                }
