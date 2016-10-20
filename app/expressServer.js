@@ -23,9 +23,9 @@ router = require('./website/router');
 
     this.expressServer.engine('html', swig.renderFile);
     this.expressServer.set('view engine', 'html');
-    //this.expressServer.set('views', __dirname + '/static/');
+    this.expressServer.set('views', __dirname + '/static/');
     this.expressServer.set('views', __dirname + '/website/views/templates');
-    //swig.setDefaults({varControls:['[[',']]']});
+    swig.setDefaults({varControls:['[[',']]']});
 
     //////////////////////////////////////////////////////////////
 
