@@ -9,10 +9,10 @@
             <div class="dropdown lineal">
                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Busqueda por...
                     <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li><a ng-click="setSearchType(1)">ID Cliente</a></li>
-                    <li><a ng-click="setSearchType(2)">Nombre</a></li>
-                    <li><a ng-click="setSearchType(3)">ID Doc</a></li>
+                <ul class="dropdown-menu" >
+                    <li style="cursor:pointer"><a ng-click="setSearchType(1)">ID Cliente</a></li>
+                    <li style="cursor:pointer"><a ng-click="setSearchType(2)">Nombre</a></li>
+                    <li style="cursor:pointer"><a ng-click="setSearchType(3)">ID Doc</a></li>
                 </ul>
             </div>
             <div class="lineal">
@@ -45,7 +45,7 @@
                                     <th>Colonia</th>
                                     <th>Delegación</th>
                                     <th>Codigo Postal</th>
-                                    <th></th>
+                                    <th ng-show="mostrar"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -56,8 +56,8 @@
                                     <td>{{lCliente.colonia}}</td>
                                     <td>{{lCliente.delegacion}}</td>
                                     <td>{{lCliente.codigoPostal}}</td>
-                                    <td>
-                                        <button class="btn btn-default" ng-click="searchDocs(lCliente);"><span class="glyphicon glyphicon-ok"> </span></button>
+                                    <td ng-show="mostrar">
+                                        <button class="btn btn-default" ng-click="searchDocs(lCliente);"><span class="glyphicon glyphicon-ok" > </span></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -86,21 +86,21 @@
                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"> </span> Filtro por Empresa
                                 <span class="caret"></span></button>
                             <ul class="dropdown-menu">
-                                <li ng-repeat="empresa in empresas" ng-click="seletionCompany(empresa.emp_idempresa,empresa.emp_nombre)"><a> {{empresa.emp_nombre}} </a></li>
+                                <li style="cursor:pointer" ng-repeat="empresa in empresas" ng-click="seletionCompany(empresa.emp_idempresa,empresa.emp_nombre)"><a> {{empresa.emp_nombre}} </a></li>
                             </ul>
                         </div>
                         <div class="dropdown lineal">
                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"> </span> Filtro por Sucursal
                                 <span class="caret"></span></button>
                             <ul class="dropdown-menu">
-                                <li ng-repeat="sucursal in sucursales" ng-click="seletionBranchoOffice(sucursal.suc_idsucursal,sucursal.suc_nombre)"><a> {{sucursal.suc_nombre}} </a></li>
+                                <li style="cursor:pointer" ng-repeat="sucursal in sucursales" ng-click="seletionBranchoOffice(sucursal.suc_idsucursal,sucursal.suc_nombre)"><a> {{sucursal.suc_nombre}} </a></li>
                             </ul>
                         </div>
                         <div class="dropdown lineal">
                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-filter"> </span> Filtro por Departamento
                                 <span class="caret"></span></button>
                             <ul class="dropdown-menu">
-                                <li ng-repeat="departamento in departamentos" ng-click="selectDepartment(departamento.dep_iddepartamento,departamento.dep_nombre)"><a> {{departamento.dep_nombre}} </a></li>
+                                <li style="cursor:pointer" ng-repeat="departamento in departamentos" ng-click="selectDepartment(departamento.dep_iddepartamento,departamento.dep_nombre)"><a> {{departamento.dep_nombre}} </a></li>
                             </ul>
                         </div>
                     </div>
@@ -309,42 +309,22 @@
                         </p>
                     </div>
                 </div>
-
-
-
-
-
-
-
-
-
-
+                <div class="row" ng-show="cotizacionDetalle.referencia != null">
+                    <div class="col-sm-12">
+                        <p>
+                            <b>Referencia</b>
+                        </p>
+                        <p style="font-size:18px; font-family:Helvetica;">
+                            {{cotizacionDetalle.referencia}}
+                        </p>
+                </div>
+                </div>
 
 <div id="pnlProgress" class="progress hide-div">
   <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"> Generando PDF
     <span class="sr-only">100% Complete</span>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-                <!--  <div class="row">
-                    <div class="col-sm-4">
-                        <input type="image" src="/image/banamex_logo.jpg" alt="Submit" style="width:140px;">
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="image" src="/image/bancomer.jpg" alt="Submit" style="width:140px;">
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="image" src="/image/santander_logo.jpg" alt="Submit" style="width:140px;">
-                    </div>
-                </div> -->
             </div>
             <div class="modal-footer">
                 <div class="row">
@@ -352,7 +332,7 @@
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
                     </div>
                     <div class="col-sm-6">
-                        <button class="btn btn-info " ng-click="generarPdf()"><span class="glyphicon glyphicon-file"> </span>PDF</button>
+                        <button class="btn btn-info " ng-click="generarPdf()"><span class="glyphicon glyphicon-file"> </span>Generar PDF</button>
                     </div>
                 </div>
             </div>

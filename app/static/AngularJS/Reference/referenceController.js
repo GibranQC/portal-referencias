@@ -27,7 +27,6 @@ registrationModule.controller('referenceController', function($scope, alertFacto
         $scope.selectTypeDoc.show = false;
         $scope.getEmpleado();
         $scope.getCompanyByUser();
-
         $scope.setTablePaging('prueba');
         $scope.searchType = "ID cliente";
                /* if (!($('#lgnUser').val().indexOf('[') > -1)) {
@@ -54,10 +53,16 @@ registrationModule.controller('referenceController', function($scope, alertFacto
     $scope.lstClient = [];
 
     $scope.getClient = function(clientName) {
-
+        $scope.lstClient = [];
+         $scope.lstPedido = [];
+        $('#tblPedido').DataTable().destroy();
+        $scope.lstFactura = [];
+        $('#tblFactura').DataTable().destroy();
+        $scope.lstCotizacion = [];
+        $('#tblReference').DataTable().destroy();
         $('#tblClient').DataTable().destroy();
         $('#loadModal').modal('show');
-
+        
         referenceRepository.getClientByName(clientName).then(function(result) {
 
             if (result.data.length > 0) {
@@ -71,6 +76,35 @@ registrationModule.controller('referenceController', function($scope, alertFacto
                 }, 1000);
 
 
+            } else { $('#loadModal').modal('hide'); }
+        });
+
+    };
+        
+
+        $scope.getClientId = function(idBusqueda) {
+        //$scope.lstClient = [];
+        $scope.lstPedido = [];
+        $('#tblPedido').DataTable().destroy();
+        $scope.lstFactura = [];
+        $('#tblFactura').DataTable().destroy();
+        $scope.lstCotizacion = [];
+        $('#tblReference').DataTable().destroy();
+        $scope.mostrar = false;
+
+        $('#tblClient').DataTable().destroy();
+        $('#loadModal').modal('show');
+
+
+        referenceRepository.getClientById(idBusqueda).then(function(result) {
+
+            if (result.data.length > 0) {
+                $scope.lstClient = result.data;
+                /*setTimeout(function() {
+                    $scope.setTablePaging('tblClient');
+                    $("#tblClient_filter").removeClass("dataTables_info").addClass("hide-div");
+                    $('#loadModal').modal('hide');
+                }, 1000);*/
             } else { $('#loadModal').modal('hide'); }
         });
 
@@ -89,13 +123,14 @@ registrationModule.controller('referenceController', function($scope, alertFacto
         referenceRepository.getFacturaAllIdDoc(clientId).then(function(result) {
 
             if (result.data.length > 0) {
+                $scope.numDoc = result.data.length;
                 $scope.lstFactura = result.data;
                 setTimeout(function() {
                     $scope.setTablePaging('tblFactura');
                     $("#tblFactura_filter").removeClass("dataTables_info").addClass("hide-div");
                     $('#loadModal').modal('hide');
                 }, 1000);
-
+            alertFactory.facturas('Se encontraron: '+$scope.numDoc+' Factutas');
             } else { $('#loadModal').modal('hide'); }
         });
 
@@ -111,12 +146,13 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
             if (result.data.length > 0) {
                 $scope.lstFactura = result.data;
+                $scope.numDoc = result.data.length;
                 setTimeout(function() {
                     $scope.setTablePaging('tblFactura');
                     $("#tblFactura_filter").removeClass("dataTables_info").addClass("hide-div");
                     $('#loadModal').modal('hide');
                 }, 1000);
-
+alertFactory.facturas('Se encontraron: '+$scope.numDoc+' Factutas');
             } else { $('#loadModal').modal('hide'); }
         });
 
@@ -133,13 +169,14 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
             if (result.data.length > 0) {
                 $scope.lstFactura = result.data;
+                $scope.numDoc = result.data.length;
                 setTimeout(function() {
                     $scope.setTablePaging('tblFactura');
                     $("#tblFactura_filter").removeClass("dataTables_info").addClass("hide-div");
 
                     $('#loadModal').modal('hide');
                 }, 1000);
-
+alertFactory.facturas('Se encontraron: '+$scope.numDoc+' Factutas');
             } else { $('#loadModal').modal('hide'); }
         });
 
@@ -158,13 +195,14 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
             if (result.data.length > 0) {
                 $scope.lstFactura = result.data;
+                $scope.numDoc = result.data.length;
                 setTimeout(function() {
                     $scope.setTablePaging('tblFactura');
                     $("#tblFactura_filter").removeClass("dataTables_info").addClass("hide-div");
 
                     $('#loadModal').modal('hide');
                 }, 1000);
-
+alertFactory.facturas('Se encontraron: '+$scope.numDoc+' Factutas');
             } else { $('#loadModal').modal('hide'); }
         });
 
@@ -182,13 +220,14 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
             if (result.data.length > 0) {
                 $scope.lstFactura = result.data;
+                $scope.numDoc = result.data.length;
                 setTimeout(function() {
                     $scope.setTablePaging('tblFactura');
                     $("#tblFactura_filter").removeClass("dataTables_info").addClass("hide-div");
 
                     $('#loadModal').modal('hide');
                 }, 1000);
-
+alertFactory.facturas('Se encontraron: '+$scope.numDoc+' Factutas');
             } else { $('#loadModal').modal('hide'); }
         });
 
@@ -207,14 +246,14 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
             if (result.data.length > 0) {
                 $scope.lstPedido = result.data;
-
+                $scope.numDocPe = result.data.length;
                 setTimeout(function() {
                     $scope.setTablePaging('tblPedido');
                     $("#tblPedido_filter").removeClass("dataTables_info").addClass("hide-div");
                     $('#loadModal').modal('hide');
-
+                
                 }, 1000);
-
+            alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
             } else {}
         });
 
@@ -228,14 +267,14 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
             if (result.data.length > 0) {
                 $scope.lstPedido = result.data;
-
+$scope.numDocPe = result.data.length;
                 setTimeout(function() {
                     $scope.setTablePaging('tblPedido');
                     $("#tblPedido_filter").removeClass("dataTables_info").addClass("hide-div");
                     $('#loadModal').modal('hide');
 
                 }, 1000);
-
+alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
             } else {}
         });
 
@@ -249,12 +288,13 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
             if (result.data.length > 0) {
                 $scope.lstPedido = result.data;
+                $scope.numDocPe = result.data.length;    
                 setTimeout(function() {
                     $scope.setTablePaging('tblPedido');
                     $("#tblPedido_filter").removeClass("dataTables_info").addClass("hide-div");
                     $('#loadModal').modal('hide');
                 }, 1000);
-
+alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
             } else { $('#loadModal').modal('hide'); }
         });
 
@@ -270,13 +310,14 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
             if (result.data.length > 0) {
                 $scope.lstPedido = result.data;
+                $scope.numDocPe = result.data.length;
                 setTimeout(function() {
                     $scope.setTablePaging('tblPedido');
                     $("#tblPedido_filter").removeClass("dataTables_info").addClass("hide-div");
 
                     $('#loadModal').modal('hide');
                 }, 1000);
-
+alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
             } else { $('#loadModal').modal('hide'); }
         });
 
@@ -293,13 +334,14 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
             if (result.data.length > 0) {
                 $scope.lstPedido = result.data;
+                $scope.numDocPe = result.data.length;
                 setTimeout(function() {
                     $scope.setTablePaging('tblPedido');
                     $("#tblPedido_filter").removeClass("dataTables_info").addClass("hide-div");
 
                     $('#loadModal').modal('hide');
                 }, 1000);
-
+alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
             } else { $('#loadModal').modal('hide'); }
         });
 
@@ -317,14 +359,15 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
             if (result.data.length > 0) {
                 $scope.lstCotizacion = result.data;
-
+                $scope.numDocCot = result.data.length;
+                
                 setTimeout(function() {
                     $scope.setTablePaging('tblReference');
                     $("#tblReference_filter").removeClass("dataTables_info").addClass("hide-div");
                     $('#loadModal').modal('hide');
 
                 }, 1000);
-
+                alertFactory.cotizacion('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
             } else {}
         });
 
@@ -339,14 +382,16 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
             if (result.data.length > 0) {
                 $scope.lstCotizacion = result.data;
-
+                $scope.numDocCot = result.data.length;
+                console.log($scope.numDocCot);
+                
                 setTimeout(function() {
                     $scope.setTablePaging('tblReference');
                     $("#tblReference_filter").removeClass("dataTables_info").addClass("hide-div");
                     $('#loadModal').modal('hide');
 
                 }, 1000);
-
+            alertFactory.cotizacion('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
             } else {}
         });
 
@@ -359,12 +404,14 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
             if (result.data.length > 0) {
                 $scope.lstCotizacion = result.data;
+                $scope.numDocCot = result.data.length;
+                
                 setTimeout(function() {
                     $scope.setTablePaging('tblReference');
                     $("#tblReference_filter").removeClass("dataTables_info").addClass("hide-div");
                     $('#loadModal').modal('hide');
                 }, 1000);
-
+            alertFactory.cotizacion('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
             } else { $('#loadModal').modal('hide'); }
         });
 
@@ -380,13 +427,15 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
             if (result.data.length > 0) {
                 $scope.lstCotizacion = result.data;
+                $scope.numDocCot = result.data.length;
+                
                 setTimeout(function() {
                     $scope.setTablePaging('tblReference');
                     $("#tblReference_filter").removeClass("dataTables_info").addClass("hide-div");
 
                     $('#loadModal').modal('hide');
                 }, 1000);
-
+alertFactory.cotizacion('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
             } else { $('#loadModal').modal('hide'); }
         });
 
@@ -403,13 +452,15 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
             if (result.data.length > 0) {
                 $scope.lstCotizacion = result.data;
+                $scope.numDocCot = result.data.length;
+                
                 setTimeout(function() {
                     $scope.setTablePaging('tblReference');
                     $("#tblReference_filter").removeClass("dataTables_info").addClass("hide-div");
 
                     $('#loadModal').modal('hide');
                 }, 1000);
-
+alertFactory.warning('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
             } else { $('#loadModal').modal('hide'); }
         });
 
@@ -546,10 +597,29 @@ registrationModule.controller('referenceController', function($scope, alertFacto
         });
     };
 
-
-
     $scope.cotizacionDetalle = [];
 
+// Conversión de formatos de numeros
+    $scope.currency =function (value, decimals, separators) {
+    decimals = decimals >= 0 ? parseInt(decimals, 0) : 2;
+    separators = separators || ['.', "'", ','];
+    var number = (parseFloat(value) || 0).toFixed(decimals);
+    if (number.length <= (4 + decimals))
+        return number.replace('.', separators[separators.length - 1]);
+    var parts = number.split(/[-.]/);
+    value = parts[parts.length > 1 ? parts.length - 2 : 0];
+    var result = value.substr(value.length - 3, 3) + (parts.length > 1 ?
+        separators[separators.length - 1] + parts[parts.length - 1] : '');
+    var start = value.length - 6;
+    var idx = 0;
+    while (start > -3) {
+        result = (start > 0 ? value.substr(start, 3) : value.substr(0, 3 + start))
+            + separators[idx] + result;
+        idx = (++idx) % 2;
+        start -= 3;
+    }
+    return (parts.length == 3 ? '-' : '') + result;
+};
     $scope.generateReference = function(obj) {
         $scope.cotizacionDetalle = obj;
                 wsData.nombreEmpresa = obj.nombreEmpresa;
@@ -569,7 +639,7 @@ registrationModule.controller('referenceController', function($scope, alertFacto
                 $scope.idDocumento =  obj.idDocumento;   
                 $scope.nombreEmpresa = obj.nombreEmpresa;
                 $scope.serie = obj.serie;  
-
+                $scope.cambio = $scope.currency(obj.saldo,2, [',', "'", '.']);
                 //console.log(wsData);
 
 
@@ -595,7 +665,6 @@ registrationModule.controller('referenceController', function($scope, alertFacto
     //Genera el pdf
     $scope.generarPdf = function() {
        $scope.referencia = "";
-
        $('#pnlProgress').modal('show');
        referenceRepository.getReferenceWS(wsData).then(function(result) {
            if (result.data.length > 0) {
@@ -606,7 +675,7 @@ registrationModule.controller('referenceController', function($scope, alertFacto
                 $scope.folioSerie = $scope.serie + $scope.idDocumento;
                 console.log($scope.folioSerie+'serie y folio tipo doc 1')
                 referenceRepository.generarPdf($scope.referencia,$scope.nombreSucursal,$scope.nombreDepartamento,
-                                                $scope.folioSerie,$scope.nombreCliente,$scope.saldo,$scope.nombreEmpresa
+                                                $scope.folioSerie,$scope.nombreCliente,$scope.cambio,$scope.nombreEmpresa
                                                 ,$scope.serie).then(function(response) {
                  if (response.data.length > 0) {
                     $scope.content = false;
@@ -616,7 +685,7 @@ registrationModule.controller('referenceController', function($scope, alertFacto
                     '&nombreDepartamento='+$scope.nombreDepartamento+
                     '&idDocumento='+$scope.folioSerie+
                     '&nombreCliente='+$scope.nombreCliente+
-                    '&saldo='+$scope.saldo+
+                    '&saldo='+$scope.cambio+
                     '&nombreEmpresa='+$scope.nombreEmpresa+
                     '&serie='+$scope.serie , "ventana1", "width=700,height=500,scrollbars=NO");
                    //$scope.selectBank();
@@ -628,7 +697,7 @@ registrationModule.controller('referenceController', function($scope, alertFacto
                }else{
 
                referenceRepository.generarPdf($scope.referencia,$scope.nombreSucursal,$scope.nombreDepartamento,
-                                            $scope.idDocumento,$scope.nombreCliente,$scope.saldo,$scope.nombreEmpresa
+                                            $scope.idDocumento,$scope.nombreCliente,$scope.cambio,$scope.nombreEmpresa
                                             ,$scope.serie).then(function(response) {
                  if (response.data.length > 0) {
                     $scope.content = false;
@@ -639,7 +708,7 @@ registrationModule.controller('referenceController', function($scope, alertFacto
                     '&nombreDepartamento='+$scope.nombreDepartamento+
                     '&idDocumento='+$scope.idDocumento+
                     '&nombreCliente='+$scope.nombreCliente+
-                    '&saldo='+$scope.saldo+
+                    '&saldo='+$scope.cambio+
                     '&nombreEmpresa='+$scope.nombreEmpresa+
                     '&serie='+$scope.serie , "ventana1", "width=700,height=500,scrollbars=NO");
                    //$scope.selectBank();
@@ -740,8 +809,12 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
 
     $scope.searchDocs = function(obj) {
-        $scope.showPanel = false;
+        $scope.lstPedido = [];
+        $scope.lstFactura = [];
+        $scope.lstCotizacion = [];
+        $scope.showPanel = true;
         $scope.currentIDClient = obj.idCliente;
+        $scope.getClientId($scope.currentIDClient);
         $scope.getCotizacionAll(obj.idCliente);
         $scope.getFacturasAll(obj.idCliente);
         $scope.getPedidosAll(obj.idCliente);
@@ -756,7 +829,11 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
 
         if ($scope.searchTypeID == 1) {
-            $scope.showPanel = false;
+            $scope.showPanel = true;
+            $scope.lstPedido = [];
+            $scope.lstFactura = [];
+            $scope.lstCotizacion = [];
+            $scope.getClientId($scope.txtSearchClient);
             $scope.currentIDClient = $scope.txtSearchClient;
             $scope.getCotizacionAll($scope.txtSearchClient);
             $scope.getFacturasAll($scope.txtSearchClient);
@@ -765,19 +842,27 @@ registrationModule.controller('referenceController', function($scope, alertFacto
             $scope.idEmpresa = null;
         } else {
             if($scope.searchTypeID == 2){
+            $scope.mostrar = true;
             $scope.nombreEmpresa = '';
             $scope.idEmpresa = null;
+            $scope.lstPedido = [];
+            $scope.lstFactura = [];
+            $scope.lstCotizacion = [];
             $scope.getClient($scope.txtSearchClient);
             $scope.showPanel = true;
         }else{
             $scope.nombreEmpresa = '';
             $scope.idEmpresa = null;
+            $scope.lstPedido = [];
+            $scope.lstFactura = [];
+            $scope.lstCotizacion = [];
+            $scope.lstClient = [];
             $scope.currentIDDocumento = $scope.txtSearchClient;
             //$scope.getClient($scope.txtSearchClient);
             $scope.getFacturaAllIdDoc($scope.currentIDDocumento);
             $scope.getpedidoAllIdDoc($scope.currentIDDocumento);
             $scope.getCotizacionAllIdDoc($scope.currentIDDocumento);
-            //$scope.showPanel = true;
+            $scope.showPanel = false;
         }
         }
     }
@@ -789,10 +874,8 @@ registrationModule.controller('referenceController', function($scope, alertFacto
             $scope.panels[i].active = false;
             $scope.panels[i].className = "";
         }
-
         currentTab.active = true;
         currentTab.className = "active";
-
     };
 
 
@@ -803,14 +886,7 @@ registrationModule.controller('referenceController', function($scope, alertFacto
         $('#' + idTable).DataTable({
             dom: '<"html5buttons"B>lTfgitp',
             buttons: [{
-                extend: 'copy'
-            }, {
-                extend: 'csv'
-            }, {
                 extend: 'excel',
-                title: 'ExampleFile'
-            }, {
-                extend: 'pdf',
                 title: 'ExampleFile'
             }, {
                 extend: 'print',
@@ -825,11 +901,4 @@ registrationModule.controller('referenceController', function($scope, alertFacto
         });
 
     };
-
-
-
-
-
-
-
 });

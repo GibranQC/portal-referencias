@@ -22,6 +22,19 @@ registrationModule.factory('referenceRepository', function($http) {
 
             });
         },
+        getClientById: function(idBusqueda) {
+            return $http({
+                url: referenceURL + 'clientById/',
+                method: "GET",
+                params: {
+                    idBusqueda: idBusqueda
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
         getFacturasAll: function(idCliente) {
             return $http({
                 url: referenceURL + 'facturasAll/',
