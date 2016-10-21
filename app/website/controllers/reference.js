@@ -210,6 +210,55 @@ Reference.prototype.get_facturasEmp = function (req, res, next) {
 };
 
 
+Reference.prototype.get_facturasIdDocEmp = function (req, res, next) {
+
+    var self = this;
+
+    var params = [{name: 'idDocumento',value: req.query.idDocumento,type: self.model.types.STRING},
+          {name: 'idEmpresas',value: req.query.idEmpresas,type: self.model.types.INT}    
+    ];
+
+    this.model.query('SEL_TOTAL_FACTURAS_TODOS_IDDOC_EMPRESA__SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+
+Reference.prototype.get_pedidoIdDocEmp = function (req, res, next) {
+
+    var self = this;
+
+    var params = [{name: 'idDocumento',value: req.query.idDocumento,type: self.model.types.STRING},
+          {name: 'idEmpresas',value: req.query.idEmpresas,type: self.model.types.INT}    
+    ];
+
+    this.model.query('SEL_TOTAL_PEDIDOS_TODOS__IDDOC_EMPRESA_SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+
+Reference.prototype.get_cotizacionIdDocEmp = function (req, res, next) {
+
+    var self = this;
+
+    var params = [{name: 'idDocumento',value: req.query.idDocumento,type: self.model.types.STRING},
+          {name: 'idEmpresas',value: req.query.idEmpresas,type: self.model.types.INT}    
+    ];
+
+    this.model.query('SEL_TOTAL_COTIZACIONES_TODAS_IDDOC_EMPRESAS__SP', params, function (error, result) {
+        self.view.expositor(res, {
+            error: error,
+            result: result
+        });
+    });
+};
+
+
 
 Reference.prototype.get_facturasSuc = function (req, res, next) {
 

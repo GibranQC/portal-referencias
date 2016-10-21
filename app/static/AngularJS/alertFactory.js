@@ -35,11 +35,11 @@ registrationModule.factory('alertFactory', function () {
         cotizacion : function (text) {
 
             toastr.options = { "positionClass": "toast-top-right", "closeButton": true}
-            toastr.warning(text, 'Cotizaciones');
+            toastr.warning(text, 'Cotizaciones!');
         },
         pedidos: function (text) {
             toastr.options = { "positionClass": "toast-top-right", "closeButton": true}
-            toastr.info(text, 'pedidos');
+            toastr.info(text, 'Pedidos!');
         },
         facturas: function (text) {
             toastr.options = { "positionClass": "toast-top-right", "closeButton": true}

@@ -63,6 +63,51 @@ registrationModule.factory('referenceRepository', function($http) {
 
             });
         },
+        getFacturasIdDocEmp: function(variableobj) {
+            
+            return $http({
+                url: referenceURL + 'facturasIdDocEmp/',
+                method: "GET",
+                params: {
+                    idDocumento: variableobj.idDocumento,
+                    idEmpresas: variableobj.idEmpresas
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+        getPedidoIdDocEmp : function(variableobj) {
+            
+            return $http({
+                url: referenceURL + 'pedidoIdDocEmp/',
+                method: "GET",
+                params: {
+                    idDocumento: variableobj.idDocumento,
+                    idEmpresas: variableobj.idEmpresas
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
+        getCotizacionIdDocEmp: function(variableobj) {
+            
+            return $http({
+                url: referenceURL + 'cotizacionIdDocEmp/',
+                method: "GET",
+                params: {
+                    idDocumento: variableobj.idDocumento,
+                    idEmpresas: variableobj.idEmpresas
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+        },
         getFacturasSuc: function(objValues) {
             return $http({
                 url: referenceURL + 'facturasSuc/',

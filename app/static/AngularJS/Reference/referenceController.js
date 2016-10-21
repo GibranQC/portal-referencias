@@ -27,6 +27,8 @@ registrationModule.controller('referenceController', function($scope, alertFacto
         $scope.selectTypeDoc.show = false;
         $scope.getEmpleado();
         $scope.getCompanyByUser();
+        $scope.Clientefiltro = true;
+        $scope.sinsuc = false;
         $scope.setTablePaging('prueba');
         $scope.searchType = "ID cliente";
                /* if (!($('#lgnUser').val().indexOf('[') > -1)) {
@@ -60,6 +62,12 @@ registrationModule.controller('referenceController', function($scope, alertFacto
         $('#tblFactura').DataTable().destroy();
         $scope.lstCotizacion = [];
         $('#tblReference').DataTable().destroy();
+        $scope.lstFacturaDoc = '';
+        $('#tblFacturaDoc').DataTable().destroy();
+        $scope.lstPedidoDoc = '';
+        $('#tblPedidoDoc').DataTable().destroy();
+        $scope.lstCotizaciondOC = '';
+        $('#tblReferenceDoc').DataTable().destroy();
         $('#tblClient').DataTable().destroy();
         $('#loadModal').modal('show');
         
@@ -83,13 +91,19 @@ registrationModule.controller('referenceController', function($scope, alertFacto
         
 
         $scope.getClientId = function(idBusqueda) {
-        //$scope.lstClient = [];
+        $scope.lstClient = [];
         $scope.lstPedido = [];
         $('#tblPedido').DataTable().destroy();
         $scope.lstFactura = [];
         $('#tblFactura').DataTable().destroy();
         $scope.lstCotizacion = [];
         $('#tblReference').DataTable().destroy();
+        $scope.lstFacturaDoc = '';
+        $('#tblFacturaDoc').DataTable().destroy();
+        $scope.lstPedidoDoc = '';
+        $('#tblPedidoDoc').DataTable().destroy();
+        $scope.lstCotizaciondOC = '';
+        $('#tblReferenceDoc').DataTable().destroy();
         $scope.mostrar = false;
 
         $('#tblClient').DataTable().destroy();
@@ -113,21 +127,20 @@ registrationModule.controller('referenceController', function($scope, alertFacto
    
 
     $scope.lstFactura = [];
+    $scope.lstFacturaDoc = [];
 
     $scope.getFacturaAllIdDoc = function(clientId) {
-        $scope.lstFactura = '';
-        $('#tblFactura').DataTable().destroy();
+        $scope.lstFacturaDoc = '';
+        $('#tblFacturaDoc').DataTable().destroy();
         $('#loadModal').modal('show');
-
-
         referenceRepository.getFacturaAllIdDoc(clientId).then(function(result) {
 
             if (result.data.length > 0) {
                 $scope.numDoc = result.data.length;
-                $scope.lstFactura = result.data;
+                $scope.lstFacturaDoc = result.data;
                 setTimeout(function() {
-                    $scope.setTablePaging('tblFactura');
-                    $("#tblFactura_filter").removeClass("dataTables_info").addClass("hide-div");
+                    $scope.setTablePaging('tblFacturaDoc');
+                    $("#tblFacturaDoc_filter").removeClass("dataTables_info").addClass("hide-div");
                     $('#loadModal').modal('hide');
                 }, 1000);
             alertFactory.facturas('Se encontraron: '+$scope.numDoc+' Factutas');
@@ -136,6 +149,27 @@ registrationModule.controller('referenceController', function($scope, alertFacto
 
     };
 
+
+    $scope.getFacturasIdDocEmp = function(clientId) {
+        $scope.lstFacturaDoc = '';
+        $('#tblFacturaDoc').DataTable().destroy();
+        $('#loadModal').modal('show');
+        referenceRepository.getFacturasIdDocEmp(clientId).then(function(result) {
+
+            if (result.data.length > 0) {
+                $scope.lstFacturaDoc = result.data;
+                $scope.numDocCot = result.data.length;
+                
+                setTimeout(function() {
+                    $scope.setTablePaging('tblFacturaDoc');
+                    $("#tblFacturaDoc_filter").removeClass("dataTables_info").addClass("hide-div");
+                    $('#loadModal').modal('hide');
+                }, 1000);
+            alertFactory.facturas('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
+            } else { $('#loadModal').modal('hide'); }
+        });
+
+    };
     $scope.getFacturasAll = function(clientId) {
         $scope.lstFactura = '';
         $('#tblFactura').DataTable().destroy();
@@ -234,22 +268,42 @@ alertFactory.facturas('Se encontraron: '+$scope.numDoc+' Factutas');
     };
 
 
-
-
     $scope.lstPedido = [];
+    $scope.lstPedidoDoc = [];
 
     $scope.getpedidoAllIdDoc = function(clientId) {
-        $scope.lstPedido = '';
-        $('#tblPedido').DataTable().destroy();
-
+        $scope.lstPedidoDoc = '';
+        $('#tblPedidoDoc').DataTable().destroy();
+        $('#loadModal').modal('show');
         referenceRepository.getpedidoAllIdDoc(clientId).then(function(result) {
 
             if (result.data.length > 0) {
-                $scope.lstPedido = result.data;
+                $scope.lstPedidoDoc = result.data;
                 $scope.numDocPe = result.data.length;
                 setTimeout(function() {
-                    $scope.setTablePaging('tblPedido');
-                    $("#tblPedido_filter").removeClass("dataTables_info").addClass("hide-div");
+                    $scope.setTablePaging('tblPedidoDoc');
+                    $("#tblPedidoDoc_filter").removeClass("dataTables_info").addClass("hide-div");
+                    $('#loadModal').modal('hide');
+                
+                }, 1000);
+            alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
+            } else {}
+        });
+
+    };
+
+    $scope.getPedidoIdDocEmp = function(clientId) {
+        $scope.lstPedidoDoc = '';
+        $('#tblPedidoDoc').DataTable().destroy();
+        $('#loadModal').modal('show');
+        referenceRepository.getPedidoIdDocEmp(clientId).then(function(result) {
+
+            if (result.data.length > 0) {
+                $scope.lstPedidoDoc = result.data;
+                $scope.numDocPe = result.data.length;
+                setTimeout(function() {
+                    $scope.setTablePaging('tblPedidoDoc');
+                    $("#tblPedidoDoc_filter").removeClass("dataTables_info").addClass("hide-div");
                     $('#loadModal').modal('hide');
                 
                 }, 1000);
@@ -349,21 +403,45 @@ alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
 
 //  
     $scope.lstCotizacion = [];
+    $scope.lstCotizaciondOC = [];
 
     $scope.getCotizacionAllIdDoc = function(idCliente) {
 
-        $scope.lstCotizacion = '';
-        $('#tblReference').DataTable().destroy();
-
+        $scope.lstCotizaciondOC = '';
+        $('#tblReferenceDoc').DataTable().destroy();
+        $('#loadModal').modal('show');
         referenceRepository.getCotizacionAllIdDoc(idCliente).then(function(result) {
 
             if (result.data.length > 0) {
-                $scope.lstCotizacion = result.data;
+                $scope.lstCotizaciondOC = result.data;
                 $scope.numDocCot = result.data.length;
                 
                 setTimeout(function() {
-                    $scope.setTablePaging('tblReference');
-                    $("#tblReference_filter").removeClass("dataTables_info").addClass("hide-div");
+                    $scope.setTablePaging('tblReferenceDoc');
+                    $("#tblReferenceDoc_filter").removeClass("dataTables_info").addClass("hide-div");
+                    $('#loadModal').modal('hide');
+
+                }, 1000);
+                alertFactory.cotizacion('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
+            } else {}
+        });
+
+    };
+
+        $scope.getCotizacionIdDocEmp = function(idCliente) {
+
+        $scope.lstCotizaciondOC = '';
+        $('#tblReferenceDoc').DataTable().destroy();
+        $('#loadModal').modal('show');
+        referenceRepository.getCotizacionIdDocEmp(idCliente).then(function(result) {
+
+            if (result.data.length > 0) {
+                $scope.lstCotizaciondOC = result.data;
+                $scope.numDocCot = result.data.length;
+                
+                setTimeout(function() {
+                    $scope.setTablePaging('tblReferenceDoc');
+                    $("#tblReferenceDoc_filter").removeClass("dataTables_info").addClass("hide-div");
                     $('#loadModal').modal('hide');
 
                 }, 1000);
@@ -416,6 +494,7 @@ alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
         });
 
     };
+
 
        $scope.getCotizacionSuc = function(obj) {
         $scope.lstCotizacion = '';
@@ -482,7 +561,6 @@ alertFactory.warning('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
         $scope.getPedidosEmp($scope.storeParams);
         $scope.getCotizacionEmp($scope.storeParams);
         $scope.getCompany.show = true;
-        //$scope.selectTypeDoc.show = false;
         $scope.idEmpresa = idEmpresa;
         $scope.nombreEmpresa = nombreEmpresa;
         $scope.idSucursal = null;
@@ -490,11 +568,25 @@ alertFactory.warning('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
         $scope.departamentos = null;
         $scope.nombreDepartamento = null;
         $scope.getBranchOfficeByIdUser();
-        //$scope.getBills();
-
-
     };
-
+    $scope.seletionCompanyDoc = function(idEmpresa, nombreEmpresa) {
+            //$scope.lstFacturaDoc = [];
+            // $scope.lstPedidoDoc = [];
+            // $scope.lstCotizaciondOC =[];
+            $scope.storeParams.idDocumento = $scope.currentIDDocumento;
+            $scope.storeParams.idEmpresas = idEmpresa;
+            $scope.getCompany.show = true;
+            $scope.idEmpresa = idEmpresa;
+            $scope.nombreEmpresa = nombreEmpresa;
+            $scope.getFacturasIdDocEmp($scope.storeParams);
+            $scope.getCotizacionIdDocEmp($scope.storeParams);
+            $scope.getPedidoIdDocEmp($scope.storeParams);
+            $scope.idSucursal = null;
+            $scope.nombreSucursal = null;
+            $scope.departamentos = null;
+            $scope.nombreDepartamento = null;
+            //$scope.getBranchOfficeByIdUser();
+        };
 
     // Función para selecciobnar el idSucursal y nombre 
     $scope.seletionBranchoOffice = function(idSucursal, nombreSucursal) {
@@ -830,6 +922,8 @@ alertFactory.warning('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
 
         if ($scope.searchTypeID == 1) {
             $scope.showPanel = true;
+            $scope.Clientefiltro = true;
+            $scope.DocumentoFiltro = false;
             $scope.lstPedido = [];
             $scope.lstFactura = [];
             $scope.lstCotizacion = [];
@@ -842,27 +936,38 @@ alertFactory.warning('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
             $scope.idEmpresa = null;
         } else {
             if($scope.searchTypeID == 2){
-            $scope.mostrar = true;
-            $scope.nombreEmpresa = '';
-            $scope.idEmpresa = null;
-            $scope.lstPedido = [];
-            $scope.lstFactura = [];
-            $scope.lstCotizacion = [];
-            $scope.getClient($scope.txtSearchClient);
-            $scope.showPanel = true;
+                $scope.Clientefiltro = true;
+                $scope.DocumentoFiltro = false;
+                $scope.mostrar = true;
+                $scope.nombreEmpresa = '';
+                $scope.idEmpresa = null;
+                $scope.lstPedido = [];
+                $scope.lstFactura = [];
+                $scope.lstCotizacion = [];
+                $scope.getClient($scope.txtSearchClient);
+                $scope.showPanel = true;
         }else{
-            $scope.nombreEmpresa = '';
-            $scope.idEmpresa = null;
-            $scope.lstPedido = [];
-            $scope.lstFactura = [];
-            $scope.lstCotizacion = [];
-            $scope.lstClient = [];
-            $scope.currentIDDocumento = $scope.txtSearchClient;
-            //$scope.getClient($scope.txtSearchClient);
-            $scope.getFacturaAllIdDoc($scope.currentIDDocumento);
-            $scope.getpedidoAllIdDoc($scope.currentIDDocumento);
-            $scope.getCotizacionAllIdDoc($scope.currentIDDocumento);
-            $scope.showPanel = false;
+                $scope.nombreEmpresa = '';
+                $scope.Clientefiltro = false;
+                $scope.DocumentoFiltro = true;
+                $scope.idEmpresa = null;
+                $scope.lstPedido = [];
+                $('#tblPedido').DataTable().destroy();
+                $scope.lstFactura = [];
+                $('#tblFactura').DataTable().destroy();
+                $scope.lstCotizacion = [];
+                $('#tblReference').DataTable().destroy();
+                $scope.lstFacturaDoc = '';
+                $('#tblFacturaDoc').DataTable().destroy();
+                $scope.lstPedidoDoc = '';
+                $('#tblPedidoDoc').DataTable().destroy();
+                $scope.lstCotizaciondOC = '';
+                $('#tblReferenceDoc').DataTable().destroy();
+                $scope.currentIDDocumento = $scope.txtSearchClient;
+                $scope.getFacturaAllIdDoc($scope.currentIDDocumento);
+                $scope.getpedidoAllIdDoc($scope.currentIDDocumento);
+                $scope.getCotizacionAllIdDoc($scope.currentIDDocumento);
+                $scope.showPanel = false;
         }
         }
     }
