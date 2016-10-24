@@ -23,8 +23,8 @@ router = require('./website/router');
 
     this.expressServer.engine('html', swig.renderFile);
     this.expressServer.set('view engine', 'html');
+    //this.expressServer.set('views', __dirname + '/website/views/templates');
     this.expressServer.set('views', __dirname + '/static/');
-    this.expressServer.set('views', __dirname + '/website/views/templates');
     swig.setDefaults({varControls:['[[',']]']});
 
     //////////////////////////////////////////////////////////////
@@ -47,12 +47,16 @@ router = require('./website/router');
       }
     } 
 
-
     //Servimos el archivo angular
     this.expressServer.get('*', function(req, res){
       res.sendfile('app/static/index.html');
+      //res.render('app/website/views/templates');
     });
-    
+
+    this.expressServer.post('*', function(req, res){
+        var user = { idUsuario: req.body.idUsuario };
+        res.render('index', { user });
+    });
   };
 
   ExpressServer.prototype.router = function(controller,funcionalidad,method,url){

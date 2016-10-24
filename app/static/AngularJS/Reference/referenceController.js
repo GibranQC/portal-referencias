@@ -1,8 +1,10 @@
-registrationModule.controller('referenceController', function($scope, alertFactory, referenceRepository, $rootScope) {
+﻿registrationModule.controller('referenceController', function($scope, alertFactory, referenceRepository, $rootScope,localStorageService) {
     $scope.message = 'Buscando...';
     $scope.message2 = 'Cargando PDF......';
     $scope.fechaHoy = new Date();
     $scope.searchTypeID = 1;
+    localStorageService.clearAll('lgnUser');
+    $rootScope.currentEmployee = 0;
     var wsData =[];
     $scope.currentIDClient = 0;
 
@@ -25,28 +27,32 @@ registrationModule.controller('referenceController', function($scope, alertFacto
         $scope.idUsuario = 15;
         $scope.getCompany.show = false;
         $scope.selectTypeDoc.show = false;
-        $scope.getEmpleado();
+       //$scope.getEmpleado();
         $scope.getCompanyByUser();
         $scope.Clientefiltro = true;
         $scope.sinsuc = false;
         $scope.setTablePaging('prueba');
         $scope.searchType = "ID cliente";
-               /* if (!($('#lgnUser').val().indexOf('[') > -1)) {
+            if (!($('#lgnUser').val().indexOf('[') > -1)) {
                 localStorageService.set('lgnUser', $('#lgnUser').val());
                 $scope.getEmpleado();
-                location.href = '/newUnits';
+                
             } else {
                 if (($('#lgnUser').val().indexOf('[') > -1) && !localStorageService.get('lgnUser')) {
                     if (getParameterByName('employee') != '') {
                         $rootScope.currentEmployee = getParameterByName('employee');
-                        location.href = '/newUnits';
+                        $scope.getEmpleado();
+                        //location.href = '/newUnits';
                     } else {
-                        alert('Inicie sesión desde panel de aplicaciones o desde el login.');
+                        
+                        alert('Inicie sesión desde panel de aplicaciones...');
+                        //location.href = '192.168.20.9:8085/Aplicaciones/index.html';
                     }
 
                 }
             }
-        $rootScope.currentEmployee = localStorageService.get('lgnUser');*/
+        $rootScope.currentEmployee = localStorageService.get('lgnUser');
+        $scope.getEmpleado($rootScope.currentEmployee);
 
 
     };
@@ -144,7 +150,8 @@ registrationModule.controller('referenceController', function($scope, alertFacto
                     $('#loadModal').modal('hide');
                 }, 1000);
             alertFactory.facturas('Se encontraron: '+$scope.numDoc+' Factutas');
-            } else { $('#loadModal').modal('hide'); }
+            } else { $('#loadModal').modal('hide');
+            alertFactory.facturas('Se encontraron:0 Factutas'); }
         });
 
     };
@@ -166,7 +173,8 @@ registrationModule.controller('referenceController', function($scope, alertFacto
                     $('#loadModal').modal('hide');
                 }, 1000);
             alertFactory.facturas('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
-            } else { $('#loadModal').modal('hide'); }
+            } else { $('#loadModal').modal('hide');
+            alertFactory.facturas('Se encontraron:0 Factutas'); }
         });
 
     };
@@ -187,7 +195,8 @@ registrationModule.controller('referenceController', function($scope, alertFacto
                     $('#loadModal').modal('hide');
                 }, 1000);
 alertFactory.facturas('Se encontraron: '+$scope.numDoc+' Factutas');
-            } else { $('#loadModal').modal('hide'); }
+            } else { $('#loadModal').modal('hide');
+            alertFactory.facturas('Se encontraron:0 Factutas'); }
         });
 
     };
@@ -211,7 +220,8 @@ alertFactory.facturas('Se encontraron: '+$scope.numDoc+' Factutas');
                     $('#loadModal').modal('hide');
                 }, 1000);
 alertFactory.facturas('Se encontraron: '+$scope.numDoc+' Factutas');
-            } else { $('#loadModal').modal('hide'); }
+            } else { $('#loadModal').modal('hide'); 
+        alertFactory.facturas('Se encontraron:0 Factutas'); }
         });
 
     };
@@ -237,7 +247,8 @@ alertFactory.facturas('Se encontraron: '+$scope.numDoc+' Factutas');
                     $('#loadModal').modal('hide');
                 }, 1000);
 alertFactory.facturas('Se encontraron: '+$scope.numDoc+' Factutas');
-            } else { $('#loadModal').modal('hide'); }
+            } else { $('#loadModal').modal('hide');
+            alertFactory.facturas('Se encontraron:0 Factutas');  }
         });
 
     };
@@ -262,7 +273,8 @@ alertFactory.facturas('Se encontraron: '+$scope.numDoc+' Factutas');
                     $('#loadModal').modal('hide');
                 }, 1000);
 alertFactory.facturas('Se encontraron: '+$scope.numDoc+' Factutas');
-            } else { $('#loadModal').modal('hide'); }
+            } else { $('#loadModal').modal('hide');
+            alertFactory.facturas('Se encontraron:0 Factutas');  }
         });
 
     };
@@ -287,7 +299,9 @@ alertFactory.facturas('Se encontraron: '+$scope.numDoc+' Factutas');
                 
                 }, 1000);
             alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
-            } else {}
+            } else {
+                 alertFactory.pedidos('Se encontraron:0 Pedidos');
+            }
         });
 
     };
@@ -308,7 +322,7 @@ alertFactory.facturas('Se encontraron: '+$scope.numDoc+' Factutas');
                 
                 }, 1000);
             alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
-            } else {}
+            } else {alertFactory.pedidos('Se encontraron:0 Pedidos');}
         });
 
     };
@@ -329,7 +343,7 @@ $scope.numDocPe = result.data.length;
 
                 }, 1000);
 alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
-            } else {}
+            } else {alertFactory.pedidos('Se encontraron:0 Pedidos');}
         });
 
     };
@@ -349,7 +363,8 @@ alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
                     $('#loadModal').modal('hide');
                 }, 1000);
 alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
-            } else { $('#loadModal').modal('hide'); }
+            } else { $('#loadModal').modal('hide');
+            alertFactory.pedidos('Se encontraron:0 Pedidos'); }
         });
 
     };
@@ -372,7 +387,8 @@ alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
                     $('#loadModal').modal('hide');
                 }, 1000);
 alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
-            } else { $('#loadModal').modal('hide'); }
+            } else { $('#loadModal').modal('hide');
+            alertFactory.pedidos('Se encontraron:0 Pedidos'); }
         });
 
     };
@@ -396,7 +412,8 @@ alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
                     $('#loadModal').modal('hide');
                 }, 1000);
 alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
-            } else { $('#loadModal').modal('hide'); }
+            } else { $('#loadModal').modal('hide');
+            alertFactory.pedidos('Se encontraron:0 Pedidos'); }
         });
 
     };
@@ -423,7 +440,7 @@ alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
 
                 }, 1000);
                 alertFactory.cotizacion('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
-            } else {}
+            } else {alertFactory.cotizacion('Se encontraron:0 Cotizaciones');}
         });
 
     };
@@ -446,7 +463,7 @@ alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
 
                 }, 1000);
                 alertFactory.cotizacion('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
-            } else {}
+            } else {alertFactory.cotizacion('Se encontraron:0 Cotizaciones');}
         });
 
     };
@@ -470,7 +487,7 @@ alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
 
                 }, 1000);
             alertFactory.cotizacion('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
-            } else {}
+            } else {alertFactory.cotizacion('Se encontraron:0 Cotizaciones');}
         });
 
     };
@@ -490,7 +507,8 @@ alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
                     $('#loadModal').modal('hide');
                 }, 1000);
             alertFactory.cotizacion('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
-            } else { $('#loadModal').modal('hide'); }
+            } else { $('#loadModal').modal('hide'); 
+        alertFactory.cotizacion('Se encontraron:0 Cotizaciones');}
         });
 
     };
@@ -515,7 +533,8 @@ alertFactory.pedidos('Se encontraron: '+$scope.numDocPe+' Pedidos');
                     $('#loadModal').modal('hide');
                 }, 1000);
 alertFactory.cotizacion('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
-            } else { $('#loadModal').modal('hide'); }
+            } else { $('#loadModal').modal('hide');
+            alertFactory.cotizacion('Se encontraron:0 Cotizaciones'); }
         });
 
     };
@@ -540,7 +559,8 @@ alertFactory.cotizacion('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
                     $('#loadModal').modal('hide');
                 }, 1000);
 alertFactory.warning('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
-            } else { $('#loadModal').modal('hide'); }
+            } else { $('#loadModal').modal('hide'); 
+        alertFactory.cotizacion('Se encontraron:0 Cotizaciones');}
         });
 
     };
@@ -664,7 +684,7 @@ alertFactory.warning('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
     };
 
     $scope.getCompanyByUser = function() {
-        $scope.promise = referenceRepository.getCompanyByUser($scope.idUsuario).then(function(result) {
+        $scope.promise = referenceRepository.getCompanyByUser($rootScope.currentEmployee ).then(function(result) {
             if (result.data.length > 0) {
                 $scope.empresas = result.data;
 
@@ -673,7 +693,7 @@ alertFactory.warning('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
     };
 
     $scope.getBranchOfficeByIdUser = function() {
-        referenceRepository.getBranchOfficeByIdUser($scope.idUsuario, $scope.idEmpresa).then(function(result) {
+        referenceRepository.getBranchOfficeByIdUser($rootScope.currentEmployee , $scope.idEmpresa).then(function(result) {
             if (result.data.length > 0) {
                 $scope.sucursales = result.data;
 
@@ -682,7 +702,7 @@ alertFactory.warning('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
     };
 
     $scope.getDepartmentByIdUser = function() {
-        referenceRepository.getDepartmentByIdUser($scope.idUsuario, $scope.idSucursal).then(function(result) {
+        referenceRepository.getDepartmentByIdUser($rootScope.currentEmployee , $scope.idSucursal).then(function(result) {
             if (result.data.length > 0) {
                 $scope.departamentos = result.data;
             } else {}
@@ -822,7 +842,7 @@ alertFactory.warning('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
     };*/
 
     $scope.getEmpleado = function() {
-        referenceRepository.getEmpleado($scope.idUsuario).then(function(result) {
+        referenceRepository.getEmpleado($rootScope.currentEmployee ).then(function(result) {
             if (result.data.length > 0) {
                 $rootScope.empleado = result.data;
             } else {
