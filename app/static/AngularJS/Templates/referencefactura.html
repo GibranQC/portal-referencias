@@ -24,7 +24,7 @@
         </div>
         <!-- busqueda END -->
         <!--  Form clientes Ini -->
-        <div class="ibox float-e-margins" ng-show="showPanel">
+        <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>Clientes <small>Datos de cliente</small></h5>
                 <div class="ibox-tools">
@@ -33,8 +33,8 @@
                     </a>
                 </div>
             </div>
-            <div class="ibox-content">
-                <div class="row">
+            <div class="ibox-content"  >
+                <div class="row" ng-show="showPanel">
                     <div class="col-sm-12">
                         <table id="tblClient" class="table table-striped table-bordered">
                             <thead>
@@ -62,10 +62,29 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
+                        
                 </div>
             </div>
+                   <div class="row" ng-show="showPanel1">
+                            <div class="col-xs-12 col-sm-12">
+                            <h4><span class="glyphicon glyphicon-list"></span> Ficha Técnica</h4>
+                            ID Cliente:
+                            <label>{{lstClient[0].idCliente}}</label>&nbsp;&nbsp;&nbsp;
+                             Nombre:
+                            <label>{{lstClient[0].nombre}}</label>&nbsp;&nbsp;&nbsp;
+                             Rfc:
+                            <label>{{lstClient[0].rfc}}</label>&nbsp;&nbsp;&nbsp;
+                             Colonia:
+                            <label>{{lstClient[0].colonia}}</label>&nbsp;&nbsp;&nbsp;
+                             Delegación:
+                            <label>{{lstClient[0].delegacion}}</label>&nbsp;&nbsp;&nbsp;
+                             Codigo Postal:
+                            <label>{{lstClient[0].codigoPostal}}</label>
+                        </div>
+                    </div>
         </div>
+
+
         <!--  Form clientes Fin -->
         <!--  Form grids INI -->
         <!--    FILTRO PARA CLIENTES-->

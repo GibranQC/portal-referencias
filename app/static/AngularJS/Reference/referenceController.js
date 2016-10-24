@@ -19,7 +19,7 @@
 
     $scope.storeParams = { idCliente: 0, idEmpresas: 0, idSucursales: 0, idDepartamentos: 0 };
 
-
+    
 
 
     //this is the first method executed in the view
@@ -76,7 +76,7 @@
         $('#tblReferenceDoc').DataTable().destroy();
         $('#tblClient').DataTable().destroy();
         $('#loadModal').modal('show');
-        
+        $scope.showPanel1 = true;
         referenceRepository.getClientByName(clientName).then(function(result) {
 
             if (result.data.length > 0) {
@@ -111,6 +111,8 @@
         $scope.lstCotizaciondOC = '';
         $('#tblReferenceDoc').DataTable().destroy();
         $scope.mostrar = false;
+        $scope.showPanel1 = true;
+        $scope.showPanel = false;
 
         $('#tblClient').DataTable().destroy();
         $('#loadModal').modal('show');
@@ -966,6 +968,7 @@ alertFactory.warning('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
                 $scope.lstCotizacion = [];
                 $scope.getClient($scope.txtSearchClient);
                 $scope.showPanel = true;
+                $scope.showPanel1 = false;
         }else{
                 $scope.nombreEmpresa = '';
                 $scope.Clientefiltro = false;
@@ -988,6 +991,7 @@ alertFactory.warning('Se encontraron: '+$scope.numDocCot+' Cotizaciones');
                 $scope.getpedidoAllIdDoc($scope.currentIDDocumento);
                 $scope.getCotizacionAllIdDoc($scope.currentIDDocumento);
                 $scope.showPanel = false;
+                $scope.showPanel1 = false;
         }
         }
     }
