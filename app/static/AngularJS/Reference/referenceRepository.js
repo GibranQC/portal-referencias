@@ -3,12 +3,6 @@ var referenceURL = global_settings.urlCORS + 'api/reference/';
 
 registrationModule.factory('referenceRepository', function($http) {
     return {
-        getCompany: function() {
-            return $http({
-                url: referenceURL + 'company/',
-                method: "GET"
-            });
-        },
         getClientByName: function(clientName) {
             return $http({
                 url: referenceURL + 'clientByName/',
@@ -124,8 +118,6 @@ registrationModule.factory('referenceRepository', function($http) {
             });
         },
         getFacturasDepto: function(objValues) {
-
-            
             return $http({
                 url: referenceURL + 'facturasDepto/',
                 method: "GET",
@@ -296,32 +288,6 @@ registrationModule.factory('referenceRepository', function($http) {
 
             });
         },
-        getBranchOfficeByIdCompany: function(idEmpresa) {
-            return $http({
-                url: referenceURL + 'branchOfficeByIdCompany/',
-                method: "GET",
-                params: {
-                    idEmpresa: idEmpresa
-                },
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-
-            });
-        },
-        getDepartmentById: function(idSucursal) {
-            return $http({
-                url: referenceURL + 'departmentById/',
-                method: "GET",
-                params: {
-                    idSucursal: idSucursal
-                },
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-
-            });
-        },
         getCompanyByUser: function(idUsuario) {
             return $http({
                 url: referenceURL + 'companyByUser/',
@@ -351,27 +317,31 @@ registrationModule.factory('referenceRepository', function($http) {
                 },
             });
         },
-        //Genera PDF
-        generarPdf: function(referencia,nombreSucursal,nombreDepartamento,nombreCliente,saldo,idDocumento,nombreEmpresa,serie) {
+         generarPdf: function(idReferencia) {
             return $http({
                 url: referenceURL + 'generarPdf/',
                 method: "GET",
                  params: {
-                    referencia:referencia,
-                    nombreSucursal:nombreSucursal,
-                    nombreDepartamento:nombreDepartamento,
-                    nombreCliente:nombreCliente,
-                    saldo:saldo,
-                    idDocumento:idDocumento,
-                    nombreEmpresa:nombreEmpresa,
-                    serie:serie
+                    idReferencia:idReferencia
+                 },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        },
+        // buscar datos para mostrar en el pdf
+        getDetalleReferenciaById : function(idFeferencia) {
+            return $http({
+                url: referenceURL + 'getDetalleReferenciaById/',
+                method: "GET",
+                 params: {
+                    idFeferencia:idFeferencia
                  },
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
         }, //Fin de genera pdf 
-
         getReferenceWS: function(paramData) {
             console.log("respository:", paramData);
             return $http({
@@ -386,9 +356,30 @@ registrationModule.factory('referenceRepository', function($http) {
                     serie: paramData.serie,
                     folio: paramData.folio,
                     idCliente: paramData.idCliente,
-                    idAlma: paramData.idAlma
+                    idAlma: paramData.idAlma,
+                    importeDocumento: paramData.saldo
 
                 },
+            });
+        },
+        addDetailsReference : function (paramData) {
+            return $http({
+                url: referenceURL + 'addDetailsReference/',
+                method: "POST",
+                params: {
+                    idReferencia: paramData.idReferencia,
+                    idSucursal: paramData.idSucursal,
+                    idDepartamento: paramData.idDepartamento,
+                    idTipoDocumento: paramData.idTipoDocumento,
+                    serie: paramData.serie,
+                    folio: paramData.folio,
+                    idCliente: paramData.idCliente,
+                    idAlma: paramData.idAlma,
+                    importeDocumento: paramData.importeDocumento
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
         },
         getEmpleado: function(idEmpleado) {
@@ -396,19 +387,6 @@ registrationModule.factory('referenceRepository', function($http) {
                 url: referenceURL + 'getEmpleado/',
                 method: "GET",
                 params: { idEmpleado: idEmpleado },
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-        },
-        getBills: function(idCliente, idEmpresa) {
-            return $http({
-                url: referenceURL + 'bills/',
-                method: "GET",
-                params: {
-                    idCliente: idCliente,
-                    idEmpresa: idEmpresa
-                },
                 headers: {
                     'Content-Type': 'application/json'
                 }
