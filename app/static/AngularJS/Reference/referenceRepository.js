@@ -357,25 +357,26 @@ registrationModule.factory('referenceRepository', function($http) {
                     folio: paramData.folio,
                     idCliente: paramData.idCliente,
                     idAlma: paramData.idAlma,
-                    importeDocumento: paramData.saldo
+                    importeDocumento: paramData.saldo,
+                    idTipoReferencia: paramData.idTipoReferencia
 
                 },
             });
         },
-        addDetailsReference : function (paramData) {
+        addDetailsReference : function (idReferencia,idSucursal,idDepartamento,idTipoDocumento,serie,folio,idCliente,idAlma,importeDocumento) {
             return $http({
                 url: referenceURL + 'addDetailsReference/',
                 method: "POST",
                 params: {
-                    idReferencia: paramData.idReferencia,
-                    idSucursal: paramData.idSucursal,
-                    idDepartamento: paramData.idDepartamento,
-                    idTipoDocumento: paramData.idTipoDocumento,
-                    serie: paramData.serie,
-                    folio: paramData.folio,
-                    idCliente: paramData.idCliente,
-                    idAlma: paramData.idAlma,
-                    importeDocumento: paramData.importeDocumento
+                    idReferencia: idReferencia,
+                    idSucursal: idSucursal,
+                    idDepartamento: idDepartamento,
+                    idTipoDocumento: idTipoDocumento,
+                    serie: serie,
+                    folio: folio,
+                    idCliente: idCliente,
+                    idAlma: idAlma,
+                    importeDocumento: importeDocumento
                 },
                 headers: {
                     'Content-Type': 'application/json'

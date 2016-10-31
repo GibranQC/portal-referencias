@@ -6,6 +6,7 @@
     localStorageService.clearAll('lgnUser');
     $rootScope.currentEmployee = 0;
     var wsData =[];
+    var wsDataLot = [];
     $scope.currentIDClient = 15;
     $scope.isWaiting = false;
     $scope.panels = [
@@ -638,16 +639,7 @@
                 wsData.idCliente = obj.idCliente;
                 wsData.idAlma = obj.estatus;
                 wsData.saldo = obj.saldo;
-                /*$scope.tipoDocumentos = obj.tipoDocumento;
-                $scope.nombreDepartamento = obj.nombreDepartamento;  
-                $scope.nombreSucursal = obj.nombreSucursal; 
-                $scope.nombreCliente = obj.nombreCliente;
-                $scope.saldo = obj.saldo;
-                $scope.idDocumento =  obj.idDocumento;   
-                $scope.nombreEmpresa = obj.nombreEmpresa;
-                $scope.serie = obj.serie;  
-                $scope.cambio = $scope.currency(obj.saldo,2, [',', "'", '.']);
-                //console.log(wsData);*/
+                wsData.idTipoReferencia = 1;
     }
 
    $scope.generarPdf = function() {
@@ -817,20 +809,92 @@
         });
     };
 
-    $scope.valorCheckBoxTabla = function (obj) {
-        /*if (idUnidad == false || idUnidad == undefined) {} else {
-            $scope.updateEsquemaUnidad.push({
-                vehNumserie: idUnidad,
-                idUnidad: idu
-            });
-        }*/
-        console.log(obj)
+    $scope.arrayDataLot = [];
+    $scope.valorCheckBoxTabla = function (id,obj) {
+        if (id == false || id == undefined) {
+            // $scope.idBorrar = obj.IDB;
+            // console.log($scope.idBorrar+'idTabla')
+            // $scope.ide = 0;
+            // for(var i = 0; i < $scope.arrayDataLot.length;i++){
+            //     if($scope.arrayDataLot[i].idTable == $scope.idBorrar){
+            //         $scope.ide = i;
+            //         console.log('entro');
+            //         console.log($scope.ide);
+            //         $scope.arrayDataLot.splice($scope.ide,1);
+            //     }else{
+            //         console.log('no entra aun');
+            //     }
+            // };
+        } else {
+           $scope.arrayDataLot.push({
+                idTabla:obj.IDB, 
+                nombreEmpresa : obj.nombreEmpresa,
+                idEmpresa : obj.idEmpresa,
+                idSucursal : obj.idSucursal,
+                idDepartamento : obj.idDepartamento,
+                idTipoDocumento : obj.tipoDocumento, //hardcore
+                serie : obj.serie,
+                folio : obj.idDocumento,
+                idCliente : obj.idCliente,
+                idAlma : obj.estatus,
+                saldo : obj.saldo,
+                idTipoReferencia: 2
+                });
+        }
+        console.log($scope.arrayDataLot[0])
+                // wsDataLot.nombreEmpresa = obj.nombreEmpresa;
+                // wsDataLot.idEmpresa = obj.idEmpresa;
+                // wsDataLot.idSucursal = obj.idSucursal;
+                // wsDataLot.idDepartamento = obj.idDepartamento;
+                // wsDataLot.idTipoDocumento = obj.tipoDocumento; //hardcore
+                // wsDataLot.serie = obj.serie;
+                // wsDataLot.folio = obj.idDocumento;
+                // wsDataLot.idCliente = obj.idCliente;
+                // wsDataLot.idAlma = obj.estatus;
+                // wsDataLot.saldo = obj.saldo;
+                // wsDataLot.idTipoReferencia = 2;
     };
+
+     $scope.generarPdfLotes = function() {
+       $scope.idReferencia = "";
+       $('#pnlProgress').modal('show');
+       referenceRepository.getReferenceWS($scope.arrayDataLot[0]).then(function(result) {
+           if (result.data.idReferencia > 0) {
+               $scope.idReferencia = result.data.idReferencia;
+               console.log($scope.idReferencia+'idReferencia')
+            $scope.arrayDataLot.forEach(function (arrayDataLot) {
+                referenceRepository.addDetailsReference($scope.idReferencia,arrayDataLot.idSucursal
+                                                        ,arrayDataLot.idDepartamento,arrayDataLot.idTipoDocumento,
+                                                        arrayDataLot.serie,arrayDataLot.folio,arrayDataLot.idCliente,
+                                                        arrayDataLot.idAlma,arrayDataLot.importeDocumento)
+                                                        .then(function (nuevos) {
+                    if (nuevos.data.length > 0) {
+                        console.log('Exito se guardo cargo'+ nuevos.data)
+                    }else{}
+                    });
+            });
+               referenceRepository.generarPdf($scope.idReferencia).then(function(response) {
+                    if (response.data.length > 0) {
+                        console.log('response.data')
+                       $scope.content = false;
+                       console.log('type')
+                        $scope.url = response.config.url;
+                        window.open($scope.url+"?idReferencia="+$scope.idReferencia , "ventana1", "width=700,height=500,scrollbars=NO");
+                        alertFactory.success('Se genero el pdf');
+                        $('#pnlProgress').modal('hide');
+                    }
+                });
+            }
+            else {$('#pnlProgress').modal('hide');}
+       });
+   };
+
 
     $scope.referenceLote = function(){
         $scope.lote = true;
         $scope.individual = false;
     }
+
     $scope.cancelReferenceLote = function(){
         $scope.lote = false;
         $scope.individual = true;

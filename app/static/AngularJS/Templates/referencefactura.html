@@ -227,7 +227,7 @@
                                                         <button class="btn btn-default btn-icon btn-circle" data-toggle="modal" data-target="#myModal" ng-click="generateReference(pedido)"><span class="glyphicon glyphicon-share"> </span></button>
                                                     </td>
                                                     <td ng-show="lote">
-                                                        <input type="checkbox" ng-attr-id="{{pedido.idDocumento}}" ng-model="ck.id" ng-true-value="'{{pedido.idDocumento}}'" class=" css-checkbox" ng-click="valorCheckBoxTabla(pedido)">
+                                                        <input type="checkbox" ng-attr-id="{{pedido.idDocumento}}" ng-model="ck.id" ng-true-value="'{{pedido.idDocumento}}'" class=" css-checkbox" ng-click="valorCheckBoxTabla(ck.id,pedido)">
                                                         <label for="{{pedido.idDocumento}}" class="css-label"></label>
                                                     </td>
                                                 </tr>
@@ -273,7 +273,7 @@
                                                         <button class="btn btn-default btn-icon btn-circle" data-toggle="modal" data-target="#myModal" ng-click="generateReference(cotizacion)"><span class="glyphicon glyphicon-share"> </span></button>
                                                     </td>
                                                     <td ng-show="lote">
-                                                        <input type="checkbox" ng-attr-id="{{cotizacion.idDocumento}}" ng-model="ck.id" ng-true-value="'{{cotizacion.idDocumento}}'" class=" css-checkbox" ng-click="valorCheckBoxTabla(cotizacion)">
+                                                        <input type="checkbox" ng-attr-id="{{cotizacion.idDocumento}}" ng-model="ck.id" ng-true-value="'{{cotizacion.idDocumento}}'" class=" css-checkbox" ng-click="valorCheckBoxTabla(ck.id,cotizacion)">
                                                         <label for="{{cotizacion.idDocumento}}" class="css-label"></label>
                                                     </td>
                                                 </tr>
@@ -296,7 +296,7 @@
                             </div>
                                 <div class="col-sm-8"></div>
                                 <div class="col-sm-2">
-                                    <button class="btn btn-success" type="button" data-toggle="dropdown">Gerenerar Lote</button> 
+                                    <button class="btn btn-success" type="button" data-toggle="dropdown" ng-click="generarPdfLotes()">Gerenerar Lote</button> 
                                 </div>
                             </div>
                         </div>

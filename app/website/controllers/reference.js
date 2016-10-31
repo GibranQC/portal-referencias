@@ -543,10 +543,10 @@ Reference.prototype.get_referenceWS = function (req, res, next) {
        });
        params.push({
            name: 'idTipoReferencia',
-           value: 1,
+           value: req.query.idTipoReferencia,
            type: self.model.types.INT
        });
-       getReferenceFromWS(this.conf.parameters.WSReference,req.query.idEmpresa, req.query.idSucursal, req.query.idDepartamento,req.query.idTipoDocumento, req.query.serie, req.query.folio, req.query.idCliente,req.query.idAlma,req.query.importeDocumento,1,
+       getReferenceFromWS(this.conf.parameters.WSReference,req.query.idEmpresa, req.query.idSucursal, req.query.idDepartamento,req.query.idTipoDocumento, req.query.serie, req.query.folio, req.query.idCliente,req.query.idAlma,req.query.importeDocumento,req.query.idTipoReferencia,
            function (err, data) {
                self.model.query('SEL_FACTURA_DATOS_SP', params, function (error, result) {
                    self.view.expositor(res, {
