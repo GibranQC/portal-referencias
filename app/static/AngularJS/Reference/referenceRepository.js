@@ -348,7 +348,6 @@ registrationModule.factory('referenceRepository', function($http) {
                 url: referenceURL + 'referenceWS/',
                 method: "GET",
                 params: {
-
                     idEmpresa: paramData.idEmpresa,
                     idSucursal: paramData.idSucursal,
                     idDepartamento: paramData.idDepartamento,
@@ -359,7 +358,6 @@ registrationModule.factory('referenceRepository', function($http) {
                     idAlma: paramData.idAlma,
                     importeDocumento: paramData.saldo,
                     idTipoReferencia: paramData.idTipoReferencia
-
                 },
             });
         },
