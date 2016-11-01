@@ -831,9 +831,12 @@
                 idTabla:obj.IDB, 
                 nombreEmpresa : obj.nombreEmpresa,
                 idEmpresa : obj.idEmpresa,
+                nombreSucursal: obj.nombreSucursal,
+                nombreDepartamento: obj.nombreDepartamento,
                 idSucursal : obj.idSucursal,
                 idDepartamento : obj.idDepartamento,
-                idTipoDocumento : obj.tipoDocumento, //hardcore
+                idTipoDocumento : obj.tipoDocumento, 
+                nombreCliente: obj.nombreCliente, //hardcore
                 serie : obj.serie,
                 folio : obj.idDocumento,
                 idCliente : obj.idCliente,
@@ -842,22 +845,11 @@
                 idTipoReferencia: 2
                 });
         }
-              /*  wsDataLot.idEmpresa = $scope.arrayDataLot[0].idEmpresa;
-                wsDataLot.idSucursal = $scope.arrayDataLot[0].idSucursal;
-                wsDataLot.idDepartamento = $scope.arrayDataLot[0].idDepartamento;
-                wsDataLot.idTipoDocumento = $scope.arrayDataLot[0].tipoDocumento; //hardcore
-                wsDataLot.serie = $scope.arrayDataLot[0].serie;
-                wsDataLot.folio = $scope.arrayDataLot[0].idDocumento;
-                wsDataLot.idCliente = $scope.arrayDataLot[0].idCliente;
-                wsDataLot.idAlma = $scope.arrayDataLot[0].estatus;
-                wsDataLot.saldo = $scope.arrayDataLot[0].saldo;
-                wsDataLot.idTipoReferencia = 2;
-                console.log(wsDataLot)*/
     };
 
      $scope.generarPdfLotes = function() {
        $scope.idReferencia = "";
-       $('#pnlProgress').modal('show');
+       $('#pnlProgresso').modal('show');
        referenceRepository.getReferenceWS($scope.arrayDataLot[0]).then(function(result) {
            if (result.data.idReferencia > 0) {
                $scope.idReferencia = result.data.idReferencia;
@@ -882,14 +874,17 @@
                         $scope.url = response.config.url;
                         window.open($scope.url+"?idReferencia="+$scope.idReferencia , "ventana1", "width=700,height=500,scrollbars=NO");
                         alertFactory.success('Se genero el pdf');
-                        $('#pnlProgress').modal('hide');
+                        $('#pnlProgresso').modal('hide');
                     }
                 });
             }
             else {$('#pnlProgress').modal('hide');}
        });
    };
-
+    $scope.detalleLotes = function(){
+        $scope.lote = true;
+        $scope.individual = false;
+    }
 
     $scope.referenceLote = function(){
         $scope.lote = true;
@@ -897,6 +892,14 @@
     }
 
     $scope.cancelReferenceLote = function(){
+        $('input[type=checkbox]').attr('checked', false);
+        $scope.arrayDataLot = [];
+        $scope.lote = false;
+        $scope.individual = true;
+    }
+    $scope.cerrarModalLotes = function(){
+        $('input[type=checkbox]').attr('checked', false);
+        $scope.arrayDataLot = [];
         $scope.lote = false;
         $scope.individual = true;
     }

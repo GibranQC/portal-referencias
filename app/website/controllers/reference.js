@@ -30,12 +30,10 @@ Reference.prototype.get_generarPdf = function (req, res, next) {
     }]
     phantom.create().then(function (ph) {
         ph.createPage().then(function (page) {
-            page.viewportSize = {
-                format: "A4",
-                orientation: 'portrait',
-                margin: '0cm'
-            };
-            console.log(' pdf')
+            //inicia Page.property
+            page.property('paperSize', {
+                format: 'A4'
+            }).then(function () {
             page.open("http://localhost:4430/api/reference/getDetalleReferenciaById?idReferencia=" + req.query.idReferencia).then(function (status) {
                 page.render('Reporte_90.pdf').then(function () {
                     page.close();
@@ -48,6 +46,7 @@ Reference.prototype.get_generarPdf = function (req, res, next) {
                     console.log('creo pdf')
                 });
             });
+        });
         });
     });
 };
@@ -628,7 +627,7 @@ Reference.prototype.get_getDetalleReferenciaById = function(req, res, next) {
     var params = [{ name: 'idReferencia', value: req.query.idReferencia, type: self.model.types.INT }];
 
     self.model.query('SEL_DETALLE_REFERENCIA_SP', params, function(error, result) {
-       res.render('referencia.html',{referencias:result[0]});
+       res.render('referencia2.html',{referencias:result});
     });
 };
 
