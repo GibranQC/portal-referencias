@@ -365,7 +365,7 @@ registrationModule.factory('referenceRepository', function($http) {
             return $http({
                 url: referenceURL + 'addDetailsReference/',
                 method: "POST",
-                params: {
+                data: {
                     idReferencia: idReferencia,
                     idSucursal: idSucursal,
                     idDepartamento: idDepartamento,

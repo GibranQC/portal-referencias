@@ -811,6 +811,7 @@
 
     $scope.arrayDataLot = [];
     $scope.valorCheckBoxTabla = function (id,obj) {
+         console.log(obj)
         if (id == false || id == undefined) {
             // $scope.idBorrar = obj.IDB;
             // console.log($scope.idBorrar+'idTabla')
@@ -841,7 +842,7 @@
                 idTipoReferencia: 2
                 });
         }
-                wsDataLot.idEmpresa = $scope.arrayDataLot[0].idEmpresa;
+              /*  wsDataLot.idEmpresa = $scope.arrayDataLot[0].idEmpresa;
                 wsDataLot.idSucursal = $scope.arrayDataLot[0].idSucursal;
                 wsDataLot.idDepartamento = $scope.arrayDataLot[0].idDepartamento;
                 wsDataLot.idTipoDocumento = $scope.arrayDataLot[0].tipoDocumento; //hardcore
@@ -851,28 +852,28 @@
                 wsDataLot.idAlma = $scope.arrayDataLot[0].estatus;
                 wsDataLot.saldo = $scope.arrayDataLot[0].saldo;
                 wsDataLot.idTipoReferencia = 2;
+                console.log(wsDataLot)*/
     };
 
      $scope.generarPdfLotes = function() {
        $scope.idReferencia = "";
        $('#pnlProgress').modal('show');
-       referenceRepository.getReferenceWS(wsDataLot).then(function(result) {
+       referenceRepository.getReferenceWS($scope.arrayDataLot[0]).then(function(result) {
            if (result.data.idReferencia > 0) {
                $scope.idReferencia = result.data.idReferencia;
-               console.log($scope.idReferencia+'idReferencia')
-                console.log(wsDataLot+ ' datos primero' )
-            $scope.arrayDataLot.forEach(function (arrayDataLot) {
-                referenceRepository.addDetailsReference($scope.idReferencia,arrayDataLot.idSucursal
+                $scope.arrayDataLot.forEach(function (arrayDataLot) {
+                    referenceRepository.addDetailsReference($scope.idReferencia,arrayDataLot.idSucursal
                                                         ,arrayDataLot.idDepartamento,arrayDataLot.idTipoDocumento,
                                                         arrayDataLot.serie,arrayDataLot.folio,arrayDataLot.idCliente,
-                                                        arrayDataLot.idAlma,arrayDataLot.importeDocumento)
+                                                        arrayDataLot.idAlma,arrayDataLot.saldo)
                                                         .then(function (nuevos) {
                     if (nuevos.data.length > 0) {
-                        console.log($scope.arrayDataLot+ ' datos segundo' )
-                        console.log('Exito se guardo cargo'+ nuevos.data)
-                    }else{}
+                        console.log('Se guardo bien')
+                    }else{
+                        console.log('Error al Guardar')
+                    }
                     });
-            });
+                });
                referenceRepository.generarPdf($scope.idReferencia).then(function(response) {
                     if (response.data.length > 0) {
                         console.log('response.data')

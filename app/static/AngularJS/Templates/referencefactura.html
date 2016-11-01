@@ -181,7 +181,7 @@
                                                         <button class="btn btn-default btn-icon btn-circle" data-toggle="modal" data-target="#myModal" ng-click="generateReference(fact)"><span class="glyphicon glyphicon-share"> </span></button>
                                                     </td>
                                                     <td ng-show="lote">
-                                                        <input type="checkbox" ng-attr-id="{{fact.folio}}" ng-model="ck.id" ng-true-value="'{{fact.folio}}'" class=" css-checkbox" ng-click="valorCheckBoxTabla(fact)">
+                                                        <input type="checkbox" ng-attr-id="{{fact.folio}}" ng-model="ck.id" ng-true-value="'{{fact.folio}}'" class=" css-checkbox" ng-click="valorCheckBoxTabla(ck.id,fact)">
                                                         <label for="{{fact.folio}}" class="css-label"></label>
                                                     </td>
                                                 </tr>
