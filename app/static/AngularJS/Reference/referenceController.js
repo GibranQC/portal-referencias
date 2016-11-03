@@ -811,7 +811,7 @@
 
     $scope.arrayDataLot = [];
     $scope.valorCheckBoxTabla = function (id,obj) {
-         console.log(obj)
+        $scope.totalPago = 0;
         if (id == false || id == undefined) {
             // $scope.idBorrar = obj.IDB;
             // console.log($scope.idBorrar+'idTabla')
@@ -845,10 +845,18 @@
                 idTipoReferencia: 2
                 });
         }
+
+        for(var i = 0; i < $scope.arrayDataLot.length;i ++){
+
+        $scope.totalPago += parseFloat($scope.arrayDataLot[i].saldo);
+        
+        }
+
     };
 
      $scope.generarPdfLotes = function() {
        $scope.idReferencia = "";
+       
        $('#pnlProgresso').modal('show');
        referenceRepository.getReferenceWS($scope.arrayDataLot[0]).then(function(result) {
            if (result.data.idReferencia > 0) {

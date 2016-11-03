@@ -31,17 +31,15 @@
         MONTOS
       </div>
     </div>
-            {% set sumainpuntual = 0 %}{% for referencias in referencias %}  {% set sumainpuntual = sumainpuntual + referencias.Total %}
+            {% set pagoTotal = 0 %}{% for referencias in referencias %}  {% set pagoTotal = pagoTotal + referencias.Total %}
     <div class="">
-      <div style="display:inline-block; width:48%; height:40px; padding: 4px 8px; box-sizing: border-box;">
-         Sucursal: [[referencias.suc_nombre]] 
-        <br/>
-         Departamento: [[referencias.dep_nombre]] 
+      <div style="display:inline-block; width:48%; height:20px; padding: 4px 8px; box-sizing: border-box;">
+         Sucursal: [[referencias.suc_nombre]],  Departamento: [[referencias.dep_nombre]] 
       </div>
-      <div style="display:inline-block; width:28%;height:40px; padding: 4px 8px; box-sizing: border-box; border-left: 2px solid #000080; vertical-align:top">
+      <div style="display:inline-block; width:28%;height:20px; padding: 4px 8px; box-sizing: border-box; border-left: 2px solid #000080; vertical-align:top">
         Abono a [[referencias.nombreDocumento]]: [[referencias.documento]] 
       </div>
-      <div style="display:inline-block; text-align:right; width:18%;height:40px; padding: 4px 8px; box-sizing: border-box; border-left: 2px solid #000080; vertical-align:top">
+      <div style="display:inline-block; text-align:right; width:18%;height:20px; padding: 4px 8px; box-sizing: border-box; border-left: 2px solid #000080; vertical-align:top">
         $[[ referencias.importeDocumento]]
       </div>
   
@@ -54,7 +52,7 @@
         Total 
       </div>
       <div style="display:inline-block; text-align:right; width:18%;height:20px; padding: 4px 8px; box-sizing: border-box; border-left: 2px solid #000080; vertical-align:top " >
-        $[[sumainpuntual]] 
+        $[[pagoTotal]] 
       </div>
   
     </div>
