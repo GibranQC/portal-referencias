@@ -627,7 +627,18 @@ Reference.prototype.get_getDetalleReferenciaById = function(req, res, next) {
     var params = [{ name: 'idReferencia', value: req.query.idReferencia, type: self.model.types.INT }];
 
     self.model.query('SEL_DETALLE_REFERENCIA_SP', params, function(error, result) {
-       res.render('referencia2.html',{referencias:result});
+        var params2 = [{
+            name: 'idEmpresa',
+            value: result[0].tipoReferencia,
+            type: self.model.types.INT
+        },{
+            name: 'tipoReferencia',
+            value: result[0].idEmpresa,
+            type: self.model.types.INT
+        }]
+        self.model.query('SEL_LEYENDAS_PDF_SP', params2, function (error, leyendas) {
+            res.render('referencia2.html',{referencias:result, leyendas:leyendas});
+        });
     });
 };
 
