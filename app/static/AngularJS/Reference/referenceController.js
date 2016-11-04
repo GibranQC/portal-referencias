@@ -21,6 +21,7 @@
         $scope.idUsuario = 0;
         $scope.lote = false;
         $scope.individual = true;
+        $scope.individualEmpresa = false;
         $scope.sucursal= false;
         $scope.departament = false;
         $scope.selectTypeDoc.show = false;
@@ -506,6 +507,7 @@
         $scope.nombreDepartamento = null;
         $scope.getBranchOfficeByIdUser();
         $scope.sucursal= true;
+         $scope.individualEmpresa = true;
     };
 
     $scope.seletionCompanyDoc = function(idEmpresa, nombreEmpresa) {
@@ -726,6 +728,7 @@
     $scope.searchClients = function() {
         if ($scope.searchTypeID == 1) {
             $scope.showPanel = true;
+            $scope.individualEmpresa = false;
             $scope.Clientefiltro = true;
             $scope.DocumentoFiltro = false;
             $scope.sucursal= false;
@@ -897,6 +900,7 @@
     $scope.referenceLote = function(){
         $scope.lote = true;
         $scope.individual = false;
+        $scope.individualEmpresa = false;
     }
 
     $scope.cancelReferenceLote = function(){
@@ -904,11 +908,13 @@
         $scope.arrayDataLot = [];
         $scope.lote = false;
         $scope.individual = true;
+        $scope.individualEmpresa = true;
     }
     $scope.cerrarModalLotes = function(){
         $('input[type=checkbox]').attr('checked', false);
         $scope.arrayDataLot = [];
         $scope.lote = false;
         $scope.individual = true;
+        $scope.individualEmpresa = true;
     }
 });
