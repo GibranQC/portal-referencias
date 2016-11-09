@@ -18,6 +18,7 @@
 
     //this is the first method executed in the view
     $scope.init = function() {
+        openCloseNav()
         $scope.idUsuario = 0;
         $scope.lote = false;
         $scope.individual = true;
@@ -572,10 +573,10 @@
     $scope.tipoDocumentos = [{
         idDocumento: 1,
         nombreDocumento: 'Factura'
-    }, {
-        idDocumento: 2,
-        nombreDocumento: 'Cotización'
-    }, {
+        }, {
+            idDocumento: 2,
+            nombreDocumento: 'Cotización'
+        }, {
         idDocumento: 3,
         nombreDocumento: 'Pedido'
     }];
@@ -729,6 +730,8 @@
         if ($scope.searchTypeID == 1) {
             $scope.showPanel = true;
             $scope.individualEmpresa = false;
+            $scope.lote = false,
+            $scope.individual = true;
             $scope.Clientefiltro = true;
             $scope.DocumentoFiltro = false;
             $scope.sucursal= false;
@@ -858,40 +861,41 @@
     };
 
      $scope.generarPdfLotes = function() {
-       $scope.idReferencia = "";
+            $scope.idReferencia = "";
        
-       $('#pnlProgresso').modal('show');
-       referenceRepository.getReferenceWS($scope.arrayDataLot[0]).then(function(result) {
-           if (result.data.idReferencia > 0) {
-               $scope.idReferencia = result.data.idReferencia;
-                $scope.arrayDataLot.forEach(function (arrayDataLot) {
-                    referenceRepository.addDetailsReference($scope.idReferencia,arrayDataLot.idSucursal
-                                                        ,arrayDataLot.idDepartamento,arrayDataLot.idTipoDocumento,
-                                                        arrayDataLot.serie,arrayDataLot.folio,arrayDataLot.idCliente,
-                                                        arrayDataLot.idAlma,arrayDataLot.saldo)
-                                                        .then(function (nuevos) {
-                    if (nuevos.data.length > 0) {
-                        console.log('Se guardo bien')
-                    }else{
-                        console.log('Error al Guardar')
-                    }
+           $('#pnlProgresso').modal('show');
+            referenceRepository.getReferenceWS($scope.arrayDataLot[0]).then(function(result) {
+               if (result.data.idReferencia > 0) {
+                   $scope.idReferencia = result.data.idReferencia;
+                    $scope.arrayDataLot.forEach(function (arrayDataLot) {
+                        referenceRepository.addDetailsReference($scope.idReferencia,arrayDataLot.idSucursal
+                                                            ,arrayDataLot.idDepartamento,arrayDataLot.idTipoDocumento,
+                                                            arrayDataLot.serie,arrayDataLot.folio,arrayDataLot.idCliente,
+                                                            arrayDataLot.idAlma,arrayDataLot.saldo)
+                                                            .then(function (nuevos) {
+                        if (nuevos.data.length > 0) {
+                            console.log('Se guardo bien')
+                        }else{
+                            console.log('Error al Guardar')
+                        }
+                        });
                     });
-                });
-               referenceRepository.generarPdf($scope.idReferencia).then(function(response) {
-                    if (response.data.length > 0) {
-                        console.log('response.data')
-                       $scope.content = false;
-                       console.log('type')
-                        $scope.url = response.config.url;
-                        window.open($scope.url+"?idReferencia="+$scope.idReferencia , "ventana1", "width=700,height=500,scrollbars=NO");
-                        alertFactory.success('Se genero el pdf');
-                        $('#pnlProgresso').modal('hide');
-                    }
-                });
-            }
-            else {$('#pnlProgress').modal('hide');}
-       });
-   };
+                   referenceRepository.generarPdf($scope.idReferencia).then(function(response) {
+                        if (response.data.length > 0) {
+                            console.log('response.data')
+                           $scope.content = false;
+                           console.log('type')
+                            $scope.url = response.config.url;
+                            window.open($scope.url+"?idReferencia="+$scope.idReferencia , "ventana1", "width=700,height=500,scrollbars=NO");
+                            alertFactory.success('Se genero el pdf');
+                            $('#pnlProgresso').modal('hide');
+                        }
+                    });
+                }
+                else {$('#pnlProgress').modal('hide');}
+            });
+    };
+
     $scope.detalleLotes = function(){
         $scope.lote = true;
         $scope.individual = false;

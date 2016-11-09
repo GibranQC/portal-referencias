@@ -629,15 +629,17 @@ Reference.prototype.get_getDetalleReferenciaById = function(req, res, next) {
     self.model.query('SEL_DETALLE_REFERENCIA_SP', params, function(error, result) {
         var params2 = [{
             name: 'idEmpresa',
-            value: result[0].tipoReferencia,
+            value: result[0].idEmpresa,
             type: self.model.types.INT
         },{
             name: 'tipoReferencia',
-            value: result[0].idEmpresa,
+            value: result[0].tipoReferencia,
             type: self.model.types.INT
         }]
         self.model.query('SEL_LEYENDAS_PDF_SP', params2, function (error, leyendas) {
-            res.render('referencia2.html',{referencias:result, leyendas:leyendas});
+            self.model.query('SEL_DETALLE_REFERENCIA_TOTAL_PAGO_SP', params, function (error, pago) {
+            res.render('referencia2.html',{referencias:result, leyendas:leyendas , pago:pago});
+            });
         });
     });
 };
